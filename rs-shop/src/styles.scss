@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --shadow-color: rgb(156, 154, 154);
+    --main-color: rgb(4, 123, 145);
+    --submain--color: rgb(230, 228, 228);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Raleway;
+    font-size: 14px;
+}
+
+button {
+    cursor: pointer;
+    transition: .2s ease;
+
+    &:hover {
+        box-shadow: 5px 5px 10px gray;
+        transition: .2s ease;
+    }
+}
+
+li {
+    cursor: pointer;
+}
