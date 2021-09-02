@@ -1,13 +1,16 @@
 :root {
     --shadow-color: rgb(156, 154, 154);
     --main-color: rgb(4, 123, 145);
+    --hover-color: rgb(211, 234, 238);
     --submain--color: rgb(230, 228, 228);
+    --button-text-color: rgb(192, 99, 62);
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    outline: none;
 }
 body {
     font-family: Raleway;
@@ -26,4 +29,5 @@ button {
 
 li {
     cursor: pointer;
+    list-style-type: none;
 }

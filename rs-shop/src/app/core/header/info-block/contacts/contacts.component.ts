@@ -17,6 +17,8 @@ export class ContactsComponent implements OnInit {
 
   life!: string;
 
+  isAdditionalContactsShown = false;
+
   constructor(private coreDataService: CoreDataService) { }
 
   ngOnInit(): void {

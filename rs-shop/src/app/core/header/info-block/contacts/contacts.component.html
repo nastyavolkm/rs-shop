@@ -6,4 +6,23 @@
     <img src="../../../../../assets/a1.jpg" alt="a1" class="contacts__logo">
     <span class="contacts__contact">{{a1}}</span>
 </div>
-<span class="contacts__contact">Ещё</span>
+<div class="contacts__accordion" (click)="isAdditionalContactsShown=!isAdditionalContactsShown">
+    <span class="contacts__accordion-text">Ещё</span>
+    <span *ngIf="!isAdditionalContactsShown">&#9650;</span>
+    <span *ngIf="isAdditionalContactsShown">&#9660;</span>
+
+<ul *ngIf="isAdditionalContactsShown" class="contacts__accordion-list">
+    <li class="contacts__accordion-item">
+        <img src="../../../../../assets/life.png" alt="life" class="contacts__accordion-logo">
+        <span>{{life}}</span>
+    </li>
+    <li class="contacts__accordion-item">
+        <img src="../../../../../assets/phone.png" alt="phone" class="contacts__accordion-logo">
+        <span>{{staticPhone}}</span>
+    </li>
+    <li class="contacts__accordion-item">
+        <img src="../../../../../assets/telegram.png" alt="phone" class="contacts__accordion-logo">
+        <span>{{telegram}}</span>
+    </li>
+</ul>
+</div>

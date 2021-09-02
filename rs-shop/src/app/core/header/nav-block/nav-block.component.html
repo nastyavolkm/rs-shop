@@ -1,0 +1,21 @@
+<div class="nav-wrapper">
+    <img src="../../../../assets/logo.png" alt="logo" class="logo">
+</div>
+<button class="nav-button">
+    <img src="../../../../assets/catalog.png" alt="catalog" class="nav-button__icon">
+    Каталог товаров</button>
+<div class="search-wrapper">
+    <img src="../../../../assets/search.png" alt="search" class="search-button"
+    [ngStyle]="{'filter': (isSearchActive) ? 'none' : 'grayScale(1)'}" 
+    >
+    <input type="text" class="nav-search" placeholder="Поиск товаров"
+     (focus)="isSearchActive=true"
+     (blur)="isSearchActive=false"
+     >
+</div>
+<button class="nav-button">
+    <img src="../../../../assets/account.jpg" alt="account" class="nav-button__icon">
+    Аккаунт</button>
+<button class="nav-button">
+    <img src="../../../../assets/cart.png" alt="catalog" class="nav-button__icon">
+    Корзина</button>
