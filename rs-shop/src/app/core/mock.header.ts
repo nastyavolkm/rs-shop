@@ -12,5 +12,12 @@ export const coreData = {
     openHours: {
         openTime: '8:00',
         closeTime: '20:00',
+    },
+    contacts: {
+        viber: '+375 29 000 00 00',
+        A1: '+375 29 000 00 00',
+        Life: '+375 29 000 00 00',
+        static: '+375 17 000 00 00',
+        telegram: '+375 29 000 00 00',
     }
 }

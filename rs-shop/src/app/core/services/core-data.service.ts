@@ -13,4 +13,24 @@ export class CoreDataService {
   getCitiesList(): string[] {
     return coreData.cities;
   }
+
+  getViberNumber(): string {
+    return coreData.contacts.viber;
+  }
+
+  getTelegramNumber(): string {
+    return coreData.contacts.telegram;
+  }
+
+  getStaticNumber(): string {
+    return coreData.contacts.static;
+  }
+
+  getLifeNumber(): string {
+    return coreData.contacts.Life;
+  }
+
+  getA1Number(): string {
+    return coreData.contacts.A1;
+  }
 }

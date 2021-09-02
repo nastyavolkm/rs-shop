@@ -1,0 +1,13 @@
+:host {
+    display: flex;
+    gap: 10px;
+}
+.contacts {
+    display: flex;
+
+    &__logo {
+        width: 20px;
+        height: 20px;
+    }
+}
+
