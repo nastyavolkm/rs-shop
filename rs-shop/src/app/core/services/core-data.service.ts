@@ -27,10 +27,14 @@ export class CoreDataService {
   }
 
   getLifeNumber(): string {
-    return coreData.contacts.Life;
+    return coreData.contacts.life;
   }
 
   getA1Number(): string {
-    return coreData.contacts.A1;
+    return coreData.contacts.a1;
+  }
+
+  getContacts(): [string, string][] {
+    return Object.entries(coreData.contacts);
   }
 }

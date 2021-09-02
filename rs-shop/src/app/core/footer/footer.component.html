@@ -1,1 +1,22 @@
-<p>footer works!</p>
+<div class="contacts">
+    <ul class="contacts__list">
+        <li class="contacts__item"
+         *ngFor="let contact of contacts"
+         >
+            <img src="../../../../../assets/{{contact[0]}}.png" alt=`{{contact[0]}}` class="contacts__logo">
+            <span>{{contact[1]}}</span>    
+        </li>
+    </ul>
+</div>
+<div class="social-networks">
+    <a href="https://www.vk.com" target="_blanc"><img src="../../../assets/vk.svg" alt="vk" class="social-networks__logo">
+    </a>
+    <a href="https://www.facebook.com" target="_blanc"><img src="../../../assets/fb.svg" alt="fb" class="social-networks__logo">
+    </a>
+    <a href="https://www.instagram.com" target="_blanc"><img src="../../../assets/instagram.svg" alt="instagram" class="social-networks__logo">
+    </a>
+    <a href="https://www.youtube.com/" target="_blanc"><img src="../../../assets/youtube.svg" alt="youtube" class="social-networks__logo">
+    </a>
+    <a href="https://www.odnoklassniki.ru" target="_blanc"><img src="../../../assets/odnoklassniki.svg" alt="odnoklassniki" class="social-networks__logo">
+    </a>
+</div>

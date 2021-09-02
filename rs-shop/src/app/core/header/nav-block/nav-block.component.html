@@ -9,9 +9,14 @@
     [ngStyle]="{'filter': (isSearchActive) ? 'none' : 'grayScale(1)'}" 
     >
     <input type="text" class="nav-search" placeholder="Поиск товаров"
-     (focus)="isSearchActive=true"
-     (blur)="isSearchActive=false"
+        [(ngModel)]="value"
+        (focus)="isSearchActive=true"
+        (blur)="isSearchActive=false"
      >
+    <img 
+    *ngIf="value.length>0"
+    (click)="value=''"
+     src="../../../../assets/close.png" alt="close" class="close-button"> 
 </div>
 <button class="nav-button">
     <img src="../../../../assets/account.jpg" alt="account" class="nav-button__icon">

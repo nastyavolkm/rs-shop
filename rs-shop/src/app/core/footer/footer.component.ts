@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CoreDataService } from '../services/core-data.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  contacts: [string, string][] =[];
+
+  constructor(private coreDataService: CoreDataService) {}
+
 
   ngOnInit(): void {
+    this.contacts = this.coreDataService.getContacts();
   }
-
 }

@@ -9,6 +9,8 @@ export class NavBlockComponent implements OnInit {
 
   isSearchActive = false;
 
+  value = '';
+
   constructor() { }
 
   ngOnInit(): void {

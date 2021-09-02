@@ -1,0 +1,43 @@
+.contacts {
+    padding: 10px 40px;
+
+    &__list {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-top: 1px solid var(--main-color);
+        border-bottom: 1px solid var(--main-color);
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        &:hover {
+            color: var(--main-color);
+        }
+    }
+
+    &__logo {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.social-networks {
+    padding: 10px 0;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    &__logo {
+        width: 40px;
+        height: auto;
+        transition: .2s ease;
+
+        &:hover {
+            transform: scale(1.1);
+            transition: .2s ease;
+        }
+    }
+}
