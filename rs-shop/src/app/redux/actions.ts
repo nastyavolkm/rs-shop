@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { ICategory } from './state/category.model';
 
-export namespace SearchActions {
+export namespace CategoriesActions {
     export const getCategories = createAction(
         'GET_CATEGORIES',
     );

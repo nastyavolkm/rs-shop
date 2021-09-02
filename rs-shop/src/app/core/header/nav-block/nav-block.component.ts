@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { CoreDataService } from '../../services/core-data.service';
 
 @Component({
   selector: 'app-nav-block',
@@ -9,9 +11,11 @@ export class NavBlockComponent implements OnInit {
 
   isSearchActive = false;
 
+  isButtonActive = false;
+
   value = '';
 
-  constructor() { }
+  constructor(public coreDataService: CoreDataService) { }
 
   ngOnInit(): void {
   }

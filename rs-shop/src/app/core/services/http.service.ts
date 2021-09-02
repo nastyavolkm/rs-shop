@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ICategory } from 'src/app/redux/state/category.model';
 
-const CATEGORIES = '/categories';
-const GOODS = '/goods';
-const USERS = '/users';
+const CATEGORIES = 'categories';
+const GOODS = 'goods';
+const USERS = 'users';
 
 @Injectable({
   providedIn: 'root'

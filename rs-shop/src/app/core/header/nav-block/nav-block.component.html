@@ -1,8 +1,14 @@
 <div class="nav-wrapper">
     <img src="../../../../assets/logo.png" alt="logo" class="logo">
 </div>
-<button class="nav-button">
-    <img src="../../../../assets/catalog.png" alt="catalog" class="nav-button__icon">
+<button class="nav-button"
+    (click)="coreDataService.toggleCatalog(); isButtonActive=!isButtonActive"
+    [ngClass]="{'inactive': isButtonActive}"
+    >
+    <img *ngIf="!isButtonActive" src="../../../../assets/catalog.png" alt="catalog" class="nav-button__icon">
+    <img 
+    *ngIf="isButtonActive"
+     src="../../../../assets/close.png" alt="close" class="nav-button__icon close">
     Каталог товаров</button>
 <div class="search-wrapper">
     <img src="../../../../assets/search.png" alt="search" class="search-button"

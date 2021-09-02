@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { SearchActions } from './actions';
+import { CategoriesActions } from './actions';
 import { IState } from './state/state.model';
 
 
@@ -8,7 +8,7 @@ const initialState: IState = {
 }
 const SearchReducer = createReducer(
     initialState,
-    on(SearchActions.getCategoriesSuccessful, (state, { categories}) => ({
+    on(CategoriesActions.getCategoriesSuccessful, (state, { categories}) => ({
         ...state,
         categories,
     })),

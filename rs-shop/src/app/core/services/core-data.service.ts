@@ -1,8 +1,14 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { coreData } from '../mock.header';
 
 @Injectable()
 export class CoreDataService {
+
+  isCatalogShown = false;
+
+  isCatalogShown$$ = new BehaviorSubject(this.isCatalogShown);
+
   getOpenTime(): string {
     return coreData.openHours.openTime;
   }
@@ -36,5 +42,10 @@ export class CoreDataService {
 
   getContacts(): [string, string][] {
     return Object.entries(coreData.contacts);
+  }
+
+  toggleCatalog(): void {
+    this.isCatalogShown = !this.isCatalogShown;
+    this.isCatalogShown$$.next(this.isCatalogShown);
   }
 }

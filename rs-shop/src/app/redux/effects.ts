@@ -3,17 +3,17 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { HttpService } from '../core/services/http.service';
-import { SearchActions } from './actions';
+import { CategoriesActions } from './actions';
 
 @Injectable()
 export class Effects {
     getCategories$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(SearchActions.getCategories),
+            ofType(CategoriesActions.getCategories),
             switchMap((data) =>
                 this.httpService.getCategories(),
             ),
-            switchMap((categories) => of(SearchActions.getCategoriesSuccessful({ categories }))),
+            switchMap((categories) => of(CategoriesActions.getCategoriesSuccessful({ categories }))),
         ),
     );
 
