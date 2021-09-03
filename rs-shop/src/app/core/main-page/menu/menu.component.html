@@ -3,7 +3,9 @@
         <li class="menu__item"
         *ngFor="let category of categories"
         (mouseover)="onSelect(category)"
-        >{{category.name}}
+        >
+        <img src="../../../../assets/{{category.id}}.svg" alt="icon" class="menu__icon">
+        {{category.name}}
                 <ul
                     *ngIf="selectedCategory; else initialCategory"
                     class="menu__sublist">
