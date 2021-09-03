@@ -38,7 +38,7 @@
       "extensions": [".js", ".ts", "html"]
     },
     "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true,
+        "source.fixAll": true,
         "source.organizeImports": true
     },
     "typescript.updateImportsOnFileMove.enabled": "always",

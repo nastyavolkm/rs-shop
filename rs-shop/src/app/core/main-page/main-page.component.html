@@ -1,7 +1,1 @@
-<div *ngIf="isCatalogShown$$ | async" class="menu">
-    <ul class="menu__list">
-        <li class="menu__item"
-        *ngFor="let category of categories$ | async"
-        >{{category.name}}</li>
-    </ul>
-</div>
+<app-menu *ngIf="isCatalogShown$$ | async"></app-menu>

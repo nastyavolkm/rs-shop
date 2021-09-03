@@ -10,6 +10,7 @@ import { CoreDataService } from './services/core-data.service';
 import { LocationPopUpComponent } from './location-pop-up/location-pop-up.component';
 import { FormsModule } from '@angular/forms';
 import { NavBlockComponent } from './header/nav-block/nav-block.component';
+import { MenuComponent } from './main-page/menu/menu.component';
 
 
 
@@ -22,7 +23,8 @@ import { NavBlockComponent } from './header/nav-block/nav-block.component';
     LocationComponent,
     ContactsComponent,
     LocationPopUpComponent,
-    NavBlockComponent
+    NavBlockComponent,
+    MenuComponent
   ],
   imports: [
     CommonModule,

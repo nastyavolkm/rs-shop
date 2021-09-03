@@ -12,7 +12,7 @@ module.exports = {
         },
         extends: ["plugin:@angular-eslint/recommended",
         "airbnb-typescript/base",
-        "prettier/@typescript-eslint",
+        "plugin:@angular-eslint/template/process-inline-templates",
         "plugin:prettier/recommended"
       ],
         rules: {

@@ -5,7 +5,7 @@ import { coreData } from '../mock.header';
 @Injectable()
 export class CoreDataService {
 
-  isCatalogShown = false;
+  isCatalogShown = true;
 
   isCatalogShown$$ = new BehaviorSubject(this.isCatalogShown);
 

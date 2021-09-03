@@ -5,3 +5,7 @@ export interface ICategory {
     name: string,
     subCategories: ISubCategory[]
 }
+
+export interface ISelectedCategory extends ICategory {
+    isActive: boolean;
+}

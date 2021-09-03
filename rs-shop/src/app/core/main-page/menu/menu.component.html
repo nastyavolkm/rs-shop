@@ -1,0 +1,28 @@
+<div class="menu">
+    <ul *ngIf="(categories$ | async) as categories" class="menu__list">
+        <li class="menu__item"
+        *ngFor="let category of categories"
+        (mouseover)="onSelect(category)"
+        >{{category.name}}
+                <ul
+                    *ngIf="selectedCategory; else initialCategory"
+                    class="menu__sublist">
+                <h4 class="menu__sublist-heading">{{selectedCategory.name}}</h4>
+                <li class="menu__subitem"
+                *ngFor="let subcategory of selectedCategory.subCategories"
+                >{{subcategory.name}}
+                </li>
+                </ul>
+                <ng-template #initialCategory>
+                    <ul class="menu__sublist">
+                    <h4 class="menu__sublist-heading">{{categories[0].name}}</h4>
+                    <li class="menu__subitem"
+                        *ngFor="let subcategory of categories[0].subCategories"
+                    >{{subcategory.name}}
+                    </li>
+                    </ul>
+                </ng-template>
+        </li>
+    </ul>
+    <div class="menu__sublist-wrapper"></div>
+</div>
