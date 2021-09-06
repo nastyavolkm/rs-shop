@@ -1,0 +1,5 @@
+<ul class="nav-categories">
+    <li
+    *ngFor="let category of categories$ | async as categories"
+     class="nav-categories__item">{{category.subCategories[0].name}}</li>
+</ul>

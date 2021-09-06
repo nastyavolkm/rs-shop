@@ -1,5 +1,5 @@
     <ul class="search-results__list">
-        <li *ngFor="let category of categories$ | async as categories">
+        <li *ngFor="let category of categories$ | async as categories" class="search-results__item search-results__item-category">
             {{category.name}}
         </li>
         <li *ngFor="let good of goods$ | async as goods" class="search-results__item">

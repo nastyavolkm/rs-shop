@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MainPageComponent } from './main-page.component';
+import { NavCategoriesBlockComponent } from './nav-categories-block.component';
 
-describe('MainPageComponent', () => {
-  let component: MainPageComponent;
-  let fixture: ComponentFixture<MainPageComponent>;
+describe('NavCategoriesBlockComponent', () => {
+  let component: NavCategoriesBlockComponent;
+  let fixture: ComponentFixture<NavCategoriesBlockComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MainPageComponent ]
+      declarations: [ NavCategoriesBlockComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MainPageComponent);
+    fixture = TestBed.createComponent(NavCategoriesBlockComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

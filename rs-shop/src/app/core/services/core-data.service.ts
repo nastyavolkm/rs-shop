@@ -61,9 +61,8 @@ export class CoreDataService {
     this.categoriesByWord$ = this.store.select(CategoriesSelectors.categories)
     .pipe(
       switchMap((categories) =>  {
-        console.log(categories);
-      return of(categories.filter((category) => category.subCategories
-      .filter((subCategory) => subCategory.name.toLowerCase().includes(value.toLowerCase()))))
+       return of(categories.filter((category) => category.subCategories
+      .find((subCategory) => subCategory.name.toLowerCase().includes(value.toLowerCase()))));
       })
     );
   }

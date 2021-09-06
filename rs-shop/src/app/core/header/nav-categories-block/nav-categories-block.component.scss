@@ -1,0 +1,21 @@
+.nav-categories {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+    background-color: var(--hover-color);
+
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 30px;
+        flex: 1 0 0;
+        color: var(--button-text-color);
+        transition: .5s ease;
+
+        &:hover {
+            background-color: var(--hover-nav-category-color);
+            transition: .5s ease;
+        }
+    }
+}

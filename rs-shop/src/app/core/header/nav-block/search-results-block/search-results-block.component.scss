@@ -14,10 +14,16 @@
     display: flex;
     gap: 20px;
     padding: 5px 20px;
+    color: var(--main-color);
 
     &:hover {
         border-top: 1px solid var(--hover-color);
         border-bottom: 1px solid var(--hover-color);
+    }
+
+    &-category {
+        padding: 10px 20px;
+        text-decoration: underline;
     }
 
     &-thumb {
@@ -35,6 +41,7 @@
     &-price {
         font-size: 14px;
         color: var(--shadow-color);
+        font-weight: 400;
     }
 }
 
