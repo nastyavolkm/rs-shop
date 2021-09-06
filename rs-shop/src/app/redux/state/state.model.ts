@@ -1,5 +1,7 @@
-import { ICategory } from "./category.model";
+import { ICategoriesState } from "./category.model";
+import { IGoodsState } from "./goods.model";
 
 export interface IState {
-    categories: ICategory[];
+    categories: ICategoriesState;
+    goods: IGoodsState;
 }

@@ -2,7 +2,7 @@
     <ul *ngIf="(categories$ | async) as categories" class="menu__list">
         <li class="menu__item"
         *ngFor="let category of categories"
-        (mouseover)="onSelect(category)"
+        (mouseenter)="onSelect(category)"
         >
         <img src="../../../../assets/{{category.id}}.svg" alt="icon" class="menu__icon">
         {{category.name}}
@@ -26,5 +26,4 @@
                 </ng-template>
         </li>
     </ul>
-    <div class="menu__sublist-wrapper"></div>
 </div>

@@ -1,0 +1,13 @@
+    <ul class="search-results__list">
+        <li *ngFor="let category of categories$ | async as categories">
+            {{category.name}}
+        </li>
+        <li *ngFor="let good of goods$ | async as goods" class="search-results__item">
+
+            <img src="{{good.imageUrls[0]}}" alt="photo" class="search-results__item-thumb">
+            <div class="search-results__item-info">
+                <p>{{good.name}}</p>
+                <p class="search-results__item-price">{{good.price}}р.</p>
+            </div>
+        </li>
+    </ul>

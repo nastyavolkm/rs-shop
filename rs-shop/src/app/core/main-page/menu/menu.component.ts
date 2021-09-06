@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { CategoriesActions } from 'src/app/redux/actions';
-import { CategorySelectors } from 'src/app/redux/selectors';
+import { CategoriesActions } from 'src/app/redux/actions/categoriesActions';
+import { CategoriesSelectors } from 'src/app/redux/selectors/selectors';
 import { ICategory, ISelectedCategory } from 'src/app/redux/state/category.model';
 import { CoreDataService } from '../../services/core-data.service';
 
@@ -25,7 +25,7 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(CategoriesActions.getCategories());
     this.categories$ = this.store.pipe(
-      select(CategorySelectors.categories)
+      select(CategoriesSelectors.categories)
     );
   }
 

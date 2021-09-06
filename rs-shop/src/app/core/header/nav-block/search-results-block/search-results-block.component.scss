@@ -1,0 +1,40 @@
+:host {
+    position: absolute;
+    width: 400px;
+    background-color: white;
+    top: 50px;
+    left: -20px;
+    box-shadow: 1px 1px 1px 1px var(--hover-color);
+}
+.search-results__list {
+    display: flex;
+    flex-direction: column;
+}
+.search-results__item {
+    display: flex;
+    gap: 20px;
+    padding: 5px 20px;
+
+    &:hover {
+        border-top: 1px solid var(--hover-color);
+        border-bottom: 1px solid var(--hover-color);
+    }
+
+    &-thumb {
+        width: 60px;
+        height: auto;
+    }
+
+    &-info {
+        display: flex;
+        flex: 2 0;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    &-price {
+        font-size: 14px;
+        color: var(--shadow-color);
+    }
+}
+

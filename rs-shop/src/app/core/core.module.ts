@@ -11,6 +11,7 @@ import { LocationPopUpComponent } from './location-pop-up/location-pop-up.compon
 import { FormsModule } from '@angular/forms';
 import { NavBlockComponent } from './header/nav-block/nav-block.component';
 import { MenuComponent } from './main-page/menu/menu.component';
+import { SearchResultsBlockComponent } from './header/nav-block/search-results-block/search-results-block.component';
 
 
 
@@ -24,7 +25,8 @@ import { MenuComponent } from './main-page/menu/menu.component';
     ContactsComponent,
     LocationPopUpComponent,
     NavBlockComponent,
-    MenuComponent
+    MenuComponent,
+    SearchResultsBlockComponent
   ],
   imports: [
     CommonModule,

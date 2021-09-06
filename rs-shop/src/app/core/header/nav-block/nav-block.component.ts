@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { GoodsActions } from 'src/app/redux/actions/goodsActions';
 import { CoreDataService } from '../../services/core-data.service';
+import { HttpService } from '../../services/http.service';
 
 @Component({
   selector: 'app-nav-block',
@@ -15,9 +17,18 @@ export class NavBlockComponent implements OnInit {
 
   value = '';
 
-  constructor(public coreDataService: CoreDataService) { }
+  constructor(
+    public coreDataService: CoreDataService,
+    private httpService: HttpService,
+    private store: Store
+    ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  setValueToSearch(value: string): void {
+    if (value.length > 2) {
+      this.coreDataService.getCategoriesByWord(value);
+      this.store.dispatch(GoodsActions.getGoods( {value: value }));
+    }
   }
-
 }

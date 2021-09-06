@@ -6,23 +6,25 @@
     [ngClass]="{'inactive': isButtonActive}"
     >
     <img *ngIf="!isButtonActive" src="../../../../assets/catalog.png" alt="catalog" class="nav-button__icon">
-    <img 
+    <img
     *ngIf="isButtonActive"
      src="../../../../assets/close.png" alt="close" class="nav-button__icon close">
     Каталог товаров</button>
 <div class="search-wrapper">
     <img src="../../../../assets/search.png" alt="search" class="search-button"
-    [ngStyle]="{'filter': (isSearchActive) ? 'none' : 'grayScale(1)'}" 
+    [ngStyle]="{'filter': (isSearchActive) ? 'none' : 'grayScale(1)'}"
     >
     <input type="text" class="nav-search" placeholder="Поиск товаров"
         [(ngModel)]="value"
         (focus)="isSearchActive=true"
         (blur)="isSearchActive=false"
+        (input)="setValueToSearch(value)"
      >
-    <img 
+    <img
     *ngIf="value.length>0"
     (click)="value=''"
-     src="../../../../assets/close.png" alt="close" class="close-button"> 
+     src="../../../../assets/close.png" alt="close" class="close-button">
+     <app-search-results-block *ngIf="value.length>2"></app-search-results-block>
 </div>
 <button class="nav-button">
     <img src="../../../../assets/account.jpg" alt="account" class="nav-button__icon">

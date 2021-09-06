@@ -10,8 +10,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { HttpInterceptor } from './core/interceptors/http.interceptor';
-import { Effects } from './redux/effects';
-import { searchReducer } from './redux/reducer';
+import { CategoriesEffects } from './redux/effects/categoriesEffects';
+import { GoodsEffects } from './redux/effects/goodsEffects';
+import { categoriesReducer } from './redux/reducers/categoriesReducer';
+import { goodsReducer } from './redux/reducers/goodsReducer';
 
 @NgModule({
   declarations: [
@@ -24,14 +26,15 @@ import { searchReducer } from './redux/reducer';
     CoreModule,
     HttpClientModule,
     StoreModule.forRoot({
-      categories: searchReducer,
+      categories: categoriesReducer,
+      goods: goodsReducer
   }),
   StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
       autoPause: true,
   }),
-  EffectsModule.forRoot([Effects]),
+  EffectsModule.forRoot([CategoriesEffects, GoodsEffects]),
 ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true },
