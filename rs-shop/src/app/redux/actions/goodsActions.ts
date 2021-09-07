@@ -11,4 +11,9 @@ export namespace GoodsActions {
         'GET_GOODS_SUCCESSFUL',
         props<{ goods: IGood[] }>(),
     );
+
+    export const getGoodsBySubCategoryId = createAction(
+        'GET__GOODS_BY_SUBCATEGORY_ID',
+        props<{ id: string }>()
+    );
 }

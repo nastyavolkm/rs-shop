@@ -18,5 +18,16 @@ export class GoodsEffects {
         ),
     );
 
+    getGoodsBySubCategoryId$ = createEffect(() =>
+            this.actions$.pipe(
+                ofType(GoodsActions.getGoodsBySubCategoryId),
+                switchMap((data) =>
+                this.httpService.getGoodsBySubCategoryId(data.id)
+                ),
+                switchMap((goods) =>
+                of(GoodsActions.getGoodsSuccessful({goods}))),
+            ),
+    );
+
     constructor(private actions$: Actions, private httpService: HttpService) {}
 }

@@ -5,6 +5,7 @@ import { GoodComponent } from './good/good.component';
 import { GoodsRoutingModule } from './goods.routing-module';
 import { SubCategoryComponent } from './sub-category/sub-category.component';
 import { CatalogPageComponent } from './catalog-page/catalog-page.component';
+import { DetailedGoodComponent } from './detailed-good/detailed-good.component';
 
 
 
@@ -13,7 +14,8 @@ import { CatalogPageComponent } from './catalog-page/catalog-page.component';
     CategoryComponent,
     SubCategoryComponent,
     GoodComponent,
-    CatalogPageComponent
+    CatalogPageComponent,
+    DetailedGoodComponent
   ],
   imports: [
     CommonModule,

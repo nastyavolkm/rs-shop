@@ -17,6 +17,8 @@ const USERS = 'users';
 })
 export class HttpService {
 
+  categoryId = '';
+
   constructor(
     private http: HttpClient,
     private store: Store
@@ -45,14 +47,30 @@ export class HttpService {
     );
   }
 
-  getSubCategoryById(id: string): Observable<ISubCategory | undefined> {
-    return this.store.pipe(
+  getSubCategoryById(id: string): Observable<ISubCategory> {
+    let subCategory: ISubCategory;
+    const sub = this.store.pipe(
       select(CategoriesSelectors.categories)
     ).pipe(
       switchMap((categories) => {
-        return of(categories.find((category) => category.subCategories.find((subcategory) => subcategory.id === id)));
-      })
-    )
-    ;
+        categories.forEach((category) => {
+          category.subCategories.forEach((subcategory) => {
+            if (subcategory.id === id) {
+              subCategory = subcategory
+            }
+          })})
+          return of(subCategory);
+        })
+    );
+    return sub;
+  }
+
+  getGoodsBySubCategoryId(id: string): Observable<IGood[]> {
+    return this.http.get<IGood[]>(`${GOODS}/category/${this.categoryId}/${id}`);
+  }
+
+  saveCategoryId(id: string): string {
+    this.categoryId = id;
+    return this.categoryId;
   }
 }

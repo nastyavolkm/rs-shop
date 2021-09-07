@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CatalogPageComponent } from './catalog-page/catalog-page.component';
 import { CategoryComponent } from './category/category.component';
-import { GoodComponent } from './good/good.component';
+import { DetailedGoodComponent } from './detailed-good/detailed-good.component';
 import { SubCategoryComponent } from './sub-category/sub-category.component';
 
 const routes: Routes = [
@@ -22,7 +22,7 @@ const routes: Routes = [
                         children: [
                             {
                                 path: ':id',
-                                component: GoodComponent,
+                                component: DetailedGoodComponent,
                                 data: { breadcrumb: {alias: 'Good'}}
                             }
             ],
