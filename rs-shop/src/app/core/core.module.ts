@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CoreRoutingModule } from './core.routing-module';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { ContactsComponent } from './header/info-block/contacts/contacts.component';
@@ -9,9 +10,11 @@ import { LocationComponent } from './header/info-block/location/location.compone
 import { MenuComponent } from './header/menu/menu.component';
 import { NavBlockComponent } from './header/nav-block/nav-block.component';
 import { SearchResultsBlockComponent } from './header/nav-block/search-results-block/search-results-block.component';
-import { LocationPopUpComponent } from './location-pop-up/location-pop-up.component';
-import { CoreDataService } from './services/core-data.service';
 import { NavCategoriesBlockComponent } from './header/nav-categories-block/nav-categories-block.component';
+import { LocationPopUpComponent } from './location-pop-up/location-pop-up.component';
+import { MainPageComponent } from './main-page/main-page.component';
+import { Page404Component } from './page404/page404.component';
+import { CoreDataService } from './services/core-data.service';
 
 
 
@@ -26,16 +29,21 @@ import { NavCategoriesBlockComponent } from './header/nav-categories-block/nav-c
     NavBlockComponent,
     MenuComponent,
     SearchResultsBlockComponent,
-    NavCategoriesBlockComponent
+    NavCategoriesBlockComponent,
+    MainPageComponent,
+    Page404Component
   ],
   imports: [
     CommonModule,
     FormsModule,
+    CoreRoutingModule,
   ],
   exports: [
     HeaderComponent,
     FooterComponent,
     LocationPopUpComponent,
+    MainPageComponent,
+    Page404Component,
   ],
   providers: [CoreDataService],
 })

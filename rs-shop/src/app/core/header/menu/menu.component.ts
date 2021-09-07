@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ICategory, ISelectedCategory } from 'src/app/redux/state/category.model';
-import { CoreDataService } from '../../services/core-data.service';
 
 @Component({
   selector: 'app-menu',
@@ -16,8 +15,7 @@ export class MenuComponent implements OnInit {
   selectedCategory!: ISelectedCategory;
 
   constructor(
-    private store: Store,
-    private coreDataService: CoreDataService
+    public router: Router
     ) { }
 
   ngOnInit(): void {}

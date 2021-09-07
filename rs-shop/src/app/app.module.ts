@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { HttpInterceptor } from './core/interceptors/http.interceptor';
+import { GoodsModule } from './goods/goods.module';
 import { CategoriesEffects } from './redux/effects/categoriesEffects';
 import { GoodsEffects } from './redux/effects/goodsEffects';
 import { categoriesReducer } from './redux/reducers/categoriesReducer';
@@ -24,6 +25,7 @@ import { goodsReducer } from './redux/reducers/goodsReducer';
     FormsModule,
     AppRoutingModule,
     CoreModule,
+    GoodsModule,
     HttpClientModule,
     StoreModule.forRoot({
       categories: categoriesReducer,

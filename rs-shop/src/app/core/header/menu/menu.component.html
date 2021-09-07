@@ -3,7 +3,7 @@
         <li class="menu__item"
         *ngFor="let category of categories"
         (mouseenter)="onSelect(category)"
-        >
+        ><a routerLink='{{category.id}}'>
         <img src="../../../../assets/{{category.id}}.svg" alt="icon" class="menu__icon">
         {{category.name}}
                 <ul
@@ -24,6 +24,7 @@
                     </li>
                     </ul>
                 </ng-template>
+            </a>
         </li>
     </ul>
 </div>
