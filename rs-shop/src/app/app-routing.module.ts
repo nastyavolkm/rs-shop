@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainPageComponent } from './core/main-page/main-page.component';
 import { Page404Component } from './core/page404/page404.component';
-import { CategoryComponent } from './goods/category/category.component';
 
 const routes: Routes = [
   {
@@ -10,8 +9,9 @@ const routes: Routes = [
       component: MainPageComponent,
   },
   {
-      path: ':id',
-      component: CategoryComponent,
+      path: 'categories',
+      loadChildren: () => import('./goods/goods.module').then(m => m.GoodsModule),
+      data: {breadcrumb: { skip: true }}
   },
   {
       path: '**',

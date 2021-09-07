@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { BehaviorSubject } from 'rxjs';
 import { GoodsActions } from 'src/app/redux/actions/goodsActions';
 import { CoreDataService } from '../../services/core-data.service';
 import { HttpService } from '../../services/http.service';
@@ -13,7 +14,7 @@ export class NavBlockComponent implements OnInit {
 
   isSearchActive = false;
 
-  isButtonActive = false;
+  isButtonActive$$ = new BehaviorSubject(false);
 
   value = '';
 
@@ -23,7 +24,9 @@ export class NavBlockComponent implements OnInit {
     private store: Store
     ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.isButtonActive$$ = this.coreDataService.isButtonActive$$;
+  }
 
   setValueToSearch(value: string): void {
     if (value.length > 2) {

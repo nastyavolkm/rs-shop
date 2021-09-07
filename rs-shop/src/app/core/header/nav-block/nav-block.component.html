@@ -2,12 +2,12 @@
     <img src="../../../../assets/logo.jpg" alt="logo" class="logo">
 </div>
 <button class="nav-button"
-    (click)="coreDataService.toggleCatalog(); isButtonActive=!isButtonActive"
-    [ngClass]="{'inactive': isButtonActive}"
+    (click)="coreDataService.toggleCatalog();"
+    [ngClass]="{ 'inactive': isButtonActive$$ | async }"
     >
-    <img *ngIf="!isButtonActive" src="../../../../assets/catalog.png" alt="catalog" class="nav-button__icon">
+    <img *ngIf="!(isButtonActive$$ | async)" src="../../../../assets/catalog.png" alt="catalog" class="nav-button__icon">
     <img
-    *ngIf="isButtonActive"
+    *ngIf="isButtonActive$$ | async"
      src="../../../../assets/close.png" alt="close" class="nav-button__icon close">
     Каталог товаров</button>
 <div class="search-wrapper">

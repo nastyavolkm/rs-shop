@@ -22,6 +22,12 @@
         gap: 5px;
         align-items: center;
 
+        & > a {
+            display: inherit;
+            gap: inherit;
+            align-items: inherit;
+        }
+
         &:hover {
             background-color: var(--hover-color);
             // & > .menu__sublist {

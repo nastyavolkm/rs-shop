@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { HttpService } from 'src/app/core/services/http.service';
+import { ICategory } from 'src/app/redux/state/category.model';
 
 @Component({
   selector: 'app-category',
@@ -7,9 +11,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoryComponent implements OnInit {
 
-  constructor() { }
+  category$!: Observable<ICategory | undefined>;
+
+  constructor(
+    private route: ActivatedRoute,
+    private httpService: HttpService,
+  ) { }
 
   ngOnInit(): void {
+    this.getCategory();
+  }
+
+  getCategory(): void {
+    const id = this.route.snapshot.paramMap.get('id')!;
+    this.category$ = this.httpService.getCategoryById(id);
   }
 
 }

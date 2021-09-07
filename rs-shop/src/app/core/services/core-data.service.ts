@@ -13,6 +13,10 @@ export class CoreDataService {
 
   isCatalogShown$$ = new BehaviorSubject(this.isCatalogShown);
 
+  isButtonActive = false;
+
+  isButtonActive$$ = new BehaviorSubject(this.isButtonActive);
+
   categoriesByWord$!: Observable<ICategory[]>;
 
   constructor(private store: Store) {}
@@ -55,6 +59,8 @@ export class CoreDataService {
   toggleCatalog(): void {
     this.isCatalogShown = !this.isCatalogShown;
     this.isCatalogShown$$.next(this.isCatalogShown);
+    this.isButtonActive = !this.isButtonActive;
+    this.isButtonActive$$.next(this.isButtonActive);
   }
 
   getCategoriesByWord(value: string): void {

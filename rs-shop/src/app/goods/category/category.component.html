@@ -1,1 +1,18 @@
-<p>category works!</p>
+<div class="category">
+    <h3 class="category__heading">{{(category$ | async)?.name}}</h3>
+    <ul class="subcategory__list">
+        <li
+        *ngFor="let subcategory of (category$ | async)?.subCategories"
+        class="subcategory__item"
+        >
+        <a routerLink='{{subcategory.id}}'>
+            {{subcategory.name}}
+        </a>
+
+        <ul class="subcategory__goods-list">
+            <li class="subcategory__goods-item"></li>
+        </ul>
+    </li>
+    </ul>
+</div>
+<router-outlet></router-outlet>
