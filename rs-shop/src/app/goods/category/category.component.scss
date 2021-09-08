@@ -3,15 +3,16 @@
 
     &__heading {
         font-size: 20px;
-        text-decoration: underline;
         margin-bottom: 20px;
-        color: var(--shadow-color);
+        color: var(--button-text-color);
+        font-weight: normal;
     }
 
     &__list {
         display: flex;
-        flex-direction: column;
-        gap: 10px;
+        flex-wrap: wrap;
+        gap: 40px;
+        justify-content: center;
         padding-left: 10px;
 
     }
@@ -19,9 +20,22 @@
         &:hover > .category__link {
             color: var(--main-color);
         }
+        &:hover > .category__link > .category__marker {
+            filter: none;
+        }
+    }
+
+    &__marker {
+        width: 25px;
+        height: auto;
+        filter: grayscale(1);
     }
     &__link {
         font-size: 16px;
+        color: var(--shadow-color);
+        display: flex;
+        align-items: center;
+        gap: 5px;
     }
 
 }

@@ -2,10 +2,10 @@
     padding: 10px 40px;
 
     &__heading {
-        font-size: 20px;
-        color: var(--shadow-color);
-        text-decoration: underline;
+        font-size: 18px;
+        color: var(--button-text-color);
         margin-bottom: 20px;
+        font-weight: normal;
     }
     &__list {
         display: flex;
