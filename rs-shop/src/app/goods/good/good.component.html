@@ -3,5 +3,5 @@
 class="card">
 <img src="{{good.imageUrls[0]}}" alt="{{good.name}}" class="card__img">
 <p class="card__name"><a routerLink="{{good.id}}">{{good.name}}</a></p>
-<span class="card__available">{{}}</span>
+<span class="card__available">{{good.availableAmount>0 ? 'В наличии' : 'Нет в наличии'}}</span>
 </div>

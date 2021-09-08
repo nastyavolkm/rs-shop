@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
-import { GoodsActions } from 'src/app/redux/actions/goodsActions';
-import { GoodsSelectors } from 'src/app/redux/selectors/goodsSelectors';
+import { IGood } from 'src/app/redux/state/good.model';
 import { ISubCategory } from 'src/app/redux/state/subcategory.model';
 
 @Component({
@@ -16,7 +15,7 @@ export class SubCategoryComponent implements OnInit {
 
   subCategory$!: Observable<ISubCategory | undefined>;
 
-  goods$ = this.store.pipe(select(GoodsSelectors.goods));
+  goods$!: Observable<IGood[]>;
 
   id = '';
 
@@ -36,7 +35,7 @@ export class SubCategoryComponent implements OnInit {
     this.subscribe = this.route.params.subscribe(params => {
     this.id = params['id'];
     this.subCategory$ = this.httpService.getSubCategoryById(this.id);
-    this.store.dispatch(GoodsActions.getGoodsBySubCategoryId({id: this.id}));
+    this.goods$ = this.httpService.getGoodsBySubCategoryId(this.id);
     });
   }
 

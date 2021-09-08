@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { PRIMARY_OUTLET, Router, UrlSegment, UrlSegmentGroup, UrlTree } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
@@ -17,12 +18,11 @@ const USERS = 'users';
 })
 export class HttpService {
 
-  categoryId = '';
-
   constructor(
     private http: HttpClient,
-    private store: Store
-    ) { }
+    private store: Store,
+    private router: Router,
+    ) {}
 
   getCategories(): Observable<ICategory[]> {
     return this.http.get<ICategory[]>(CATEGORIES);
@@ -66,11 +66,10 @@ export class HttpService {
   }
 
   getGoodsBySubCategoryId(id: string): Observable<IGood[]> {
-    return this.http.get<IGood[]>(`${GOODS}/category/${this.categoryId}/${id}`);
-  }
-
-  saveCategoryId(id: string): string {
-    this.categoryId = id;
-    return this.categoryId;
+    const tree: UrlTree = this.router.parseUrl(this.router.url);
+    const g: UrlSegmentGroup = tree.root.children[PRIMARY_OUTLET];
+    const s: UrlSegment[] = g.segments;
+    const categoryId = s[1].path;
+    return this.http.get<IGood[]>(`${GOODS}/category/${categoryId}/${id}`);
   }
 }

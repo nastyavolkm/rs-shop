@@ -7,11 +7,11 @@ const routes: Routes = [
   {
       path: '',
       component: MainPageComponent,
+      data: { breadcrumb: 'Главная' }
   },
   {
       path: 'categories',
       loadChildren: () => import('./goods/goods.module').then(m => m.GoodsModule),
-      data: {breadcrumb: { skip: true }}
   },
   {
       path: '**',

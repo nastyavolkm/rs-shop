@@ -24,7 +24,6 @@ export class CategoryComponent implements OnInit {
 
   getCategory(): void {
     const id = this.route.snapshot.paramMap.get('id')!;
-    this.httpService.saveCategoryId(id);
     this.category$ = this.httpService.getCategoryById(id);
   }
 

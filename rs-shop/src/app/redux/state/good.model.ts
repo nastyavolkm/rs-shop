@@ -6,4 +6,6 @@ export interface IGood {
     price: number,
     rating: number,
     description: string,
+    isInCart: boolean,
+    isFavorite: boolean,
 }

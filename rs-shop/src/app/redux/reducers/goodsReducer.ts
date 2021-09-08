@@ -9,7 +9,7 @@ const initialGoodsState: IGoodsState = {
 const GoodsReducer = createReducer(
     initialGoodsState,
     on(GoodsActions.getGoodsSuccessful, (state, { goods }) => ({
-        state: [],
+        ...state,
         goods,
     })),
 );
