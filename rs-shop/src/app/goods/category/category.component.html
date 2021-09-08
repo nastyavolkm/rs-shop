@@ -1,11 +1,11 @@
 <div class="category">
     <h3 class="category__heading">{{(category$ | async)?.name}}</h3>
-    <ul class="subcategory__list">
+    <ul class="category__list">
         <li
         *ngFor="let subcategory of (category$ | async)?.subCategories"
-        class="subcategory__item"
+        class="category__item"
         >
-        <a routerLink='{{subcategory.id}}'>
+        <a class="category__link" routerLink='{{subcategory.id}}'>
             {{subcategory.name}}
         </a>
     </li>

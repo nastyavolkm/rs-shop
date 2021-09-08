@@ -15,4 +15,8 @@ export class GoodComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getCountOfRating(number: number): number[] {
+    return Array(number);
+  }
+
 }

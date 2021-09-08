@@ -1,0 +1,17 @@
+.subcategory {
+    padding: 10px 40px;
+
+    &__heading {
+        font-size: 20px;
+        color: var(--shadow-color);
+        text-decoration: underline;
+        margin-bottom: 20px;
+    }
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+}

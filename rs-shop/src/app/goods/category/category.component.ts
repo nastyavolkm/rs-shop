@@ -13,6 +13,10 @@ export class CategoryComponent implements OnInit {
 
   category$!: Observable<ICategory | undefined>;
 
+  subscribe!: any;
+
+  id!: string;
+
   constructor(
     private route: ActivatedRoute,
     private httpService: HttpService,
@@ -23,8 +27,13 @@ export class CategoryComponent implements OnInit {
   }
 
   getCategory(): void {
-    const id = this.route.snapshot.paramMap.get('id')!;
-    this.category$ = this.httpService.getCategoryById(id);
-  }
+    this.subscribe = this.route.params.subscribe(params => {
+      this.id = params['id'];
+      this.category$ = this.httpService.getCategoryById(this.id);
+      });
+    }
 
-}
+    ngOnDestroy(): void {
+      this.subscribe.unsubscribe();
+    }
+  }

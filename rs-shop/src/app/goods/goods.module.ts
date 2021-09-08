@@ -6,6 +6,7 @@ import { GoodsRoutingModule } from './goods.routing-module';
 import { SubCategoryComponent } from './sub-category/sub-category.component';
 import { CatalogPageComponent } from './catalog-page/catalog-page.component';
 import { DetailedGoodComponent } from './detailed-good/detailed-good.component';
+import { ColorizeAmountDirective } from './directives/colorize-amount.directive';
 
 
 
@@ -15,7 +16,8 @@ import { DetailedGoodComponent } from './detailed-good/detailed-good.component';
     SubCategoryComponent,
     GoodComponent,
     CatalogPageComponent,
-    DetailedGoodComponent
+    DetailedGoodComponent,
+    ColorizeAmountDirective
   ],
   imports: [
     CommonModule,
