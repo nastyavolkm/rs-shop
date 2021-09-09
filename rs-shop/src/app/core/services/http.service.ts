@@ -18,6 +18,8 @@ const USERS = 'users';
 })
 export class HttpService {
 
+  goods$!: Observable<IGood[]>;
+
   constructor(
     private http: HttpClient,
     private store: Store,
@@ -70,6 +72,11 @@ export class HttpService {
     const g: UrlSegmentGroup = tree.root.children[PRIMARY_OUTLET];
     const s: UrlSegment[] = g.segments;
     const categoryId = s[1].path;
-    return this.http.get<IGood[]>(`${GOODS}/category/${categoryId}/${id}`);
+    this.goods$ = this.http.get<IGood[]>(`${GOODS}/category/${categoryId}/${id}`);
+    return this.goods$;
+  }
+
+  getGoodById(id: string): Observable<IGood> {
+    return this.http.get<IGood>(`${GOODS}/item/${id}`);
   }
 }

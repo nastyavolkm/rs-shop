@@ -1,8 +1,9 @@
 <div
+(click)="router.navigate([good.id], {relativeTo: route});"
 *ngIf="good"
 class="card">
 <svg
-(click)="isGoodFavorite[i]=!isGoodFavorite[i]"
+(click)="$event.stopPropagation();isGoodFavorite[i]=!isGoodFavorite[i]"
 class="card__like" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
     <path
     [ngStyle]="{'fill': good.isFavorite || isGoodFavorite[i] ? '#EC0A0A' : 'none'}"
@@ -11,7 +12,7 @@ class="card__like" xmlns="http://www.w3.org/2000/svg" width="20" height="20" vie
 <div class="card__img-wrapper">
     <img src="{{good.imageUrls[0]}}" alt="{{good.name}}" class="card__img">
 </div>
-<p class="card__name"><a routerLink="{{good.id}}">{{good.name}}</a></p>
+<p class="card__name">{{good.name}}</p>
 <div class="card__available">
     <div class="card__amount-icon-wrapper">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17">
@@ -29,7 +30,7 @@ class="card__like" xmlns="http://www.w3.org/2000/svg" width="20" height="20" vie
     </li>
 </ul>
 <button class="card__btn-cart" [disabled]="good.isInCart || addedToCart[i]"
-(click)="addedToCart[i]=true"
+(click)="$event.stopPropagation();addedToCart[i]=true"
 [ngClass]="{'inactive' : good.isInCart || addedToCart[i]}"
 >
     <img src="../../../assets/cart.png" alt="cart" class="card__btn-cart-img">

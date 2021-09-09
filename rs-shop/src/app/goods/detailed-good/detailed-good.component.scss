@@ -1,0 +1,41 @@
+.good {
+    padding: 10px 40px;
+
+    &__images-wrapper {
+        display: flex;
+        flex-direction: row;
+    }
+    &__images-list {
+        display: flex;
+        flex-direction: column;
+        width: 80px;
+        gap: 10px;
+    }
+
+    &__images-item {
+        border: 1px solid var(--main-color);
+        width: inherit;
+        height: 80px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+    }
+    &__thumb {
+        width: 100%;
+        height: auto;
+    }
+
+    &__image-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__big-img {
+        width: 350px;
+        height: auto;
+    }
+}
+
+.active-image {
+    border: 3px solid var(--main-color);
+}

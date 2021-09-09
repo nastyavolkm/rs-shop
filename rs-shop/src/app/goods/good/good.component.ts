@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IGood } from 'src/app/redux/state/good.model';
 import { GoodsService } from '../services/goods.service';
 
@@ -22,7 +23,9 @@ export class GoodComponent implements OnInit {
   addedToCart: boolean[] = Array(this.goods.length).fill(false);
 
   constructor(
-    public goodsService: GoodsService
+    public goodsService: GoodsService,
+    public router: Router,
+    public route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {}

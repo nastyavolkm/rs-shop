@@ -1,1 +1,23 @@
-<p>detailed-good works!</p>
+<div class="good" *ngIf="good$ | async as good">
+    <h2 class="good__heding">{{good.name}}</h2>
+    <div class="good__images-wrapper">
+    <ul class="good__images-list">
+        <li class="good__images-item"
+        *ngFor="let image of good.imageUrls; let i=index"
+        (click)="onSelect(image, i)"
+        [ngClass]="{'active-image' : selectedImageIndex===i}"
+        >
+        <img
+         src="{{image}}" alt="{{good.name}}" class="good__thumb">
+        </li>
+    </ul>
+        <div class="good__image-wrapper">
+        <img
+        *ngIf="selectedImage; else initialImage"
+        src="{{selectedImage}}" alt="{{good.name}}" class="good__big-img">
+            <ng-template #initialImage>
+            <img src="{{good.imageUrls[0]}}" alt="{{good.name}}" class="good__big-img">
+        </ng-template>
+        </div>
+    </div>
+</div>
