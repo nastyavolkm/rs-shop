@@ -1,11 +1,33 @@
 <div class="subcategory">
-    <h4 class="subcategory__heading">{{(subCategory$ | async)?.name}}</h4>
-    <ul class="subcategory__list">
+    <div class="subcategory__heading-sort-wrapper">
+        <h4 class="subcategory__heading">{{(subCategory$ | async)?.name}}</h4>
+        <div
+        class="subcategory__sort-wrapper">
+            Сортировать по:
+            <span
+            (click)="goodsService.setOptionToSort('popular');
+            isPopularSortActive=true;
+            isPriceSortActive=false"
+            [ngClass]="{'sort-active': isPopularSortActive && !isPriceSortActive}"
+            class="subcategory__sort">популярности</span>
+            <span
+            (click)="goodsService.setOptionToSort('price');
+            isPriceSortActive=true;
+            isPopularSortActive=false"
+            [ngClass]="{'sort-active': isPriceSortActive && !isPopularSortActive}"
+            class="subcategory__sort">цене</span>
+        </div>
+    </div>
+    <ul class="subcategory__list" *ngIf="goods$ | async as goods">
         <li
-        *ngFor="let good of goods$ | async"
+        *ngFor="let good of goods
+        | sortBy : (option$$ | async)! : ['price'] : ['rating'] : (directionAsc$$ | async)!;
+         let i = index"
         class="subcategory__item">
         <app-good
         [good]='good'
+        [goods]='goods'
+        [i]='i'
         ></app-good>
         </li>
     </ul>

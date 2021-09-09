@@ -1,12 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { CategoryComponent } from './category/category.component';
-import { GoodComponent } from './good/good.component';
-import { GoodsRoutingModule } from './goods.routing-module';
-import { SubCategoryComponent } from './sub-category/sub-category.component';
 import { CatalogPageComponent } from './catalog-page/catalog-page.component';
+import { CategoryComponent } from './category/category.component';
 import { DetailedGoodComponent } from './detailed-good/detailed-good.component';
 import { ColorizeAmountDirective } from './directives/colorize-amount.directive';
+import { GoodComponent } from './good/good.component';
+import { GoodsRoutingModule } from './goods.routing-module';
+import { SortByPipe } from './pipes/sort-by.pipe';
+import { GoodsService } from './services/goods.service';
+import { SubCategoryComponent } from './sub-category/sub-category.component';
 
 
 
@@ -17,7 +19,8 @@ import { ColorizeAmountDirective } from './directives/colorize-amount.directive'
     GoodComponent,
     CatalogPageComponent,
     DetailedGoodComponent,
-    ColorizeAmountDirective
+    ColorizeAmountDirective,
+    SortByPipe
   ],
   imports: [
     CommonModule,
@@ -27,6 +30,9 @@ import { ColorizeAmountDirective } from './directives/colorize-amount.directive'
     CategoryComponent,
     SubCategoryComponent,
     GoodComponent,
+  ],
+  providers: [
+    GoodsService,
   ],
 })
 export class GoodsModule { }
