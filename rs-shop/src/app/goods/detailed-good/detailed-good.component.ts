@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
 import { IGood } from 'src/app/redux/state/good.model';
+import { GoodsService } from '../services/goods.service';
 
 @Component({
   selector: 'app-detailed-good',
@@ -21,9 +22,14 @@ export class DetailedGoodComponent implements OnInit, OnDestroy {
 
   selectedImageIndex!: number;
 
+  isGoodFavorite = false;
+
+  addedToCart = false;
+
   constructor(
     private httpService: HttpService,
     private route: ActivatedRoute,
+    public goodsService: GoodsService,
   ) { }
 
   ngOnInit(): void {

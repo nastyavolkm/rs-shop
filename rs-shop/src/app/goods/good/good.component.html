@@ -1,38 +1,62 @@
-<div
-(click)="router.navigate([good.id], {relativeTo: route});"
-*ngIf="good"
-class="card">
-<svg
-(click)="$event.stopPropagation();isGoodFavorite[i]=!isGoodFavorite[i]"
-class="card__like" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+<div (click)="router.navigate([good.id], { relativeTo: route })" *ngIf="good" class="card">
+  <svg
+    (click)="$event.stopPropagation(); isGoodFavorite[i] = !isGoodFavorite[i]"
+    class="card__like"
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+  >
     <path
-    [ngStyle]="{'fill': good.isFavorite || isGoodFavorite[i] ? '#EC0A0A' : 'none'}"
-   stroke="#EC0A0A" stroke-width="2" d="M10.003 17.414l.783-.691c4.865-4.317 6.388-5.849 7.44-7.759.522-.948.774-1.843.774-2.76 0-2.45-1.967-4.37-4.5-4.37-1.423 0-2.828.644-3.746 1.697L10 4.395l-.754-.864C8.328 2.478 6.923 1.833 5.5 1.833c-2.533 0-4.5 1.92-4.5 4.37 0 .922.255 1.82.781 2.774 1.054 1.907 2.588 3.447 7.433 7.737l.789.7z"/>
-</svg>
-<div class="card__img-wrapper">
-    <img src="{{good.imageUrls[0]}}" alt="{{good.name}}" class="card__img">
-</div>
-<p class="card__name">{{good.name}}</p>
-<div class="card__available">
+      [ngStyle]="{ fill: good.isFavorite || isGoodFavorite[i] ? '#EC0A0A' : 'none' }"
+      stroke="#EC0A0A"
+      stroke-width="2"
+      d="M10.003 17.414l.783-.691c4.865-4.317 6.388-5.849 7.44-7.759.522-.948.774-1.843.774-2.76 0-2.45-1.967-4.37-4.5-4.37-1.423 0-2.828.644-3.746 1.697L10 4.395l-.754-.864C8.328 2.478 6.923 1.833 5.5 1.833c-2.533 0-4.5 1.92-4.5 4.37 0 .922.255 1.82.781 2.774 1.054 1.907 2.588 3.447 7.433 7.737l.789.7z"
+    />
+  </svg>
+  <div class="card__img-wrapper">
+    <img src="{{ good.imageUrls[0] }}" alt="{{ good.name }}" class="card__img" />
+  </div>
+  <p class="card__name">{{ good.name }}</p>
+  <div class="card__available">
     <div class="card__amount-icon-wrapper">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17">
         <g transform="translate(-476 -148)">
-            <circle appColorizeAmount [amount]="good.availableAmount"  xmlns="http://www.w3.org/2000/svg" cx="484.5" cy="156.5" r="8.5" fill="#090"/>
-            <path d="M481 156.5l3 2.7 4.8-5.1" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle
+            appColorizeAmount
+            [amount]="good.availableAmount"
+            xmlns="http://www.w3.org/2000/svg"
+            cx="484.5"
+            cy="156.5"
+            r="8.5"
+            fill="#090"
+          />
+          <path
+            d="M481 156.5l3 2.7 4.8-5.1"
+            fill="none"
+            stroke="#fff"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </g>
-    </svg>
+      </svg>
     </div>
-    {{good.availableAmount>0 ? 'В наличии' : 'Нет в наличии'}}</div>
-<span class="card__price">{{good.price}}р.</span>
-<ul class="card__rating-wrapper">
-    <li *ngFor="let i of getCountOfRating(good.rating)">
-        <img src="../../../assets/rating.png" alt="rating" class="card__rating-star">
+    {{ good.availableAmount > 0 ? 'В наличии' : 'Нет в наличии' }}
+  </div>
+  <span class="card__price">{{ good.price }}р.</span>
+  <ul class="card__rating-wrapper">
+    <li *ngFor="let i of goodsService.getCountOfRating(good.rating)">
+      <img src="../../../assets/rating.png" alt="rating" class="card__rating-star" />
     </li>
-</ul>
-<button class="card__btn-cart" [disabled]="good.isInCart || addedToCart[i]"
-(click)="$event.stopPropagation();addedToCart[i]=true"
-[ngClass]="{'inactive' : good.isInCart || addedToCart[i]}"
->
-    <img src="../../../assets/cart.png" alt="cart" class="card__btn-cart-img">
-    В корзину</button>
+  </ul>
+  <button
+    class="card__btn-cart"
+    [disabled]="good.isInCart || addedToCart[i]"
+    (click)="$event.stopPropagation(); addedToCart[i] = true"
+    [ngClass]="{ inactive: good.isInCart || addedToCart[i] }"
+  >
+    <img src="../../../assets/cart.png" alt="cart" class="card__btn-cart-img" />
+    В корзину
+  </button>
 </div>

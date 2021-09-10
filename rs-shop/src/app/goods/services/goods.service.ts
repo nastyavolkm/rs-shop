@@ -18,4 +18,8 @@ export class GoodsService {
     this.option$$.next(value);
     this.directionAsc$$.next(!this.directionAsc$$.getValue());
   }
+
+  getCountOfRating(number: number): number[] {
+    return Array(number);
+  }
 }
