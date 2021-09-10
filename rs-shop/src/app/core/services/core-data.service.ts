@@ -13,9 +13,15 @@ export class CoreDataService {
 
   isCatalogShown$$ = new BehaviorSubject(this.isCatalogShown);
 
-  isButtonActive = false;
+  isCatalogButtonActive = false;
 
-  isButtonActive$$ = new BehaviorSubject(this.isButtonActive);
+  isCatalogButtonActive$$ = new BehaviorSubject(this.isCatalogButtonActive);
+
+  isLogInButtonActive = false;
+
+  isLogInButtonActive$$ = new BehaviorSubject(this.isLogInButtonActive);
+
+  isLoginFormShown$$ = new BehaviorSubject(false);
 
   categoriesByWord$!: Observable<ICategory[]>;
 
@@ -59,8 +65,13 @@ export class CoreDataService {
   toggleCatalog(): void {
     this.isCatalogShown = !this.isCatalogShown;
     this.isCatalogShown$$.next(this.isCatalogShown);
-    this.isButtonActive = !this.isButtonActive;
-    this.isButtonActive$$.next(this.isButtonActive);
+    this.isCatalogButtonActive = !this.isCatalogButtonActive;
+    this.isCatalogButtonActive$$.next(this.isCatalogButtonActive);
+  }
+
+  toggleLogInBlock(): void {
+    this.isLogInButtonActive = !this.isLogInButtonActive;
+    this.isLogInButtonActive$$.next(this.isLogInButtonActive);
   }
 
   getCategoriesByWord(value: string): void {
@@ -71,5 +82,9 @@ export class CoreDataService {
       .find((subCategory) => subCategory.name.toLowerCase().includes(value.toLowerCase()))));
       })
     );
+  }
+
+  showLoginForm(): void {
+    this.isLoginFormShown$$.next(true);
   }
 }

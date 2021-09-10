@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
 import { GoodsActions } from 'src/app/redux/actions/goodsActions';
 import { CoreDataService } from '../../services/core-data.service';
-import { HttpService } from '../../services/http.service';
 
 @Component({
   selector: 'app-nav-block',
@@ -14,18 +13,23 @@ export class NavBlockComponent implements OnInit {
 
   isSearchActive = false;
 
-  isButtonActive$$ = new BehaviorSubject(false);
+  isLogInShown = false;
+
+  isLogInButtonActive$$ = new BehaviorSubject(false);
+
+  isCatalogButtonActive$$ = new BehaviorSubject(false);
 
   value = '';
 
   constructor(
     public coreDataService: CoreDataService,
-    private httpService: HttpService,
     private store: Store
     ) { }
 
   ngOnInit(): void {
-    this.isButtonActive$$ = this.coreDataService.isButtonActive$$;
+    this.isCatalogButtonActive$$ = this.coreDataService.isCatalogButtonActive$$;
+    this.isLogInButtonActive$$ = this.coreDataService.isLogInButtonActive$$;
+
   }
 
   setValueToSearch(value: string): void {

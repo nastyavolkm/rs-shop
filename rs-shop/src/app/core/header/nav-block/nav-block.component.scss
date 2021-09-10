@@ -31,6 +31,50 @@
             filter: none;
         }
     }
+
+    &__account-img {
+        width: 40px;
+        height: auto;
+    }
+
+    &__account {
+        position: relative;
+    }
+
+    &__login {
+        width: 250px;
+        position: absolute;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        box-shadow: 1px 1px 1px 1px var(--hover-color);
+        top: 43px;
+        left: -70px;
+        background-color: white;
+        z-index: 10000;
+    }
+
+    &__button {
+        background-color: var(--main-color);
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+    }
+
+    &__text {
+        align-self: flex-start;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    &__line {
+        width: 100%;
+        height: 1px;
+        background-color: var(--main-color);
+    }
 }
 
 .search-wrapper {

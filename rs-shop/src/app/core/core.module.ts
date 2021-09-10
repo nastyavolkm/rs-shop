@@ -12,6 +12,7 @@ import { NavBlockComponent } from './header/nav-block/nav-block.component';
 import { SearchResultsBlockComponent } from './header/nav-block/search-results-block/search-results-block.component';
 import { NavCategoriesBlockComponent } from './header/nav-categories-block/nav-categories-block.component';
 import { LocationPopUpComponent } from './location-pop-up/location-pop-up.component';
+import { LoginFormComponent } from './login-form/login-form.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { Page404Component } from './page404/page404.component';
 import { CoreDataService } from './services/core-data.service';
@@ -31,7 +32,8 @@ import { CoreDataService } from './services/core-data.service';
     SearchResultsBlockComponent,
     NavCategoriesBlockComponent,
     MainPageComponent,
-    Page404Component
+    Page404Component,
+    LoginFormComponent
   ],
   imports: [
     CommonModule,

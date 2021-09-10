@@ -1,36 +1,78 @@
 <div class="nav-wrapper">
-    <a routerLink="">
-    <img src="../../../../assets/logo.jpg" alt="logo" class="logo">
-    </a>
+  <a routerLink="">
+    <img src="../../../../assets/logo.jpg" alt="logo" class="logo" />
+  </a>
 </div>
-<button class="nav-button"
-    (click)="coreDataService.toggleCatalog();"
-    [ngClass]="{ 'inactive': isButtonActive$$ | async }"
-    >
-    <img *ngIf="!(isButtonActive$$ | async)" src="../../../../assets/catalog.png" alt="catalog" class="nav-button__icon">
-    <img
-    *ngIf="isButtonActive$$ | async"
-     src="../../../../assets/close.png" alt="close" class="nav-button__icon close">
-    Каталог товаров</button>
+<button
+  class="nav-button"
+  (click)="coreDataService.toggleCatalog()"
+  [ngClass]="{ inactive: isCatalogButtonActive$$ | async }"
+>
+  <img
+    *ngIf="!(isCatalogButtonActive$$ | async)"
+    src="../../../../assets/catalog.png"
+    alt="catalog"
+    class="nav-button__icon"
+  />
+  <img
+    *ngIf="isCatalogButtonActive$$ | async"
+    src="../../../../assets/close.png"
+    alt="close"
+    class="nav-button__icon close"
+  />
+  Каталог товаров
+</button>
 <div class="search-wrapper">
-    <img src="../../../../assets/search.png" alt="search" class="search-button"
-    [ngStyle]="{'filter': (isSearchActive) ? 'none' : 'grayScale(1)'}"
-    >
-    <input type="text" class="nav-search" placeholder="Поиск товаров"
-        [(ngModel)]="value"
-        (focus)="isSearchActive=true"
-        (blur)="isSearchActive=false"
-        (input)="setValueToSearch(value)"
-     >
-    <img
-    *ngIf="value.length>0"
-    (click)="value=''"
-     src="../../../../assets/close.png" alt="close" class="close-button">
-     <app-search-results-block *ngIf="value.length>2"></app-search-results-block>
+  <img
+    src="../../../../assets/search.png"
+    alt="search"
+    class="search-button"
+    [ngStyle]="{ filter: isSearchActive ? 'none' : 'grayScale(1)' }"
+  />
+  <input
+    type="text"
+    class="nav-search"
+    placeholder="Поиск товаров"
+    [(ngModel)]="value"
+    (focus)="isSearchActive = true"
+    (blur)="isSearchActive = false"
+    (input)="setValueToSearch(value)"
+  />
+  <img
+    *ngIf="value.length > 0"
+    (click)="value = ''"
+    src="../../../../assets/close.png"
+    alt="close"
+    class="close-button"
+  />
+  <app-search-results-block *ngIf="value.length > 2"></app-search-results-block>
 </div>
+<button
+  (click)="coreDataService.toggleLogInBlock()"
+  [ngClass]="{ inactive: isLogInButtonActive$$ | async }"
+  class="nav-button nav-button__account"
+>
+  <img src="../../../../assets/account.jpg" alt="account" class="nav-button__icon" />
+  Аккаунт {{ !isLogInShown ? '&#9660;' : '&#9650;' }}
+  <div *ngIf="!(isLogInButtonActive$$ | async)" class="nav-button__login">
+    <img src="../../../../assets/account.jpg" alt="avatar" class="nav-button__account-img" />
+    <button (click)="coreDataService.showLoginForm()" class="nav-button__button">Войти</button>
+    <div class="nav-button__line"></div>
+    <p class="nav-button__text">
+      <img src="../../../../assets/cart.png" alt="cart" class="nav-button__icon" />
+      Корзина
+    </p>
+    <p class="nav-button__text">
+      <img src="../../../../assets/heart.png" alt="like" class="nav-button__icon" />
+      Избранные товары
+    </p>
+    <p class="nav-button__text">
+      <img src="../../../../assets/wait.png" alt="wait_list" class="nav-button__icon" />
+      Лист ожидания
+    </p>
+  </div>
+</button>
 <button class="nav-button">
-    <img src="../../../../assets/account.jpg" alt="account" class="nav-button__icon">
-    Аккаунт</button>
-<button class="nav-button">
-    <img src="../../../../assets/cart.png" alt="catalog" class="nav-button__icon">
-    Корзина</button>
+  <img src="../../../../assets/cart.png" alt="catalog" class="nav-button__icon" />
+  Корзина
+</button>

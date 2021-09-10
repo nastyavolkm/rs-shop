@@ -1,28 +1,27 @@
 <div class="contacts">
-    <img src="../../../../../assets/viber.png" alt="viber" class="contacts__logo">
-    <span class="contacts__contact">{{viber}}</span>
+  <img src="../../../../../assets/viber.png" alt="viber" class="contacts__logo" />
+  <span class="contacts__contact">{{ viber }}</span>
 </div>
 <div class="contacts">
-    <img src="../../../../../assets/a1.png" alt="a1" class="contacts__logo">
-    <span class="contacts__contact">{{a1}}</span>
+  <img src="../../../../../assets/a1.png" alt="a1" class="contacts__logo" />
+  <span class="contacts__contact">{{ a1 }}</span>
 </div>
-<div class="contacts__accordion" (click)="isAdditionalContactsShown=!isAdditionalContactsShown">
-    <span class="contacts__accordion-text">Ещё</span>
-    <span *ngIf="!isAdditionalContactsShown">&#9650;</span>
-    <span *ngIf="isAdditionalContactsShown">&#9660;</span>
+<div class="contacts__accordion" (click)="isAdditionalContactsShown = !isAdditionalContactsShown">
+  <span class="contacts__accordion-text">Ещё</span>
+  <span>{{ isAdditionalContactsShown ? '&#9650;' : '&#9660;' }}</span>
 
-<ul *ngIf="isAdditionalContactsShown" class="contacts__accordion-list">
+  <ul *ngIf="isAdditionalContactsShown" class="contacts__accordion-list">
     <li class="contacts__accordion-item">
-        <img src="../../../../../assets/life.png" alt="life" class="contacts__accordion-logo">
-        <span>{{life}}</span>
+      <img src="../../../../../assets/life.png" alt="life" class="contacts__accordion-logo" />
+      <span>{{ life }}</span>
     </li>
     <li class="contacts__accordion-item">
-        <img src="../../../../../assets/static.png" alt="phone" class="contacts__accordion-logo">
-        <span>{{staticPhone}}</span>
+      <img src="../../../../../assets/static.png" alt="phone" class="contacts__accordion-logo" />
+      <span>{{ staticPhone }}</span>
     </li>
     <li class="contacts__accordion-item">
-        <img src="../../../../../assets/telegram.png" alt="phone" class="contacts__accordion-logo">
-        <span>{{telegram}}</span>
+      <img src="../../../../../assets/telegram.png" alt="phone" class="contacts__accordion-logo" />
+      <span>{{ telegram }}</span>
     </li>
-</ul>
+  </ul>
 </div>

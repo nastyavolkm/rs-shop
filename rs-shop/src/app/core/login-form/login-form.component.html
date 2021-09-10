@@ -1,0 +1,12 @@
+<form *ngIf="!(isLoginFormShown$$ | async)" class="login">
+  <label class="login__label">
+    Электронная почта
+    <input type="e-mail" class="login__input" />
+  </label>
+  <label class="login__label">
+    Пароль
+    <input type="password" class="login__input" />
+  </label>
+
+  <button type="submit" class="login__btn">Войти</button>
+</form>

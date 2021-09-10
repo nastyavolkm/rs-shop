@@ -1,0 +1,21 @@
+:host {
+    display: flex;
+    position: relative;
+}
+.login {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+    padding: 10px;
+    box-shadow: 1px 1px 1px 1px var(--hover-color);
+
+    &__label {
+        display: block;
+    }
+
+    &__input {
+        display: block;
+    }
+}
