@@ -1,4 +1,7 @@
+<div class="login-overlay"></div>
 <form *ngIf="!(isLoginFormShown$$ | async)" class="login">
+  <h2 class="login__heading">Вход</h2>
+  <img src="../../../assets/cross.png" alt="close" class="login__cross" />
   <label class="login__label">
     Электронная почта
     <input type="e-mail" class="login__input" />
@@ -9,4 +12,6 @@
   </label>
 
   <button type="submit" class="login__btn">Войти</button>
+  <div class="login__line"></div>
+  <p class="login__registr">Регистрация</p>
 </form>
