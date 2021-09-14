@@ -53,8 +53,8 @@
   class="nav-button nav-button__account"
 >
   <img src="../../../../assets/account.jpg" alt="account" class="nav-button__icon" />
-  Аккаунт {{ !isLogInShown ? '&#9660;' : '&#9650;' }}
-  <div *ngIf="!(isLogInButtonActive$$ | async)" class="nav-button__login">
+  Аккаунт {{ !(isLogInButtonActive$$ | async) ? '&#9660;' : '&#9650;' }}
+  <div *ngIf="isLogInButtonActive$$ | async" class="nav-button__login">
     <img src="../../../../assets/account.jpg" alt="avatar" class="nav-button__account-img" />
     <button (click)="coreDataService.showLoginForm()" class="nav-button__button">Войти</button>
     <div class="nav-button__line"></div>

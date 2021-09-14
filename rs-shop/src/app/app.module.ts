@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -16,6 +17,7 @@ import { CategoriesEffects } from './redux/effects/categoriesEffects';
 import { GoodsEffects } from './redux/effects/goodsEffects';
 import { categoriesReducer } from './redux/reducers/categoriesReducer';
 import { goodsReducer } from './redux/reducers/goodsReducer';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { goodsReducer } from './redux/reducers/goodsReducer';
     AppRoutingModule,
     CoreModule,
     GoodsModule,
+    SharedModule,
     HttpClientModule,
     StoreModule.forRoot({
       categories: categoriesReducer,
@@ -39,6 +42,7 @@ import { goodsReducer } from './redux/reducers/goodsReducer';
   }),
   EffectsModule.forRoot([CategoriesEffects, GoodsEffects]),
   BrowserAnimationsModule,
+  NgbModule,
 ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true },

@@ -13,8 +13,6 @@ export class NavBlockComponent implements OnInit {
 
   isSearchActive = false;
 
-  isLogInShown = false;
-
   isLogInButtonActive$$ = new BehaviorSubject(false);
 
   isCatalogButtonActive$$ = new BehaviorSubject(false);

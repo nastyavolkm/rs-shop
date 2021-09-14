@@ -1,7 +1,12 @@
 <div class="login-overlay"></div>
-<form *ngIf="!(isLoginFormShown$$ | async)" class="login">
+<form class="login">
   <h2 class="login__heading">Вход</h2>
-  <img src="../../../assets/cross.png" alt="close" class="login__cross" />
+  <img
+    (click)="coreDataService.hideLoginForm()"
+    src="../../../assets/cross.png"
+    alt="close"
+    class="login__cross"
+  />
   <label class="login__label">
     Электронная почта
     <input type="e-mail" class="login__input" />

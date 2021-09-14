@@ -15,6 +15,8 @@ export class HeaderComponent implements OnInit {
 
   isCatalogShown$$ = new BehaviorSubject(false);
 
+  isLoginFormShown$$ = new BehaviorSubject(false);
+
   categories$: Observable<ICategory[]> = this.store.pipe(
     select(CategoriesSelectors.categories)
   );
@@ -27,5 +29,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.isCatalogShown$$ = this.coreDataService.isCatalogShown$$;
     this.store.dispatch(CategoriesActions.getCategories());
+    this.isLoginFormShown$$ = this.coreDataService.isLoginFormShown$$;
   }
 }

@@ -87,4 +87,8 @@ export class CoreDataService {
   showLoginForm(): void {
     this.isLoginFormShown$$.next(true);
   }
+
+  hideLoginForm(): void {
+    this.isLoginFormShown$$.next(false);
+  }
 }

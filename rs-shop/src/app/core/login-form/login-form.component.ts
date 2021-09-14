@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CoreDataService } from '../services/core-data.service';
 
@@ -9,14 +9,13 @@ import { CoreDataService } from '../services/core-data.service';
 })
 export class LoginFormComponent implements OnInit {
 
-  isLoginFormShown$$ = new BehaviorSubject(false);
+  @Input() isLoginFormShown$$ = new BehaviorSubject(false);
 
   constructor(
-    private coreDataService: CoreDataService
+    public coreDataService: CoreDataService
   ) { }
 
   ngOnInit(): void {
-    this.isLoginFormShown$$ = this.coreDataService.isLoginFormShown$$;
   }
 
 }

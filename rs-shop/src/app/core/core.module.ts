@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 import { CoreRoutingModule } from './core.routing-module';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
@@ -39,6 +40,7 @@ import { CoreDataService } from './services/core-data.service';
     CommonModule,
     FormsModule,
     CoreRoutingModule,
+    SharedModule,
   ],
   exports: [
     HeaderComponent,
