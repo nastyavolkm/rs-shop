@@ -1,5 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
+import { IGood } from 'src/app/redux/state/good.model';
 
 @Component({
   selector: 'app-carousel',
@@ -8,7 +10,9 @@ import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/n
 })
 export class CarouselComponent {
 
-  images = [62, 83, 466, 965, 982, 1043, 738].map((n) => `https://picsum.photos/id/${n}/900/500`);
+  @Input() goods!: IGood[];
+
+  // images = [62, 83, 466, 965, 982, 1043, 738].map((n) => `https://picsum.photos/id/${n}/900/500`);
 
   paused = false;
   unpauseOnArrow = false;
@@ -19,6 +23,11 @@ export class CarouselComponent {
   @ViewChild('carousel', {static : true})
 
   carousel!: NgbCarousel;
+
+  constructor(
+    public router: Router,
+    public route: ActivatedRoute,
+  ) {}
 
   togglePaused() {
     if (this.paused) {

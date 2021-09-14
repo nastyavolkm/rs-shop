@@ -1,56 +1,27 @@
 <ngb-carousel
+  class="carousel-wrapper"
   #carousel
-  [interval]="1000"
+  [interval]="5000"
   [pauseOnHover]="pauseOnHover"
   [pauseOnFocus]="pauseOnFocus"
   (slide)="onSlide($event)"
 >
-  <ng-template ngbSlide *ngFor="let img of images; index as i">
-    <div class="carousel-caption">
-      <h3>My slide {{ i + 1 }} title</h3>
-    </div>
-    <a
-      href="https://www.google.fr/?q=Number+{{ i + 1 }}"
-      target="_blank"
-      rel="nofollow noopener noreferrer"
+  <ng-template ngbSlide *ngFor="let good of goods">
+    <div
+      (click)="
+        router.navigate(['categories', good.category, good.subCategory, good.id], {
+          relativeTo: route
+        })
+      "
+      class="good-wrapper"
     >
-      <div class="picsum-img-wrapper">
-        <img [src]="img" alt="My image {{ i + 1 }} description" />
+      <div class="picsum-img-wrapper img-wrapper">
+        <img [src]="good.imageUrls[0]" alt="{{ good.name }}" />
       </div>
-    </a>
+      <div class="text">
+        <h3 class="name">{{ good.name }}</h3>
+        <p class="price">{{ good.price }}p.</p>
+      </div>
+    </div>
   </ng-template>
 </ngb-carousel>
-
-<hr />
-
-<div class="form-check">
-  <input type="checkbox" class="form-check-input" id="pauseOnHover" [(ngModel)]="pauseOnHover" />
-  <label class="form-check-label" for="pauseOnHover">Pause on hover</label>
-</div>
-<div class="form-check">
-  <input type="checkbox" class="form-check-input" id="pauseOnFocus" [(ngModel)]="pauseOnFocus" />
-  <label class="form-check-label" for="pauseOnFocus">Pause on focus</label>
-</div>
-<div class="form-check">
-  <input
-    type="checkbox"
-    class="form-check-input"
-    id="unpauseOnArrow"
-    [(ngModel)]="unpauseOnArrow"
-  />
-  <label class="form-check-label" for="unpauseOnArrow">Unpause when clicking on arrows</label>
-</div>
-<div class="form-check">
-  <input
-    type="checkbox"
-    class="form-check-input"
-    id="pauseOnIndicator"
-    [(ngModel)]="pauseOnIndicator"
-  />
-  <label class="form-check-label" for="pauseOnIndicator"
-    >Pause when clicking on navigation indicator</label
-  >
-</div>
-<button type="button" (click)="togglePaused()" class="btn btn-outline-dark btn-sm">
-  {{ paused ? 'Cycle' : 'Pause' }}
-</button>

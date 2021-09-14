@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { IGood } from 'src/app/redux/state/good.model';
+import { goodsForSlider } from '../mock.goods';
 
 @Injectable()
 export class GoodsService {
@@ -21,5 +23,9 @@ export class GoodsService {
 
   getCountOfRating(number: number): number[] {
     return Array(number);
+  }
+
+  getGoodsForSlider(): IGood[] {
+    return goodsForSlider;
   }
 }

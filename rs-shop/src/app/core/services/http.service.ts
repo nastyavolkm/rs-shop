@@ -79,4 +79,10 @@ export class HttpService {
   getGoodById(id: string): Observable<IGood> {
     return this.http.get<IGood>(`${GOODS}/item/${id}`);
   }
+
+  getGoodsByCategory(id: string): Observable<IGood[]> {
+    return this.http.get<IGood[]>(`${GOODS}/category/${id}`).pipe(
+      switchMap((goods) => of(goods.slice(0, 10)))
+    );
+  }
 }
