@@ -1,0 +1,16 @@
+<owl-carousel-o [options]="customOptions" *ngIf="popularGoods">
+  <ng-template carouselSlide>
+    <div class="slide">
+      <div class="img-wrapper" *ngFor="let good of popularGoods.slice(0, 6)">
+        <img src="{{ good.imageUrls[0] }}" />
+      </div>
+    </div>
+  </ng-template>
+  <ng-template carouselSlide>
+    <div class="slide">
+      <div class="img-wrapper" *ngFor="let good of popularGoods.slice(6, 12)">
+        <img src="{{ good.imageUrls[0] }}" />
+      </div>
+    </div>
+  </ng-template>
+</owl-carousel-o>

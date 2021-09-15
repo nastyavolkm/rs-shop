@@ -1,0 +1,28 @@
+:host {
+    display: flex;
+    justify-content: center;
+    width: 80vw;
+    margin: 0 auto;
+}
+.wrapper {
+    width: 100%;
+    display: flex;
+    background-color: var(--hover-color);
+}
+
+.slider-wrapper {
+    display: flex;
+    gap: 20px;
+}
+.picsum-img-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100px;
+    height: 200px;
+    overflow: hidden;
+
+    & > img {
+        width: 90%;
+        align-self: center;
+    }
+}

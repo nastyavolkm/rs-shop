@@ -1,0 +1,17 @@
+.slide {
+    display: flex;
+    gap: 20px;
+}
+
+.img-wrapper {
+    width: 150px;
+    height: 250px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+
+    & > img {
+        width: 90%;
+        align-self: center;
+    }
+}

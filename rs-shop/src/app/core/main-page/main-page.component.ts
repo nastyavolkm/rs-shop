@@ -11,12 +11,15 @@ export class MainPageComponent implements OnInit {
 
   goodsForCarousel!: IGood[];
 
+  popularGoods!: IGood[];
+
   constructor(
     private goodsService: GoodsService,
   ) { }
 
   ngOnInit(): void {
     this.goodsForCarousel = this.goodsService.getGoodsForSlider();
+    this.popularGoods = this.goodsService.getPopularGoods();
   }
 
 }

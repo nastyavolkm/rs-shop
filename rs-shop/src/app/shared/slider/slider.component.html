@@ -1,0 +1,12 @@
+<ngb-carousel *ngIf="popularGoods" class="wrapper">
+  <ng-template ngbSlide>
+    <div class="picsum-img-wrapper" *ngFor="let good of popularGoods.slice(0, 6)">
+      <img [src]="good.imageUrls[0]" alt="Random first slide" />
+    </div>
+  </ng-template>
+  <ng-template ngbSlide>
+    <div class="picsum-img-wrapper" *ngFor="let good of popularGoods.slice(6, 12)">
+      <img [src]="good.imageUrls[0]" alt="Random first slide" />
+    </div>
+  </ng-template>
+</ngb-carousel>
