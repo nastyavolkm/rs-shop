@@ -238,23 +238,21 @@ export const popularGoods = [
         "subCategory": "laptops"
       },
       {
-        "id": "612fe4ecbe8833c5e72318e6",
-        "name": "Ноутбук Apple MacBook Pro 13' M1 2020 256GB / MYD82 (серый космос)",
+        "id": "612e92b298ab3b13c232a9eb",
+        "name": "Портативное зарядное устройство Ritmix RPB-10005 (Black/Indigo)",
         "imageUrls": [
-          "https://cdn21vek.by/img/galleries/6268/637/preview_b/macbookpro13m12020256gbmyd82_apple_5fbe5e5edf498.jpeg",
-          "https://cdn21vek.by/img/galleries/6268/637/preview_b/macbookpro13m12020256gbmyd82_apple_5fbe5e676c227.jpeg",
-          "https://cdn21vek.by/img/galleries/6268/637/preview_b/macbookpro13m12020256gbmyd82_apple_5fbe5e689ba18.jpeg",
-          "https://cdn21vek.by/img/galleries/6268/637/preview_b/macbookpro13m12020256gbmyd82_apple_5fbe5e699f0ae.jpeg",
-          "https://cdn21vek.by/img/galleries/6268/638/preview_b/macbookpro13m12020256gbmyda2_apple_602cde7d2be57.png"
+          "https://cdn21vek.by/img/galleries/5719/667/preview_b/rpb10005_ritmix_01_5dc400bac08be.jpeg",
+          "https://cdn21vek.by/img/galleries/5719/667/preview_b/rpb10005_ritmix_01_5dc400c4c6ea3.jpeg",
+          "https://cdn21vek.by/img/galleries/5719/667/preview_b/rpb10005_ritmix_01_5dc400c4d74de.png"
         ],
         "rating": 5,
-        "price": 9196,
-        "availableAmount": 2,
-        "description": "ut reprehenderit cupidatat reprehenderit aute consectetur labore sint incididunt occaecat deserunt eu quis ut in nostrud incididunt veniam ex deserunt ex quis mollit adipisicing tempor laboris ipsum ullamco irure velit fugiat occaecat enim esse velit ut aute ipsum incididunt nisi",
+        "availableAmount": 18,
+        "price": 31.87,
+        "description": "aliquip non dolor dolore eiusmod aute eiusmod laboris excepteur ipsum occaecat reprehenderit mollit amet consectetur excepteur quis cillum occaecat consectetur voluptate labore esse do laboris adipisicing nulla exercitation enim qui cupidatat nulla irure incididunt id Lorem aliquip mollit enim cupidatat",
         "isInCart": false,
         "isFavorite": false,
-        "category": "computers-peripherals",
-        "subCategory": "laptops"
+        "category": "electronics",
+        "subCategory": "powerbanks"
       },
       {
         "id": "612d43651a5bfcf3f451e492",
@@ -272,21 +270,21 @@ export const popularGoods = [
         "subCategory": "microwaves"
       },
       {
-        "id": "612dc77a37d756be24db9ca4",
-        "name": "Пылесос Polaris PVC 2016 (белый)",
+        "id": "612d47b244584394efa352fd",
+        "name": "Электрочайник Holt HT-KT-009",
         "imageUrls": [
-          "https://cdn21vek.by/img/galleries/525/754/preview_b/pvc2016_polaris_5a69ce63197a9.jpeg",
-          "https://cdn21vek.by/img/galleries/525/754/preview_b/pvc2016_polaris_5a69ce638af54.jpeg",
-          "https://cdn21vek.by/img/galleries/525/754/preview_b/pvc2016_polaris_5a69ce643f07a.jpeg"
+          "https://cdn21vek.by/img/galleries/479/746/preview_b/htkt009_holt_59c8e5ebbfdda.jpeg",
+          "https://cdn21vek.by/img/galleries/479/746/preview_b/htkt009_holt_5c9e0f34afe55.jpeg",
+          "https://cdn21vek.by/img/galleries/479/746/preview_b/htkt009_holt_5c9e0f35a53c8.jpeg"
         ],
-        "rating": 4,
-        "availableAmount": 16,
-        "price": 348.96,
-        "description": "esse ut enim est deserunt do et ea voluptate ut minim consectetur aliqua sunt labore reprehenderit ad esse in duis occaecat dolor cupidatat do id aliqua adipisicing occaecat laboris elit officia cupidatat sit est laborum cupidatat nisi aliqua adipisicing consectetur",
+        "rating": 5,
+        "availableAmount": 19,
+        "price": 73,
+        "description": "esse aliquip adipisicing et culpa deserunt ad aute ex fugiat dolor commodo occaecat adipisicing sunt id elit proident quis quis fugiat sint ullamco nostrud aute reprehenderit Lorem velit nostrud cillum qui ut sunt ex commodo minim laboris laborum quis duis",
         "isInCart": false,
         "isFavorite": false,
         "category": "appliances",
-        "subCategory": "vacuum"
+        "subCategory": "teapots"
       },
       {
         "id": "612dc21266e71dcae0b2614e",

@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { GoodsService } from 'src/app/goods/services/goods.service';
 import { IGood } from 'src/app/redux/state/good.model';
 
 @Component({
@@ -35,5 +37,11 @@ export class PopularCarouselComponent {
     },
     nav: true
   }
+
+  constructor(
+    public goodsService: GoodsService,
+    public router: Router,
+    public route: ActivatedRoute,
+  ) {}
 
 }
