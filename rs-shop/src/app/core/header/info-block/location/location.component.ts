@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { ILocation } from 'src/app/core/models/ILocation.model';
+import { CoreDataService } from 'src/app/core/services/core-data.service';
 
 @Component({
   selector: 'app-location',
@@ -6,14 +10,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./location.component.scss']
 })
 export class LocationComponent implements OnInit {
-  city!: string;
+
+  location$!: Observable<ILocation>;
+
+  city$!: Observable<string>;
 
   isLocationPopUpShown = false;
 
-  constructor() { }
+  constructor(
+    private coreDataService: CoreDataService
+  ) { }
 
   ngOnInit(): void {
-    this.city = 'Минск';
+    this.city$ = this.coreDataService.getLocation().pipe(
+      switchMap((location) => of(location.city))
+    );
   }
 
   toggleLocationPopUp(boolean: boolean) {
@@ -21,7 +32,7 @@ export class LocationComponent implements OnInit {
   }
 
   changeLocation(newCity: string) {
-    this.city = newCity;
+    this.city$ = of(newCity);
   }
 
 }

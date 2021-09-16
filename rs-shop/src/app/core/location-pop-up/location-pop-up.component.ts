@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
 import { CoreDataService } from '../services/core-data.service';
 
 @Component({
@@ -6,8 +6,8 @@ import { CoreDataService } from '../services/core-data.service';
   templateUrl: './location-pop-up.component.html',
   styleUrls: ['./location-pop-up.component.scss']
 })
-export class LocationPopUpComponent implements OnInit {
-  @Input() city!: string;
+export class LocationPopUpComponent implements OnInit, OnDestroy {
+  @Input() city!: string | undefined;
 
   @Output() isShown = new EventEmitter<boolean>();
 
@@ -17,10 +17,17 @@ export class LocationPopUpComponent implements OnInit {
 
   cities: string[] = [];
 
-  constructor(private coreDataService: CoreDataService) { }
+  constructor(private coreDataService: CoreDataService,
+    private renderer: Renderer2)
+      { }
 
   ngOnInit(): void {
+    this.renderer.addClass(document.body, 'modal-open');
     this.cities = this.coreDataService.getCitiesList();
+  }
+
+  ngOnDestroy(): void {
+    this.renderer.removeClass(document.body, 'modal-open');
   }
 
 }

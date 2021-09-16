@@ -1,10 +1,10 @@
 <div class="location" (click)="toggleLocationPopUp(true)">
-    <img src="../../../../../assets/location-icon.png" alt="location" class="location__img">
-    <span class="location__name">{{city}}</span>
+  <img src="../../../../../assets/location-icon.png" alt="location" class="location__img" />
+  <span class="location__name">{{ city$ | async }}</span>
 </div>
-<app-location-pop-up 
-*ngIf="isLocationPopUpShown"
-[city]='city'
-(isShown)="toggleLocationPopUp($event)"
-(newCity)="changeLocation($event)"
+<app-location-pop-up
+  *ngIf="isLocationPopUpShown"
+  [city]="(city$ | async)!"
+  (isShown)="toggleLocationPopUp($event)"
+  (newCity)="changeLocation($event)"
 ></app-location-pop-up>

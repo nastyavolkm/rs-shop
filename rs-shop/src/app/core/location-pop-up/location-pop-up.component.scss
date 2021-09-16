@@ -4,11 +4,19 @@
     align-items: center;
     position: absolute;
     top: 0;
+    left: 0;
     right: 0;
-    width: 100vw;
-    height: 100vh;
+    bottom: 0;
+}
+.location__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-color: rgb(228, 222, 222);
     opacity: .8;
+    z-index: 3000;
 }
 .location-popup {
     position: relative;
@@ -23,6 +31,7 @@
     width: 400px;
     height: 250px;
     border-radius: 5px;
+    z-index: 3010;
 
     &__cross {
         width: 15px;

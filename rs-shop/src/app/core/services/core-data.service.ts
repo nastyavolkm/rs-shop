@@ -1,3 +1,4 @@
+import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, of } from 'rxjs';
@@ -5,6 +6,7 @@ import { switchMap } from 'rxjs/operators';
 import { CategoriesSelectors } from 'src/app/redux/selectors/selectors';
 import { ICategory } from 'src/app/redux/state/category.model';
 import { coreData } from '../mock.header';
+import { ILocation } from '../models/ILocation.model';
 
 @Injectable()
 export class CoreDataService {
@@ -25,7 +27,16 @@ export class CoreDataService {
 
   categoriesByWord$!: Observable<ICategory[]>;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store,
+    private customHttp: HttpClient,
+    private backend: HttpBackend,
+    ) {
+      this.customHttp = new HttpClient(backend);
+    }
+
+  getLocation(): Observable<ILocation> {
+    return this.customHttp.get<ILocation>('http://ip-api.com/json/?lang=ru');
+  }
 
   getOpenTime(): string {
     return coreData.openHours.openTime;
