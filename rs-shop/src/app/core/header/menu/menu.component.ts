@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ICategory, ISelectedCategory } from 'src/app/redux/state/category.model';
+import { ICategory } from 'src/app/redux/state/category.model';
 import { CoreDataService } from '../../services/core-data.service';
 
 @Component({
@@ -13,7 +13,9 @@ export class MenuComponent implements OnInit {
 
   @Input() categories$!: Observable<ICategory[]>;
 
-  selectedCategory!: ISelectedCategory;
+  selectedCategory!: ICategory;
+
+  selectedIndex!: number;
 
   constructor(
     public router: Router,
@@ -22,7 +24,8 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSelect(category: ICategory): void {
-    this.selectedCategory = { ...category, "isActive": true };
+  onSelect(category: ICategory, i: number): void {
+    this.selectedCategory = category;
+    this.selectedIndex = i;
   }
 }

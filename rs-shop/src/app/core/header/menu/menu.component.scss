@@ -1,12 +1,12 @@
 :host {
     position: absolute;
     left: 40px;
-    top: 179px;
+    top: 180px;
 }
 .menu {
     display: flex;
     height: 220px;
-    box-shadow: 1px 1px 1px 1px var(--main-color);
+    box-shadow: 1px 1px 1px 1px var(--hover-color);
     background-color: white;
 
     &__list {
@@ -34,16 +34,6 @@
 
         &:hover {
             background-color: var(--hover-color);
-            // & > .menu__sublist {
-            //     display: flex;
-            //     flex-direction: column;
-            //     flex-wrap: wrap;
-            //     position: fixed;
-            //     left: 241px;
-            //     top: 150px;
-            //     right: 40px;
-            //     background-color: white;
-            // }
         }
     }
 
@@ -55,7 +45,6 @@
     }
 
     &__sublist {
-        // display: none;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;

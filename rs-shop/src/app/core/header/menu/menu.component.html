@@ -1,31 +1,35 @@
 <div class="menu">
-    <ul *ngIf="(categories$ | async) as categories" class="menu__list">
-        <li class="menu__item"
-        *ngFor="let category of categories"
-        (mouseenter)="onSelect(category)"
-        (click)="coreDataService.toggleCatalog()"
-        ><a routerLink='categories/{{category.id}}'>
-        <img src="../../../../assets/{{category.id}}.svg" alt="icon" class="menu__icon">
-        {{category.name}}
-                <ul
-                    *ngIf="selectedCategory; else initialCategory"
-                    class="menu__sublist">
-                <h4 class="menu__sublist-heading">{{selectedCategory.name}}</h4>
-                <li class="menu__subitem"
-                *ngFor="let subcategory of selectedCategory.subCategories"
-                >{{subcategory.name}}
-                </li>
-                </ul>
-                <ng-template #initialCategory>
-                    <ul class="menu__sublist">
-                    <h4 class="menu__sublist-heading">{{categories[0].name}}</h4>
-                    <li class="menu__subitem"
-                        *ngFor="let subcategory of categories[0].subCategories"
-                    >{{subcategory.name}}
-                    </li>
-                    </ul>
-                </ng-template>
-            </a>
-        </li>
+  <ul *ngIf="categories$ | async as categories" class="menu__list">
+    <li
+      class="menu__item"
+      *ngFor="let category of categories; let i = index; first as isFirst"
+      (mouseenter)="onSelect(category, i)"
+      (click)="coreDataService.toggleCatalog()"
+      [ngStyle]="{
+        'background-color':
+          (!selectedCategory && isFirst) || selectedIndex === i
+            ? 'var(--hover-color)'
+            : 'transparent'
+      }"
+    >
+      <a routerLink="categories/{{ category.id }}">
+        <img src="../../../../assets/{{ category.id }}.svg" alt="icon" class="menu__icon" />
+        {{ category.name }}
+      </a>
+    </li>
+  </ul>
+  <ul *ngIf="selectedCategory; else initialCategory" class="menu__sublist">
+    <h4 class="menu__sublist-heading">{{ selectedCategory.name }}</h4>
+    <li class="menu__subitem" *ngFor="let subcategory of selectedCategory.subCategories">
+      {{ subcategory.name }}
+    </li>
+  </ul>
+  <ng-template #initialCategory>
+    <ul class="menu__sublist">
+      <h4 class="menu__sublist-heading">{{ (categories$ | async)![0].name }}</h4>
+      <li class="menu__subitem" *ngFor="let subcategory of (categories$ | async)![0].subCategories">
+        {{ subcategory.name }}
+      </li>
     </ul>
+  </ng-template>
 </div>

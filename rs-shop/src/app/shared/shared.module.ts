@@ -6,14 +6,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { CarouselComponent } from './carousel/carousel.component';
 import { PopularCarouselComponent } from './popular-carousel/popular-carousel.component';
-import { SliderComponent } from './slider/slider.component';
-
 
 
 @NgModule({
   declarations: [
     CarouselComponent,
-    SliderComponent,
     PopularCarouselComponent
   ],
   imports: [
@@ -23,6 +20,6 @@ import { SliderComponent } from './slider/slider.component';
     NgbModule,
     CarouselModule,
   ],
-  exports: [CarouselComponent, SliderComponent, PopularCarouselComponent],
+  exports: [CarouselComponent, PopularCarouselComponent],
 })
 export class SharedModule {}
