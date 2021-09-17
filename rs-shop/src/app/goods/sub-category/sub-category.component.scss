@@ -1,5 +1,8 @@
 .subcategory {
     padding: 10px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     &__heading-sort-wrapper {
         display: flex;
@@ -11,6 +14,13 @@
         color: var(--button-text-color);
         margin-bottom: 10px;
         font-weight: normal;
+    }
+
+    &__goods-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
     }
     &__list {
         display: flex;
@@ -28,6 +38,17 @@
 
     &__sort {
         cursor: pointer;
+        &:hover {
+            color: var(--button-text-color);
+        }
+    }
+
+    &__pagination-btn {
+        margin: 0 auto;
+        text-decoration: underline;
+        color: var(--main-color);
+        cursor: pointer;
+
         &:hover {
             color: var(--button-text-color);
         }

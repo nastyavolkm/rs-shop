@@ -6,6 +6,8 @@ import { IGood } from 'src/app/redux/state/good.model';
 import { ISubCategory } from 'src/app/redux/state/subcategory.model';
 import { GoodsService } from '../services/goods.service';
 
+const GOODS_LIMIT = 10;
+
 @Component({
   selector: 'app-sub-category',
   templateUrl: './sub-category.component.html',
@@ -16,6 +18,8 @@ export class SubCategoryComponent implements OnInit, OnDestroy {
   subCategory$!: Observable<ISubCategory | undefined>;
 
   goods$!: Observable<IGood[]>;
+
+  newGoods$!: Observable<IGood[]>;
 
   id = '';
 
@@ -28,6 +32,10 @@ export class SubCategoryComponent implements OnInit, OnDestroy {
   option$$ = this.goodsService.option$$;
 
   directionAsc$$ = this.goodsService.directionAsc$$;
+
+  start = 0;
+
+  goodsPerPage = GOODS_LIMIT;
 
   constructor(
     private route: ActivatedRoute,
@@ -45,6 +53,26 @@ export class SubCategoryComponent implements OnInit, OnDestroy {
     this.subCategory$ = this.httpService.getSubCategoryById(this.id);
     this.goods$ = this.httpService.getGoodsBySubCategoryId(this.id);
     });
+  }
+
+  showMoreGoods(): void {
+    this.goodsPerPage = this.goodsPerPage + GOODS_LIMIT;
+
+    // this.start = this.start + this.goodsPerPage;
+    // this.goodsPerPage += this.goodsPerPage;
+    // this.newGoods$ = this.httpService.getGoodsBySubCategoryId(this.id, this.start, this.goodsPerPage);
+    // this.goods$ = forkJoin({
+    //   goods: this.goods$,
+    //   newGoods: this.newGoods$,
+    // }).pipe(
+    //   switchMap((data) => {
+    //     return of([...data.goods, ...data.newGoods])
+    //   } )
+    // );
+  }
+
+  showLessGoods(): void {
+    this.goodsPerPage = this.goodsPerPage - GOODS_LIMIT;
   }
 
   ngOnDestroy(): void {

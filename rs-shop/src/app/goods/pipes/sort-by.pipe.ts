@@ -24,10 +24,10 @@ export class SortByPipe implements PipeTransform {
       const el1 = pathStr.reduce((acc, key) => acc[key], a);
       const el2 = pathStr.reduce((acc, key) => acc[key], b);
       if ((el1) < (el2)) {
-          return -1;
+          return 1;
       }
       if ((el1) > (el2)) {
-          return 1;
+          return -1;
       }
       return 0;
   });

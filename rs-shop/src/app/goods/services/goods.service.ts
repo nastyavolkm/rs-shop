@@ -8,7 +8,7 @@ export class GoodsService {
 
   option$$ = new BehaviorSubject('');
 
-  directionAsc$$ = new BehaviorSubject(true);
+  directionAsc$$ = new BehaviorSubject(false);
 
   constructor() { }
 
