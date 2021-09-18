@@ -56,6 +56,7 @@
   Аккаунт {{ !(isLogInButtonActive$$ | async) ? '&#9660;' : '&#9650;' }}
   <div *ngIf="isLogInButtonActive$$ | async" class="nav-button__login">
     <img src="../../../../assets/account.jpg" alt="avatar" class="nav-button__account-img" />
+    <p class="nav-button__login" *ngIf="login$ | async as login">{{ login.token }}</p>
     <button (click)="coreDataService.showLoginForm()" class="nav-button__button">Войти</button>
     <div class="nav-button__line"></div>
     <p class="nav-button__text">

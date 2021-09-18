@@ -1,5 +1,5 @@
 <div class="login-overlay"></div>
-<form class="login">
+<form class="login" (ngSubmit)="httpService.loginUser(form)" ngNativeValidate #form="ngForm">
   <h2 class="login__heading">Вход</h2>
   <img
     (click)="coreDataService.hideLoginForm()"
@@ -8,13 +8,16 @@
     class="login__cross"
   />
   <label class="login__label">
-    Электронная почта
-    <input type="e-mail" class="login__input" />
+    Логин
+    <input type="text" class="login__input" name="login" ngModel required />
   </label>
   <label class="login__label">
     Пароль
-    <input type="password" class="login__input" />
+    <input type="password" class="login__input" name="password" ngModel required />
   </label>
+  <p class="login__warning" *ngIf="areCredentialsInvalid$$ | async">
+    Неверное имя пользователя или пароль!
+  </p>
 
   <button type="submit" class="login__btn">Войти</button>
   <div class="login__line"></div>
