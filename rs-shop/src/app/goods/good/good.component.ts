@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IGood } from 'src/app/redux/state/good.model';
 import { GoodsService } from '../services/goods.service';
@@ -8,7 +8,7 @@ import { GoodsService } from '../services/goods.service';
   templateUrl: './good.component.html',
   styleUrls: ['./good.component.scss'],
 })
-export class GoodComponent implements OnInit {
+export class GoodComponent {
   @Input() good!: IGood;
 
   @Input() goods: IGood[] = [];
@@ -26,6 +26,4 @@ export class GoodComponent implements OnInit {
     public router: Router,
     public route: ActivatedRoute,
   ) {}
-
-  ngOnInit(): void {}
 }

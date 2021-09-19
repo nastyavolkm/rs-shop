@@ -31,7 +31,8 @@ export class CoreDataService {
     private store: Store,
     private customHttp: HttpClient,
     private backend: HttpBackend,
-    private router: Router) {
+    private router: Router,
+  ) {
     this.customHttp = new HttpClient(this.backend);
   }
 
@@ -90,7 +91,6 @@ export class CoreDataService {
   showCartBlock(): void {
     this.isCartButtonActive$$.next(true);
     this.router.navigateByUrl('cart');
-
   }
 
   getCategoriesByWord(value: string): void {

@@ -15,7 +15,6 @@ const UNLOGGED_USER = 'unLoggedUser';
 
 @Injectable()
 export class AuthService {
-
   isLoginFormShown$$ = new BehaviorSubject(false);
 
   areCredentialsInvalid$$ = new BehaviorSubject(false);
@@ -42,9 +41,9 @@ export class AuthService {
 
   registerUser(form: NgForm): Observable<IToken> {
     const body = form.value;
-    return this.http.post<IToken>(`${USERS}/register`, body).pipe(
-      catchError(this.handleLoginError)
-    );
+    return this.http
+      .post<IToken>(`${USERS}/register`, body)
+      .pipe(catchError(this.handleLoginError));
   }
 
   loginUser(form: NgForm): Observable<IToken> {
@@ -64,9 +63,7 @@ export class AuthService {
   }
 
   getUserInfo(token: IToken): Observable<IUser> {
-    const headers = new HttpHeaders(
-      { Authorization: `Bearer ${token.token}` }
-    );
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token.token}` });
 
     return this.http.get<IUser>(`${USERS}/userInfo`, { headers });
   }
@@ -75,7 +72,7 @@ export class AuthService {
     localStorage.setItem(CURRENT_USER, JSON.stringify(user));
   }
 
-  getCurrentUser(): Observable<IUser| undefined>{
+  getCurrentUser(): Observable<IUser | undefined> {
     const currentUser = localStorage.getItem(CURRENT_USER);
     if (typeof currentUser === 'string') {
       return of(JSON.parse(currentUser));
@@ -87,7 +84,7 @@ export class AuthService {
     localStorage.setItem(UNLOGGED_USER, JSON.stringify(unLoggedUser));
   }
 
-  getUnLoggedUser(): Observable<IUnLoggedUser| undefined>{
+  getUnLoggedUser(): Observable<IUnLoggedUser | undefined> {
     const currentUser = localStorage.getItem(UNLOGGED_USER);
     if (typeof currentUser === 'string') {
       return of(JSON.parse(currentUser));

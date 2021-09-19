@@ -10,16 +10,16 @@ import { CoreDataService } from '../services/core-data.service';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.scss']
+  styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit, OnDestroy {
-
   user$!: Observable<IUser | IUnLoggedUser | undefined>;
 
   constructor(
     private coreDataservice: CoreDataService,
     private authService: AuthService,
-    public location: Location) { }
+    public location: Location,
+  ) {}
 
   ngOnInit(): void {
     this.coreDataservice.isCartButtonActive$$.next(true);
@@ -31,24 +31,21 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   checkLogin(): void {
-    this.user$ = this.authService.getCurrentUser()
-    .pipe(
+    this.user$ = this.authService.getCurrentUser().pipe(
       switchMap((user) => {
         if (user === undefined) {
-          const unLoggedUser:IUnLoggedUser = {
+          const unLoggedUser: IUnLoggedUser = {
             firstName: '',
             lastName: '',
             cart: [],
             favorites: [],
-
           };
           this.authService.saveUnLoggedUser(unLoggedUser);
           return this.authService.getUnLoggedUser();
         } else {
           return of(user);
         }
-      })
+      }),
     );
   }
-
 }

@@ -19,8 +19,11 @@ export class HeaderComponent implements OnInit {
 
   categories$: Observable<ICategory[]> = this.store.pipe(select(CategoriesSelectors.categories));
 
-  constructor(private coreDataService: CoreDataService, private store: Store, private authService:
-     AuthService) {}
+  constructor(
+    private coreDataService: CoreDataService,
+    private store: Store,
+    private authService: AuthService,
+  ) {}
 
   ngOnInit(): void {
     this.isCatalogShown$$ = this.coreDataService.isCatalogShown$$;

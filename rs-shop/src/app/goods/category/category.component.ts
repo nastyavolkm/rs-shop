@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
@@ -9,7 +9,7 @@ import { ICategory } from 'src/app/redux/state/category.model';
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss'],
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent implements OnInit, OnDestroy {
   category$!: Observable<ICategory | undefined>;
 
   subscribe!: any;

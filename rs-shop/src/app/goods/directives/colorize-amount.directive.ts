@@ -1,9 +1,9 @@
-import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appColorizeAmount]',
 })
-export class ColorizeAmountDirective {
+export class ColorizeAmountDirective implements OnChanges {
   @Input() amount!: number;
 
   constructor(private el: ElementRef, private renderer: Renderer2) {}

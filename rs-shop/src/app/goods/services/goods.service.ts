@@ -9,8 +9,6 @@ export class GoodsService {
 
   directionAsc$$ = new BehaviorSubject(false);
 
-  constructor() {}
-
   toggleColor(event: Event): void {
     (event.target as HTMLElement).classList.add();
   }

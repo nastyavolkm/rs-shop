@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../services/auth.service';

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ICategory } from 'src/app/redux/state/category.model';
 
@@ -7,10 +7,6 @@ import { ICategory } from 'src/app/redux/state/category.model';
   templateUrl: './nav-categories-block.component.html',
   styleUrls: ['./nav-categories-block.component.scss'],
 })
-export class NavCategoriesBlockComponent implements OnInit {
+export class NavCategoriesBlockComponent {
   @Input() categories$!: Observable<ICategory[]>;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }
