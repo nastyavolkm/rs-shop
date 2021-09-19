@@ -75,6 +75,10 @@
         height: 1px;
         background-color: var(--main-color);
     }
+
+    &__user {
+        text-align: center;
+    }
 }
 
 .search-wrapper {

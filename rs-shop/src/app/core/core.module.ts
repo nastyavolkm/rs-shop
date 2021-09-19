@@ -16,7 +16,10 @@ import { LocationPopUpComponent } from './location-pop-up/location-pop-up.compon
 import { LoginFormComponent } from './login-form/login-form.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { Page404Component } from './page404/page404.component';
+import { AuthService } from './services/auth.service';
 import { CoreDataService } from './services/core-data.service';
+import { LoginInfoComponent } from './header/nav-block/login-info/login-info.component';
+import { RegistrationComponent } from './login-form/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,8 @@ import { CoreDataService } from './services/core-data.service';
     MainPageComponent,
     Page404Component,
     LoginFormComponent,
+    LoginInfoComponent,
+    RegistrationComponent,
   ],
   imports: [CommonModule, FormsModule, CoreRoutingModule, SharedModule],
   exports: [
@@ -42,6 +47,6 @@ import { CoreDataService } from './services/core-data.service';
     MainPageComponent,
     Page404Component,
   ],
-  providers: [CoreDataService],
+  providers: [CoreDataService, AuthService],
 })
 export class CoreModule {}

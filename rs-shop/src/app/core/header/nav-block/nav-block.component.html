@@ -9,7 +9,7 @@
   [ngClass]="{ inactive: isCatalogButtonActive$$ | async }"
 >
   <img
-    *ngIf="!(isCatalogButtonActive$$ | async)"
+    *ngIf="(isCatalogButtonActive$$ | async) === false"
     src="../../../../assets/catalog.png"
     alt="catalog"
     class="nav-button__icon"
@@ -53,25 +53,8 @@
   class="nav-button nav-button__account"
 >
   <img src="../../../../assets/account.jpg" alt="account" class="nav-button__icon" />
-  Аккаунт {{ !(isLogInButtonActive$$ | async) ? '&#9660;' : '&#9650;' }}
-  <div *ngIf="isLogInButtonActive$$ | async" class="nav-button__login">
-    <img src="../../../../assets/account.jpg" alt="avatar" class="nav-button__account-img" />
-    <p class="nav-button__login" *ngIf="login$ | async as login">{{ login.token }}</p>
-    <button (click)="coreDataService.showLoginForm()" class="nav-button__button">Войти</button>
-    <div class="nav-button__line"></div>
-    <p class="nav-button__text">
-      <img src="../../../../assets/cart.png" alt="cart" class="nav-button__icon" />
-      Корзина
-    </p>
-    <p class="nav-button__text">
-      <img src="../../../../assets/heart.png" alt="like" class="nav-button__icon" />
-      Избранные товары
-    </p>
-    <p class="nav-button__text">
-      <img src="../../../../assets/wait.png" alt="wait_list" class="nav-button__icon" />
-      Лист ожидания
-    </p>
-  </div>
+  Аккаунт {{ (isLogInButtonActive$$ | async) === false ? '&#9660;' : '&#9650;' }}
+  <app-login-info *ngIf="isLogInButtonActive$$ | async"></app-login-info>
 </button>
 <button class="nav-button">
   <img src="../../../../assets/cart.png" alt="catalog" class="nav-button__icon" />

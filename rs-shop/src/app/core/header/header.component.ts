@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CategoriesActions } from 'src/app/redux/actions/categoriesActions';
-import { CategoriesSelectors } from 'src/app/redux/selectors/selectors';
-import { ICategory } from 'src/app/redux/state/category.model';
+import { CategoriesActions } from '../../redux/actions/categoriesActions';
+import { CategoriesSelectors } from '../../redux/selectors/selectors';
+import { ICategory } from '../../redux/state/category.model';
+import { AuthService } from '../services/auth.service';
 import { CoreDataService } from '../services/core-data.service';
 
 @Component({
@@ -18,11 +19,12 @@ export class HeaderComponent implements OnInit {
 
   categories$: Observable<ICategory[]> = this.store.pipe(select(CategoriesSelectors.categories));
 
-  constructor(private coreDataService: CoreDataService, private store: Store) {}
+  constructor(private coreDataService: CoreDataService, private store: Store, private authService:
+     AuthService) {}
 
   ngOnInit(): void {
     this.isCatalogShown$$ = this.coreDataService.isCatalogShown$$;
     this.store.dispatch(CategoriesActions.getCategories());
-    this.isLoginFormShown$$ = this.coreDataService.isLoginFormShown$$;
+    this.isLoginFormShown$$ = this.authService.isLoginFormShown$$;
   }
 }

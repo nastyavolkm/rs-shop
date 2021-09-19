@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { GoodsActions } from 'src/app/redux/actions/goodsActions';
-import { IToken } from '../../models/IToken.model';
+import { BehaviorSubject } from 'rxjs';
+import { GoodsActions } from '../../../redux/actions/goodsActions';
+import { AuthService } from '../../services/auth.service';
 import { CoreDataService } from '../../services/core-data.service';
-import { HttpService } from '../../services/http.service';
 
 @Component({
   selector: 'app-nav-block',
@@ -20,18 +19,15 @@ export class NavBlockComponent implements OnInit {
 
   value = '';
 
-  login$!: Observable<IToken>;
-
   constructor(
     public coreDataService: CoreDataService,
-    private httpService: HttpService,
+    public authService: AuthService,
     private store: Store,
   ) {}
 
   ngOnInit(): void {
     this.isCatalogButtonActive$$ = this.coreDataService.isCatalogButtonActive$$;
     this.isLogInButtonActive$$ = this.coreDataService.isLogInButtonActive$$;
-    this.login$ = this.httpService.token$;
   }
 
   setValueToSearch(value: string): void {

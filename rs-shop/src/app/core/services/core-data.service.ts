@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { CategoriesSelectors } from 'src/app/redux/selectors/selectors';
-import { ICategory } from 'src/app/redux/state/category.model';
+import { CategoriesSelectors } from '../../redux/selectors/selectors';
+import { ICategory } from '../../redux/state/category.model';
 import { coreData } from '../mock.header';
 import { ILocation } from '../models/ILocation.model';
 
@@ -21,8 +21,6 @@ export class CoreDataService {
   isLogInButtonActive = false;
 
   isLogInButtonActive$$ = new BehaviorSubject(this.isLogInButtonActive);
-
-  isLoginFormShown$$ = new BehaviorSubject(false);
 
   categoriesByWord$!: Observable<ICategory[]>;
 
@@ -94,13 +92,5 @@ export class CoreDataService {
         );
       }),
     );
-  }
-
-  showLoginForm(): void {
-    this.isLoginFormShown$$.next(true);
-  }
-
-  hideLoginForm(): void {
-    this.isLoginFormShown$$.next(false);
   }
 }

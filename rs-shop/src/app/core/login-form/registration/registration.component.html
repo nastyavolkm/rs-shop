@@ -1,0 +1,40 @@
+<form
+  [ngStyle]="{ visibility: (isRegistrationSuccessful$$ | async) ? 'hidden' : 'visible' }"
+  class="registr"
+  (ngSubmit)="registerUser(form)"
+  ngNativeValidate
+  #form="ngForm"
+>
+  <h2 class="registr__heading">Регистрация</h2>
+  <div class="registr__back-wrapper" (click)="authService.hideRegistration()">
+    <img src="../../../../assets/back.png" alt="back" class="registr__back-icon" />
+    <span class="registr__back-text">Назад</span>
+  </div>
+  <img
+    (click)="authService.hideLoginForm()"
+    src="../../../assets/cross.png"
+    alt="close"
+    class="registr__cross"
+  />
+  <label class="registr__label">
+    Придумайте логин
+    <input type="text" class="registr__input" name="login" ngModel required />
+  </label>
+  <label class="registr__label registr__label-password">
+    Введите пароль
+    <input type="password" class="registr__input" name="password" ngModel required />
+  </label>
+  <label class="registr__label">
+    Введите имя
+    <input type="text" class="registr__input" name="firstName" ngModel required />
+  </label>
+  <label class="registr__label">
+    Введите фамилию
+    <input type="text" class="registr__input" name="lastName" ngModel required />
+  </label>
+
+  <button type="submit" class="registr__btn">Продолжить</button>
+</form>
+<div *ngIf="isRegistrationSuccessful$$ | async" class="registr__success-wrapper">
+  <div class="registr__success">Поздравляем! Вы успешно зарегистрированы!</div>
+</div>

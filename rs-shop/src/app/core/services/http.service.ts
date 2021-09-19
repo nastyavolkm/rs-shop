@@ -1,19 +1,17 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { PRIMARY_OUTLET, Router, UrlSegment, UrlSegmentGroup, UrlTree } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { catchError, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { CategoriesSelectors } from 'src/app/redux/selectors/selectors';
-import { ICategory } from 'src/app/redux/state/category.model';
-import { IGood } from 'src/app/redux/state/good.model';
-import { ISubCategory } from 'src/app/redux/state/subcategory.model';
+import { Observable, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { CategoriesSelectors } from '../../redux/selectors/selectors';
+import { ICategory } from '../../redux/state/category.model';
+import { IGood } from '../../redux/state/good.model';
+import { ISubCategory } from '../../redux/state/subcategory.model';
 import { IToken } from '../models/IToken.model';
 
 const CATEGORIES = 'categories';
 const GOODS = 'goods';
-const USERS = 'users';
 
 @Injectable({
   providedIn: 'root',
@@ -22,8 +20,6 @@ export class HttpService {
   goods$!: Observable<IGood[]>;
 
   token$!: Observable<IToken>;
-
-  areCredentialsInvalid$$ = new BehaviorSubject(false);
 
   constructor(private http: HttpClient, private store: Store, private router: Router) {}
 
@@ -76,33 +72,5 @@ export class HttpService {
 
   getGoodById(id: string): Observable<IGood> {
     return this.http.get<IGood>(`${GOODS}/item/${id}`);
-  }
-
-  loginUser(form: NgForm): Observable<IToken> {
-    const body = form.value;
-    return this.http.post<IToken>(`${USERS}/login`, body).pipe(
-      catchError((error: HttpErrorResponse) => {
-        let errorMessage = '';
-        if (error.status === 0) {
-          errorMessage = error.error;
-        } else {
-          errorMessage = error.error;
-        }
-        this.areCredentialsInvalid$$.next(true);
-        return throwError(errorMessage);
-      }),
-    );
-  }
-
-  getUserInfo(token: IToken): void {}
-
-  handleLoginError(error: HttpErrorResponse) {
-    let errorMessage = '';
-    if (error.status === 0) {
-      errorMessage = error.error;
-    } else {
-      errorMessage = error.error;
-    }
-    return throwError(errorMessage);
   }
 }

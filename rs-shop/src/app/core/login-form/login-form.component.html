@@ -1,8 +1,14 @@
 <div class="login-overlay"></div>
-<form class="login" (ngSubmit)="loginUser(form)" ngNativeValidate #form="ngForm">
+<form
+  [ngStyle]="{ visibility: (isRegistrationShown$$ | async) ? 'hidden' : 'visible' }"
+  class="login"
+  (ngSubmit)="loginUser(form)"
+  ngNativeValidate
+  #form="ngForm"
+>
   <h2 class="login__heading">Вход</h2>
   <img
-    (click)="coreDataService.hideLoginForm()"
+    (click)="authService.hideLoginForm()"
     src="../../../assets/cross.png"
     alt="close"
     class="login__cross"
@@ -22,5 +28,6 @@
 
   <button type="submit" class="login__btn">Войти</button>
   <div class="login__line"></div>
-  <p class="login__registr">Регистрация</p>
+  <p class="login__registr" (click)="authService.showRegistration()">Регистрация</p>
 </form>
+<app-registration *ngIf="isRegistrationShown$$ | async"></app-registration>
