@@ -8,10 +8,9 @@ import { GoodsService } from '../services/goods.service';
 @Component({
   selector: 'app-detailed-good',
   templateUrl: './detailed-good.component.html',
-  styleUrls: ['./detailed-good.component.scss']
+  styleUrls: ['./detailed-good.component.scss'],
 })
 export class DetailedGoodComponent implements OnInit, OnDestroy {
-
   good$!: Observable<IGood | undefined>;
 
   subscribe!: any;
@@ -30,17 +29,17 @@ export class DetailedGoodComponent implements OnInit, OnDestroy {
     private httpService: HttpService,
     private route: ActivatedRoute,
     public goodsService: GoodsService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getGood();
   }
 
   getGood(): void {
-    this.subscribe = this.route.params.subscribe(params => {
-      this.id = params['id'];
+    this.subscribe = this.route.params.subscribe((params) => {
+      this.id = params.id;
       this.good$ = this.httpService.getGoodById(this.id);
-    })
+    });
   }
 
   onSelect(image: string, i: number): void {
@@ -51,5 +50,4 @@ export class DetailedGoodComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscribe.unsubscribe();
   }
-
 }

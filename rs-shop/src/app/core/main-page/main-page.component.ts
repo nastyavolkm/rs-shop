@@ -5,21 +5,17 @@ import { IGood } from 'src/app/redux/state/good.model';
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
-  styleUrls: ['./main-page.component.scss']
+  styleUrls: ['./main-page.component.scss'],
 })
 export class MainPageComponent implements OnInit {
-
   goodsForCarousel!: IGood[];
 
   popularGoods!: IGood[];
 
-  constructor(
-    private goodsService: GoodsService,
-  ) { }
+  constructor(private goodsService: GoodsService) {}
 
   ngOnInit(): void {
     this.goodsForCarousel = this.goodsService.getGoodsForSlider();
     this.popularGoods = this.goodsService.getPopularGoods();
   }
-
 }

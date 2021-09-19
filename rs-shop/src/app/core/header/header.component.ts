@@ -9,22 +9,16 @@ import { CoreDataService } from '../services/core-data.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-
   isCatalogShown$$ = new BehaviorSubject(false);
 
   isLoginFormShown$$ = new BehaviorSubject(false);
 
-  categories$: Observable<ICategory[]> = this.store.pipe(
-    select(CategoriesSelectors.categories)
-  );
+  categories$: Observable<ICategory[]> = this.store.pipe(select(CategoriesSelectors.categories));
 
-  constructor(
-    private coreDataService: CoreDataService,
-    private store: Store
-    ) {}
+  constructor(private coreDataService: CoreDataService, private store: Store) {}
 
   ngOnInit(): void {
     this.isCatalogShown$$ = this.coreDataService.isCatalogShown$$;

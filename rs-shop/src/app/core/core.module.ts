@@ -18,8 +18,6 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { Page404Component } from './page404/page404.component';
 import { CoreDataService } from './services/core-data.service';
 
-
-
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -34,14 +32,9 @@ import { CoreDataService } from './services/core-data.service';
     NavCategoriesBlockComponent,
     MainPageComponent,
     Page404Component,
-    LoginFormComponent
+    LoginFormComponent,
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    CoreRoutingModule,
-    SharedModule,
-  ],
+  imports: [CommonModule, FormsModule, CoreRoutingModule, SharedModule],
   exports: [
     HeaderComponent,
     FooterComponent,
@@ -51,4 +44,4 @@ import { CoreDataService } from './services/core-data.service';
   ],
   providers: [CoreDataService],
 })
-export class CoreModule { }
+export class CoreModule {}

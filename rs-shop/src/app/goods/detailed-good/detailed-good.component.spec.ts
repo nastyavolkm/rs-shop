@@ -8,9 +8,8 @@ describe('DetailedGoodComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DetailedGoodComponent ]
-    })
-    .compileComponents();
+      declarations: [DetailedGoodComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

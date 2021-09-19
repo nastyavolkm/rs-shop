@@ -9,24 +9,17 @@ import { IGood } from 'src/app/redux/state/good.model';
 @Component({
   selector: 'app-search-results-block',
   templateUrl: './search-results-block.component.html',
-  styleUrls: ['./search-results-block.component.scss']
+  styleUrls: ['./search-results-block.component.scss'],
 })
 export class SearchResultsBlockComponent implements OnInit {
-
   goods$!: Observable<IGood[]>;
 
   categories$!: Observable<ICategory[]>;
 
-  constructor(
-    private store: Store,
-    private coreDataService: CoreDataService,
-  ) { }
+  constructor(private store: Store, private coreDataService: CoreDataService) {}
 
   ngOnInit(): void {
     this.categories$ = this.coreDataService.categoriesByWord$;
-    this.goods$ = this.store.pipe(
-      select(GoodsSelectors.goods)
-    );
+    this.goods$ = this.store.pipe(select(GoodsSelectors.goods));
   }
-
 }

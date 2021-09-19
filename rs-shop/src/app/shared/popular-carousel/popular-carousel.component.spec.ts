@@ -8,9 +8,8 @@ describe('PopularCarouselComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PopularCarouselComponent ]
-    })
-    .compileComponents();
+      declarations: [PopularCarouselComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

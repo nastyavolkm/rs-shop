@@ -11,8 +11,6 @@ import { SortByPipe } from './pipes/sort-by.pipe';
 import { GoodsService } from './services/goods.service';
 import { SubCategoryComponent } from './sub-category/sub-category.component';
 
-
-
 @NgModule({
   declarations: [
     CategoryComponent,
@@ -21,20 +19,10 @@ import { SubCategoryComponent } from './sub-category/sub-category.component';
     CatalogPageComponent,
     DetailedGoodComponent,
     ColorizeAmountDirective,
-    SortByPipe
+    SortByPipe,
   ],
-  imports: [
-    CommonModule,
-    GoodsRoutingModule,
-    NgxPaginationModule,
-  ],
-  exports: [
-    CategoryComponent,
-    SubCategoryComponent,
-    GoodComponent,
-  ],
-  providers: [
-    GoodsService,
-  ],
+  imports: [CommonModule, GoodsRoutingModule, NgxPaginationModule],
+  exports: [CategoryComponent, SubCategoryComponent, GoodComponent],
+  providers: [GoodsService],
 })
-export class GoodsModule { }
+export class GoodsModule {}

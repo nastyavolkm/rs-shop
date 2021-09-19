@@ -10,7 +10,6 @@ import { ILocation } from '../models/ILocation.model';
 
 @Injectable()
 export class CoreDataService {
-
   isCatalogShown = false;
 
   isCatalogShown$$ = new BehaviorSubject(this.isCatalogShown);
@@ -27,12 +26,9 @@ export class CoreDataService {
 
   categoriesByWord$!: Observable<ICategory[]>;
 
-  constructor(private store: Store,
-    private customHttp: HttpClient,
-    private backend: HttpBackend,
-    ) {
-      this.customHttp = new HttpClient(backend);
-    }
+  constructor(private store: Store, private customHttp: HttpClient, private backend: HttpBackend) {
+    this.customHttp = new HttpClient(backend);
+  }
 
   getLocation(): Observable<ILocation> {
     return this.customHttp.get<ILocation>('http://ip-api.com/json/?lang=ru');
@@ -41,6 +37,7 @@ export class CoreDataService {
   getOpenTime(): string {
     return coreData.openHours.openTime;
   }
+
   getCloseTime(): string {
     return coreData.openHours.closeTime;
   }
@@ -86,12 +83,16 @@ export class CoreDataService {
   }
 
   getCategoriesByWord(value: string): void {
-    this.categoriesByWord$ = this.store.select(CategoriesSelectors.categories)
-    .pipe(
-      switchMap((categories) =>  {
-       return of(categories.filter((category) => category.subCategories
-      .find((subCategory) => subCategory.name.toLowerCase().includes(value.toLowerCase()))));
-      })
+    this.categoriesByWord$ = this.store.select(CategoriesSelectors.categories).pipe(
+      switchMap((categories) => {
+        return of(
+          categories.filter((category) =>
+            category.subCategories.find((subCategory) =>
+              subCategory.name.toLowerCase().includes(value.toLowerCase()),
+            ),
+          ),
+        );
+      }),
     );
   }
 

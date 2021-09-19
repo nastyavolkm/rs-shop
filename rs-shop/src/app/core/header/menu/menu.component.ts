@@ -7,20 +7,16 @@ import { CoreDataService } from '../../services/core-data.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+  styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
-
   @Input() categories$!: Observable<ICategory[]>;
 
   selectedCategory!: ICategory;
 
   selectedIndex!: number;
 
-  constructor(
-    public router: Router,
-    public coreDataService: CoreDataService,
-    ) { }
+  constructor(public router: Router, public coreDataService: CoreDataService) {}
 
   ngOnInit(): void {}
 

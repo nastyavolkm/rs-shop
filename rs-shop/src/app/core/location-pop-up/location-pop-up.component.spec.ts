@@ -8,9 +8,8 @@ describe('LocationPopUpComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LocationPopUpComponent ]
-    })
-    .compileComponents();
+      declarations: [LocationPopUpComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

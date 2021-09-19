@@ -16,21 +16,16 @@ const GOODS = 'goods';
 const USERS = 'users';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HttpService {
-
   goods$!: Observable<IGood[]>;
 
   token$!: Observable<IToken>;
 
   areCredentialsInvalid$$ = new BehaviorSubject(false);
 
-  constructor(
-    private http: HttpClient,
-    private store: Store,
-    private router: Router,
-    ) {}
+  constructor(private http: HttpClient, private store: Store, private router: Router) {}
 
   getCategories(): Observable<ICategory[]> {
     return this.http.get<ICategory[]>(CATEGORIES);
@@ -42,33 +37,30 @@ export class HttpService {
       debounceTime(100),
       distinctUntilChanged(),
       switchMap((word: string) => {
-         return this.http.get<IGood[]>(`${GOODS}/search?text=${word}`);
-        })
-      )
+        return this.http.get<IGood[]>(`${GOODS}/search?text=${word}`);
+      }),
+    );
   }
 
   getCategoryById(id: string): Observable<ICategory | undefined> {
-    return this.store.pipe(
-      select(CategoriesSelectors.categories)
-    ).pipe(
-      switchMap((categories)=> of(categories.find((category) => category.id === id)))
-    );
+    return this.store
+      .pipe(select(CategoriesSelectors.categories))
+      .pipe(switchMap((categories) => of(categories.find((category) => category.id === id))));
   }
 
   getSubCategoryById(id: string): Observable<ISubCategory> {
     let subCategory: ISubCategory;
-    const sub = this.store.pipe(
-      select(CategoriesSelectors.categories)
-    ).pipe(
+    const sub = this.store.pipe(select(CategoriesSelectors.categories)).pipe(
       switchMap((categories) => {
         categories.forEach((category) => {
           category.subCategories.forEach((subcategory) => {
             if (subcategory.id === id) {
-              subCategory = subcategory
+              subCategory = subcategory;
             }
-          })})
-          return of(subCategory);
-        })
+          });
+        });
+        return of(subCategory);
+      }),
     );
     return sub;
   }
@@ -86,12 +78,23 @@ export class HttpService {
     return this.http.get<IGood>(`${GOODS}/item/${id}`);
   }
 
-  loginUser(form: NgForm): void {
+  loginUser(form: NgForm): Observable<IToken> {
     const body = form.value;
-    this.http.post<IToken>(`${USERS}/login`, body).pipe(
-      catchError(this.handleLoginError)
-    ).subscribe();
+    return this.http.post<IToken>(`${USERS}/login`, body).pipe(
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = '';
+        if (error.status === 0) {
+          errorMessage = error.error;
+        } else {
+          errorMessage = error.error;
+        }
+        this.areCredentialsInvalid$$.next(true);
+        return throwError(errorMessage);
+      }),
+    );
   }
+
+  getUserInfo(token: IToken): void {}
 
   handleLoginError(error: HttpErrorResponse) {
     let errorMessage = '';
@@ -99,7 +102,6 @@ export class HttpService {
       errorMessage = error.error;
     } else {
       errorMessage = error.error;
-      this.areCredentialsInvalid$$.next(true);
     }
     return throwError(errorMessage);
   }

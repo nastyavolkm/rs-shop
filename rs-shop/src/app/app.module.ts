@@ -20,9 +20,7 @@ import { goodsReducer } from './redux/reducers/goodsReducer';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -34,19 +32,17 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     StoreModule.forRoot({
       categories: categoriesReducer,
-      goods: goodsReducer
-  }),
-  StoreDevtoolsModule.instrument({
+      goods: goodsReducer,
+    }),
+    StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
       autoPause: true,
-  }),
-  EffectsModule.forRoot([CategoriesEffects, GoodsEffects]),
-  BrowserAnimationsModule,
-],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true },
+    }),
+    EffectsModule.forRoot([CategoriesEffects, GoodsEffects]),
+    BrowserAnimationsModule,
   ],
-  bootstrap: [AppComponent]
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true }],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

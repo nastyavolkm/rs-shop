@@ -11,10 +11,9 @@ const GOODS_LIMIT = 10;
 @Component({
   selector: 'app-sub-category',
   templateUrl: './sub-category.component.html',
-  styleUrls: ['./sub-category.component.scss']
+  styleUrls: ['./sub-category.component.scss'],
 })
 export class SubCategoryComponent implements OnInit, OnDestroy {
-
   subCategory$!: Observable<ISubCategory | undefined>;
 
   goods$!: Observable<IGood[]>;
@@ -41,17 +40,17 @@ export class SubCategoryComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private httpService: HttpService,
     public goodsService: GoodsService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getSubCategory();
   }
 
   getSubCategory(): void {
-    this.subscribe = this.route.params.subscribe(params => {
-    this.id = params['id'];
-    this.subCategory$ = this.httpService.getSubCategoryById(this.id);
-    this.goods$ = this.httpService.getGoodsBySubCategoryId(this.id);
+    this.subscribe = this.route.params.subscribe((params) => {
+      this.id = params.id;
+      this.subCategory$ = this.httpService.getSubCategoryById(this.id);
+      this.goods$ = this.httpService.getGoodsBySubCategoryId(this.id);
     });
   }
 
@@ -78,5 +77,4 @@ export class SubCategoryComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscribe.unsubscribe();
   }
-
 }

@@ -6,10 +6,9 @@ import { GoodsService } from '../services/goods.service';
 @Component({
   selector: 'app-good',
   templateUrl: './good.component.html',
-  styleUrls: ['./good.component.scss']
+  styleUrls: ['./good.component.scss'],
 })
 export class GoodComponent implements OnInit {
-
   @Input() good!: IGood;
 
   @Input() goods: IGood[] = [];
@@ -26,7 +25,7 @@ export class GoodComponent implements OnInit {
     public goodsService: GoodsService,
     public router: Router,
     public route: ActivatedRoute,
-  ) { }
+  ) {}
 
   ngOnInit(): void {}
 }

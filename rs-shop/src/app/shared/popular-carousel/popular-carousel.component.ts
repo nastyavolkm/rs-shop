@@ -7,10 +7,9 @@ import { IGood } from 'src/app/redux/state/good.model';
 @Component({
   selector: 'app-popular-carousel',
   templateUrl: './popular-carousel.component.html',
-  styleUrls: ['./popular-carousel.component.scss']
+  styleUrls: ['./popular-carousel.component.scss'],
 })
 export class PopularCarouselComponent {
-
   @Input() popularGoods!: IGood[];
 
   customOptions: OwlOptions = {
@@ -23,25 +22,24 @@ export class PopularCarouselComponent {
     navText: ['&#8249', '&#8250;'],
     responsive: {
       0: {
-        items: 1
+        items: 1,
       },
       400: {
-        items: 1
+        items: 1,
       },
       760: {
-        items: 1
+        items: 1,
       },
       1000: {
-        items: 1
-      }
+        items: 1,
+      },
     },
-    nav: true
-  }
+    nav: true,
+  };
 
   constructor(
     public goodsService: GoodsService,
     public router: Router,
     public route: ActivatedRoute,
   ) {}
-
 }

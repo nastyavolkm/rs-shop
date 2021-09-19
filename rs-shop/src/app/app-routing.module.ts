@@ -5,21 +5,21 @@ import { Page404Component } from './core/page404/page404.component';
 
 const routes: Routes = [
   {
-      path: '',
-      component: MainPageComponent,
-      data: { breadcrumb: 'Главная' }
+    path: '',
+    component: MainPageComponent,
+    data: { breadcrumb: 'Главная' },
   },
   {
-      path: 'categories',
-      loadChildren: () => import('./goods/goods.module').then(m => m.GoodsModule),
+    path: 'categories',
+    loadChildren: () => import('./goods/goods.module').then((m) => m.GoodsModule),
   },
   {
-      path: '**',
-      component: Page404Component,
+    path: '**',
+    component: Page404Component,
   },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

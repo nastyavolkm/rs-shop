@@ -55,6 +55,10 @@
     &__label {
         display: block;
         color: var(--shadow-color);
+
+        &-password {
+            position: relative;
+        }
     }
 
     &__input {
@@ -86,6 +90,24 @@
 
         &:hover {
             color: var(--button-text-color);
+        }
+    }
+
+    &__warning {
+        position: absolute;
+        top: 100%;
+        display: flex;
+        gap: 5px;
+        align-items: center;
+
+        &-text {
+            color: red;
+            font-size: 12px;
+        }
+
+        &-icon {
+            width: 12px;
+            height: 12px;
         }
     }
 }

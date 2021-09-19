@@ -5,12 +5,11 @@ import { goodsForSlider, popularGoods } from '../mock.goods';
 
 @Injectable()
 export class GoodsService {
-
   option$$ = new BehaviorSubject('');
 
   directionAsc$$ = new BehaviorSubject(false);
 
-  constructor() { }
+  constructor() {}
 
   toggleColor(event: Event): void {
     (event.target as HTMLElement).classList.add();
