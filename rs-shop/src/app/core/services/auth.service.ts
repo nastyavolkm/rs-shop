@@ -4,11 +4,14 @@ import { NgForm } from '@angular/forms';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { IToken } from '../models/IToken.model';
+import { IUnLoggedUser } from '../models/IUnLoggedUser.model';
 import { IUser } from '../models/IUser.model';
 
 const USERS = 'users';
 
 const CURRENT_USER = 'currentUser';
+
+const UNLOGGED_USER = 'unLoggedUser';
 
 @Injectable()
 export class AuthService {
@@ -74,6 +77,18 @@ export class AuthService {
 
   getCurrentUser(): Observable<IUser| undefined>{
     const currentUser = localStorage.getItem(CURRENT_USER);
+    if (typeof currentUser === 'string') {
+      return of(JSON.parse(currentUser));
+    }
+    return of(undefined);
+  }
+
+  saveUnLoggedUser(unLoggedUser: IUnLoggedUser): void {
+    localStorage.setItem(UNLOGGED_USER, JSON.stringify(unLoggedUser));
+  }
+
+  getUnLoggedUser(): Observable<IUnLoggedUser| undefined>{
+    const currentUser = localStorage.getItem(UNLOGGED_USER);
     if (typeof currentUser === 'string') {
       return of(JSON.parse(currentUser));
     }

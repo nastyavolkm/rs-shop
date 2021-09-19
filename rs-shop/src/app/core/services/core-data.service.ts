@@ -1,5 +1,6 @@
 import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -22,10 +23,16 @@ export class CoreDataService {
 
   isLogInButtonActive$$ = new BehaviorSubject(this.isLogInButtonActive);
 
+  isCartButtonActive$$ = new BehaviorSubject(false);
+
   categoriesByWord$!: Observable<ICategory[]>;
 
-  constructor(private store: Store, private customHttp: HttpClient, private backend: HttpBackend) {
-    this.customHttp = new HttpClient(backend);
+  constructor(
+    private store: Store,
+    private customHttp: HttpClient,
+    private backend: HttpBackend,
+    private router: Router) {
+    this.customHttp = new HttpClient(this.backend);
   }
 
   getLocation(): Observable<ILocation> {
@@ -78,6 +85,12 @@ export class CoreDataService {
   toggleLogInBlock(): void {
     this.isLogInButtonActive = !this.isLogInButtonActive;
     this.isLogInButtonActive$$.next(this.isLogInButtonActive);
+  }
+
+  showCartBlock(): void {
+    this.isCartButtonActive$$.next(true);
+    this.router.navigateByUrl('cart');
+
   }
 
   getCategoriesByWord(value: string): void {

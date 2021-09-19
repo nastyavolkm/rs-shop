@@ -20,6 +20,7 @@ import { AuthService } from './services/auth.service';
 import { CoreDataService } from './services/core-data.service';
 import { LoginInfoComponent } from './header/nav-block/login-info/login-info.component';
 import { RegistrationComponent } from './login-form/registration/registration.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { RegistrationComponent } from './login-form/registration/registration.co
     LoginFormComponent,
     LoginInfoComponent,
     RegistrationComponent,
+    CartComponent,
   ],
   imports: [CommonModule, FormsModule, CoreRoutingModule, SharedModule],
   exports: [

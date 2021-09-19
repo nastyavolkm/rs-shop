@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CartComponent } from './core/cart/cart.component';
 import { MainPageComponent } from './core/main-page/main-page.component';
 import { Page404Component } from './core/page404/page404.component';
 
@@ -8,6 +9,10 @@ const routes: Routes = [
     path: '',
     component: MainPageComponent,
     data: { breadcrumb: 'Главная' },
+  },
+  {
+    path: 'cart',
+    component: CartComponent,
   },
   {
     path: 'categories',

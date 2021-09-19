@@ -17,6 +17,8 @@ export class NavBlockComponent implements OnInit {
 
   isCatalogButtonActive$$ = new BehaviorSubject(false);
 
+  isCartButtonActive$$ = new BehaviorSubject(false);
+
   value = '';
 
   constructor(
@@ -28,6 +30,7 @@ export class NavBlockComponent implements OnInit {
   ngOnInit(): void {
     this.isCatalogButtonActive$$ = this.coreDataService.isCatalogButtonActive$$;
     this.isLogInButtonActive$$ = this.coreDataService.isLogInButtonActive$$;
+    this.isCartButtonActive$$ = this.coreDataService.isCartButtonActive$$;
   }
 
   setValueToSearch(value: string): void {

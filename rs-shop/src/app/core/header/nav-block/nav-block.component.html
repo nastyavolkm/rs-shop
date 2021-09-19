@@ -56,7 +56,12 @@
   Аккаунт {{ (isLogInButtonActive$$ | async) === false ? '&#9660;' : '&#9650;' }}
   <app-login-info *ngIf="isLogInButtonActive$$ | async"></app-login-info>
 </button>
-<button class="nav-button">
+<button
+  (click)="coreDataService.showCartBlock()"
+  [ngClass]="{ inactive_disabled: isCartButtonActive$$ | async }"
+  [disabled]="isCartButtonActive$$ | async"
+  class="nav-button"
+>
   <img src="../../../../assets/cart.png" alt="catalog" class="nav-button__icon" />
   Корзина
 </button>
