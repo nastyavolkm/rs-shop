@@ -1,7 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { IUnLoggedUser } from '../../core/models/IUnLoggedUser.model';
 import { IUser } from '../../core/models/IUser.model';
 import { AuthService } from '../../core/services/auth.service';
@@ -23,29 +22,29 @@ export class CartComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.coreDataservice.isCartButtonActive$$.next(true);
-    this.checkLogin();
+    this.user$ = this.authService.checkLogin();
   }
 
   ngOnDestroy(): void {
     this.coreDataservice.isCartButtonActive$$.next(false);
   }
 
-  checkLogin(): void {
-    this.user$ = this.authService.getCurrentUser().pipe(
-      switchMap((user) => {
-        if (user === undefined) {
-          const unLoggedUser: IUnLoggedUser = {
-            firstName: '',
-            lastName: '',
-            cart: [],
-            favorites: [],
-          };
-          this.authService.saveUnLoggedUser(unLoggedUser);
-          return this.authService.getUnLoggedUser();
-        } else {
-          return of(user);
-        }
-      }),
-    );
-  }
+  // checkLogin(): void {
+  //   this.user$ = this.authService.getCurrentUser().pipe(
+  //     switchMap((user) => {
+  //       if (user === undefined) {
+  //         const unLoggedUser: IUnLoggedUser = {
+  //           firstName: '',
+  //           lastName: '',
+  //           cart: [],
+  //           favorites: [],
+  //         };
+  //         this.authService.saveUnLoggedUser(unLoggedUser);
+  //         return this.authService.getUnLoggedUser();
+  //       } else {
+  //         return of(user);
+  //       }
+  //     }),
+  //   );
+  // }
 }

@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
 import { IToken } from '../models/IToken.model';
 import { IUnLoggedUser } from '../models/IUnLoggedUser.model';
 import { IUser } from '../models/IUser.model';
@@ -94,6 +94,26 @@ export class AuthService {
 
   deleteUser(): void {
     localStorage.removeItem(CURRENT_USER);
+  }
+
+  checkLogin(): Observable<IUser | IUnLoggedUser | undefined> {
+    const user$: Observable<IUser | IUnLoggedUser | undefined> = this.getCurrentUser().pipe(
+      switchMap((user) => {
+        if (user === undefined) {
+          const unLoggedUser: IUnLoggedUser = {
+            firstName: '',
+            lastName: '',
+            cart: [],
+            favorites: [],
+          };
+          this.saveUnLoggedUser(unLoggedUser);
+          return this.getUnLoggedUser();
+        } else {
+          return of(user);
+        }
+      }),
+    );
+    return user$;
   }
 
   handleLoginError(error: HttpErrorResponse) {

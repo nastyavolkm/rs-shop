@@ -103,7 +103,7 @@ export class CoreDataService {
 
   showCartBlock(): void {
     this.isCartButtonActive$$.next(true);
-    this.router.navigateByUrl('cart');
+    this.router.navigateByUrl('order');
   }
 
   getCategoriesByWord(value: string): void {

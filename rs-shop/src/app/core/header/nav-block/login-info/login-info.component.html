@@ -14,11 +14,14 @@
     Выйти
   </button>
   <div class="login-info__line"></div>
-  <p class="login-info__text">
+  <p (click)="router.navigate(['order'], { relativeTo: route })" class="login-info__text">
     <img src="../../../../assets/cart.png" alt="cart" class="login-info__icon" />
     Корзина
   </p>
-  <p class="login-info__text">
+  <p
+    (click)="router.navigate(['order', 'favorite'], { relativeTo: route })"
+    class="login-info__text"
+  >
     <img src="../../../../assets/heart.png" alt="like" class="login-info__icon" />
     Избранные товары
   </p>

@@ -1,0 +1,10 @@
+<div class="favorite">
+  <div
+    class="favorite__goods"
+    *ngIf="(user$ | async)!.favorites.length > 0; else emptyFavorite"
+  ></div>
+  <ng-template #emptyFavorite>
+    <p class="favorite__empty-text">Вы пока не добавили товары в избранное</p>
+    <p (click)="location.back()" class="favorite__empty-back">← Вернуться к покупкам</p>
+  </ng-template>
+</div>

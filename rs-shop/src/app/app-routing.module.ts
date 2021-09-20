@@ -10,7 +10,7 @@ const routes: Routes = [
     data: { breadcrumb: 'Главная' },
   },
   {
-    path: 'cart',
+    path: 'order',
     loadChildren: () => import('./cart/cart.module').then((m) => m.CartModule),
   },
   {
