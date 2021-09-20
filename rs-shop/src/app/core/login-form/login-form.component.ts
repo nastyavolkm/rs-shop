@@ -46,7 +46,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
       if (token) {
         this.authService.hideLoginForm();
         this.authService.getUserInfo(token).subscribe((user) => {
-          this.authService.saveUser(user);
+          this.authService.saveUser(user, token);
         });
       }
     });

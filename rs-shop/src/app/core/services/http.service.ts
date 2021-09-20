@@ -4,7 +4,7 @@ import { PRIMARY_OUTLET, Router, UrlSegment, UrlSegmentGroup, UrlTree } from '@a
 import { select, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { CategoriesSelectors } from '../../redux/selectors/selectors';
+import { CategoriesSelectors } from '../../redux/selectors/categoriesSelectors';
 import { ICategory } from '../../redux/state/category.model';
 import { IGood } from '../../redux/state/good.model';
 import { ISubCategory } from '../../redux/state/subcategory.model';

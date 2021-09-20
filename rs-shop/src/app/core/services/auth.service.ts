@@ -1,15 +1,18 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { select, Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
+import { UserActions } from 'src/app/redux/actions/userActions';
+import { UserSelectors } from 'src/app/redux/selectors/userSelectors';
 import { IToken } from '../models/IToken.model';
 import { IUnLoggedUser } from '../models/IUnLoggedUser.model';
 import { IUser } from '../models/IUser.model';
 
 const USERS = 'users';
 
-const CURRENT_USER = 'currentUser';
+// const CURRENT_USER = 'currentUser';
 
 const UNLOGGED_USER = 'unLoggedUser';
 
@@ -21,7 +24,7 @@ export class AuthService {
 
   isRegistrationShown$$ = new BehaviorSubject(false);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private store: Store) {}
 
   showLoginForm(): void {
     this.isLoginFormShown$$.next(true);
@@ -64,20 +67,37 @@ export class AuthService {
 
   getUserInfo(token: IToken): Observable<IUser> {
     const headers = new HttpHeaders({ Authorization: `Bearer ${token.token}` });
-
+    this.saveToken(token);
     return this.http.get<IUser>(`${USERS}/userInfo`, { headers });
   }
 
-  saveUser(user: IUser): void {
-    localStorage.setItem(CURRENT_USER, JSON.stringify(user));
+  saveUser(user: IUser, token: IToken): void {
+    // localStorage.setItem(CURRENT_USER, JSON.stringify(user));
+    this.saveToken(token);
   }
 
-  getCurrentUser(): Observable<IUser | undefined> {
-    const currentUser = localStorage.getItem(CURRENT_USER);
-    if (typeof currentUser === 'string') {
-      return of(JSON.parse(currentUser));
+  saveToken(token: IToken): void {
+    localStorage.setItem('token', JSON.stringify(token));
+  }
+
+  deleteToken(): void {
+    localStorage.removeItem('token');
+  }
+
+  // getCurrentUser(): Observable<IUser | undefined> {
+  //   const currentUser = localStorage.getItem(CURRENT_USER);
+  //   if (typeof currentUser === 'string') {
+  //     return of(JSON.parse(currentUser));
+  //   }
+  //   return of(undefined);
+  // }
+
+  getCurrentToken(): IToken | undefined {
+    const currentToken = localStorage.getItem('token');
+    if (typeof currentToken === 'string') {
+      return JSON.parse(currentToken);
     }
-    return of(undefined);
+    return undefined;
   }
 
   saveUnLoggedUser(unLoggedUser: IUnLoggedUser): void {
@@ -93,27 +113,50 @@ export class AuthService {
   }
 
   deleteUser(): void {
-    localStorage.removeItem(CURRENT_USER);
+    // localStorage.removeItem(CURRENT_USER);
+    this.deleteToken();
   }
 
+  deleteUnLoggedUser(): void {
+    localStorage.removeItem(UNLOGGED_USER);
+  }
+
+  // checkLogin(): Observable<IUser | IUnLoggedUser | undefined> {
+  //   const user$: Observable<IUser | IUnLoggedUser | undefined> = this.getCurrentUser().pipe(
+  //     switchMap((user) => {
+  //       if (user === undefined) {
+  //         const unLoggedUser: IUnLoggedUser = {
+  //           firstName: '',
+  //           lastName: '',
+  //           cart: [],
+  //           favorites: [],
+  //         };
+  //         this.saveUnLoggedUser(unLoggedUser);
+  //         return this.getUnLoggedUser();
+  //       } else {
+  //         return of(user);
+  //       }
+  //     }),
+  //   );
+  //   return user$;
+  // }
+
   checkLogin(): Observable<IUser | IUnLoggedUser | undefined> {
-    const user$: Observable<IUser | IUnLoggedUser | undefined> = this.getCurrentUser().pipe(
-      switchMap((user) => {
-        if (user === undefined) {
-          const unLoggedUser: IUnLoggedUser = {
-            firstName: '',
-            lastName: '',
-            cart: [],
-            favorites: [],
-          };
-          this.saveUnLoggedUser(unLoggedUser);
-          return this.getUnLoggedUser();
-        } else {
-          return of(user);
-        }
-      }),
-    );
-    return user$;
+    if (this.getCurrentToken() === undefined) {
+      const unLoggedUser: IUnLoggedUser = {
+        firstName: 'unlogged',
+      };
+      this.saveUnLoggedUser(unLoggedUser);
+      return this.getUnLoggedUser();
+    } else {
+      return this.store.pipe(select(UserSelectors.user));
+    }
+  }
+
+  checkUser(): void {
+    if (this.getCurrentToken()) {
+      this.store.dispatch(UserActions.getUser({ token: this.getCurrentToken()! }));
+    }
   }
 
   handleLoginError(error: HttpErrorResponse) {

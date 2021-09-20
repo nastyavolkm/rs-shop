@@ -16,8 +16,10 @@ import { HttpInterceptor } from './core/interceptors/http.interceptor';
 import { GoodsModule } from './goods/goods.module';
 import { CategoriesEffects } from './redux/effects/categoriesEffects';
 import { GoodsEffects } from './redux/effects/goodsEffects';
+import { UserEffects } from './redux/effects/userEffects';
 import { categoriesReducer } from './redux/reducers/categoriesReducer';
 import { goodsReducer } from './redux/reducers/goodsReducer';
+import { userReducer } from './redux/reducers/userReducer';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
@@ -35,13 +37,14 @@ import { SharedModule } from './shared/shared.module';
     StoreModule.forRoot({
       categories: categoriesReducer,
       goods: goodsReducer,
+      user: userReducer,
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
       autoPause: true,
     }),
-    EffectsModule.forRoot([CategoriesEffects, GoodsEffects]),
+    EffectsModule.forRoot([CategoriesEffects, GoodsEffects, UserEffects]),
     BrowserAnimationsModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true }],

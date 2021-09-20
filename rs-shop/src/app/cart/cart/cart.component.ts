@@ -28,23 +28,4 @@ export class CartComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.coreDataservice.isCartButtonActive$$.next(false);
   }
-
-  // checkLogin(): void {
-  //   this.user$ = this.authService.getCurrentUser().pipe(
-  //     switchMap((user) => {
-  //       if (user === undefined) {
-  //         const unLoggedUser: IUnLoggedUser = {
-  //           firstName: '',
-  //           lastName: '',
-  //           cart: [],
-  //           favorites: [],
-  //         };
-  //         this.authService.saveUnLoggedUser(unLoggedUser);
-  //         return this.authService.getUnLoggedUser();
-  //       } else {
-  //         return of(user);
-  //       }
-  //     }),
-  //   );
-  // }
 }

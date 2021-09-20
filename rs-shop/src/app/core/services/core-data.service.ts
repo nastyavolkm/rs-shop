@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { CategoriesSelectors } from '../../redux/selectors/selectors';
+import { CategoriesSelectors } from '../../redux/selectors/categoriesSelectors';
 import { ICategory } from '../../redux/state/category.model';
 import { coreData } from '../mock.header';
 import { ILocation, ILocationRus } from '../models/ILocation.model';

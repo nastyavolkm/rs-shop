@@ -1,5 +1,5 @@
 <div class="cart">
-  <div class="cart__goods" *ngIf="(user$ | async)!.cart.length > 0; else emptyCart"></div>
+  <div class="cart__goods" *ngIf="(user$ | async)!.cart === undefined; else emptyCart"></div>
   <ng-template #emptyCart>
     <p class="cart__empty-text">Ваша корзина пуста</p>
     <p (click)="location.back()" class="cart__empty-back">← Вернуться к покупкам</p>

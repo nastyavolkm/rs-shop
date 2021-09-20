@@ -1,6 +1,7 @@
 <div (click)="router.navigate([good.id], { relativeTo: route })" *ngIf="good" class="card">
   <svg
     (click)="$event.stopPropagation(); isGoodFavorite[i] = !isGoodFavorite[i]"
+    ;
     class="card__like"
     xmlns="http://www.w3.org/2000/svg"
     width="20"

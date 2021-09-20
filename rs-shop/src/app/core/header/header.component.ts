@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CategoriesActions } from '../../redux/actions/categoriesActions';
-import { CategoriesSelectors } from '../../redux/selectors/selectors';
+import { CategoriesSelectors } from '../../redux/selectors/categoriesSelectors';
 import { ICategory } from '../../redux/state/category.model';
 import { AuthService } from '../services/auth.service';
 import { CoreDataService } from '../services/core-data.service';
@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.isCatalogShown$$ = this.coreDataService.isCatalogShown$$;
     this.store.dispatch(CategoriesActions.getCategories());
+    this.authService.checkUser();
     this.isLoginFormShown$$ = this.authService.isLoginFormShown$$;
   }
 }
