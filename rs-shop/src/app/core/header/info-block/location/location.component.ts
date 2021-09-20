@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { ILocation } from 'src/app/core/models/ILocation.model';
 import { CoreDataService } from 'src/app/core/services/core-data.service';
 
 @Component({
@@ -10,8 +8,6 @@ import { CoreDataService } from 'src/app/core/services/core-data.service';
   styleUrls: ['./location.component.scss'],
 })
 export class LocationComponent implements OnInit {
-  location$!: Observable<ILocation>;
-
   city$!: Observable<string>;
 
   isLocationPopUpShown = false;
@@ -19,9 +15,7 @@ export class LocationComponent implements OnInit {
   constructor(private coreDataService: CoreDataService) {}
 
   ngOnInit(): void {
-    this.city$ = this.coreDataService
-      .getLocation()
-      .pipe(switchMap((location) => of(location.city)));
+    this.city$ = this.coreDataService.getLocation();
   }
 
   toggleLocationPopUp(boolean: boolean) {

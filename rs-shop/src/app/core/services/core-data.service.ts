@@ -7,7 +7,7 @@ import { switchMap } from 'rxjs/operators';
 import { CategoriesSelectors } from '../../redux/selectors/selectors';
 import { ICategory } from '../../redux/state/category.model';
 import { coreData } from '../mock.header';
-import { ILocation } from '../models/ILocation.model';
+import { ILocation, ILocationRus } from '../models/ILocation.model';
 
 @Injectable()
 export class CoreDataService {
@@ -36,8 +36,22 @@ export class CoreDataService {
     this.customHttp = new HttpClient(this.backend);
   }
 
-  getLocation(): Observable<ILocation> {
-    return this.customHttp.get<ILocation>('http://ip-api.com/json/?lang=ru');
+  getLocation(): Observable<string> {
+    const location$: Observable<ILocationRus> = this.customHttp
+      .get<ILocation>('https://ipinfo.io/?token=5f698d693a183f')
+      .pipe(
+        switchMap((data) => {
+          return this.customHttp.get<ILocationRus>(
+            `https://api.opencagedata.com/geocode/v1/json?key=7046fc352eeb4dbcb07a82d70cb2571c&q=${data.loc}&language=ru`,
+          );
+        }),
+      );
+    return location$.pipe(
+      switchMap((location) => {
+        console.log(location.results[0]);
+        return of(location.results[0].components.city);
+      }),
+    );
   }
 
   getOpenTime(): string {

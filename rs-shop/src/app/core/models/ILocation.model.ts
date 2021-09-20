@@ -1,6 +1,14 @@
 export interface ILocation {
-  status: string;
+  ip: string;
   country: string;
-  regionName: string;
+  loc: string;
   city: string;
+}
+
+export interface ILocationRus {
+  results: {
+    components: {
+      city: string;
+    };
+  }[];
 }
