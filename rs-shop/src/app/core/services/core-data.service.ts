@@ -48,7 +48,6 @@ export class CoreDataService {
       );
     return location$.pipe(
       switchMap((location) => {
-        console.log(location.results[0]);
         return of(location.results[0].components.city);
       }),
     );

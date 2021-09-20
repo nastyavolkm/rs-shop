@@ -2,10 +2,10 @@ import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { IUnLoggedUser } from '../models/IUnLoggedUser.model';
-import { IUser } from '../models/IUser.model';
-import { AuthService } from '../services/auth.service';
-import { CoreDataService } from '../services/core-data.service';
+import { IUnLoggedUser } from '../../core/models/IUnLoggedUser.model';
+import { IUser } from '../../core/models/IUser.model';
+import { AuthService } from '../../core/services/auth.service';
+import { CoreDataService } from '../../core/services/core-data.service';
 
 @Component({
   selector: 'app-cart',

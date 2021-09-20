@@ -10,6 +10,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CartModule } from './cart/cart.module';
 import { CoreModule } from './core/core.module';
 import { HttpInterceptor } from './core/interceptors/http.interceptor';
 import { GoodsModule } from './goods/goods.module';
@@ -27,6 +28,7 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     CoreModule,
     GoodsModule,
+    CartModule,
     CarouselModule,
     SharedModule,
     HttpClientModule,
