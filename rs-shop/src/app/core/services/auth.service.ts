@@ -142,13 +142,15 @@ export class AuthService {
   // }
 
   checkLogin(): Observable<IUser | IUnLoggedUser | undefined> {
-    if (this.getCurrentToken() === undefined) {
+    const token = this.getCurrentToken();
+    if (token === undefined) {
       const unLoggedUser: IUnLoggedUser = {
         firstName: 'unlogged',
       };
       this.saveUnLoggedUser(unLoggedUser);
-      return this.getUnLoggedUser();
+      return of(token);
     } else {
+      this.store.dispatch(UserActions.getUser({ token: token }));
       return this.store.pipe(select(UserSelectors.user));
     }
   }

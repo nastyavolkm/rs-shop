@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
 import { GoodsActions } from '../../../redux/actions/goodsActions';
@@ -21,16 +21,24 @@ export class NavBlockComponent implements OnInit {
 
   value = '';
 
+  accountBtn!: HTMLElement;
+
   constructor(
     public coreDataService: CoreDataService,
     public authService: AuthService,
     private store: Store,
+    private renderer: Renderer2,
   ) {}
 
   ngOnInit(): void {
     this.isCatalogButtonActive$$ = this.coreDataService.isCatalogButtonActive$$;
     this.isLogInButtonActive$$ = this.coreDataService.isLogInButtonActive$$;
     this.isCartButtonActive$$ = this.coreDataService.isCartButtonActive$$;
+    // this.renderer.listen(document.body, 'click', (event: Event) => {
+    //   if (this.isLogInButtonActive$$.getValue() === true && event.target !== this.accountBtn) {
+    //     this.isLogInButtonActive$$.next(false);
+    //   }
+    // });
   }
 
   setValueToSearch(value: string): void {

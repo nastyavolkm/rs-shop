@@ -1,8 +1,14 @@
 <div class="favorite">
-  <div
-    class="favorite__goods"
-    *ngIf="(user$ | async)!.favorites === undefined; else emptyFavorite"
-  ></div>
+  <p class="favorite__heading">Избранное</p>
+  <div class="favorite__goods" *ngIf="(user$ | async)!.favorites!.length > 0; else emptyFavorite">
+    <app-favorite-good
+      [user$]="user$"
+      *ngFor="let good of goods$ | async"
+      [good]="good"
+      [goods$]="goods$"
+      (id)="deleteGood($event)"
+    ></app-favorite-good>
+  </div>
   <ng-template #emptyFavorite>
     <p class="favorite__empty-text">Вы пока не добавили товары в избранное</p>
     <p (click)="location.back()" class="favorite__empty-back">← Вернуться к покупкам</p>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CategoriesActions } from '../../redux/actions/categoriesActions';
-import { CategoriesSelectors } from '../../redux/selectors/categoriesSelectors';
+import { CategoriesSelectors } from '../../redux/selectors/selectors';
 import { ICategory } from '../../redux/state/category.model';
 import { AuthService } from '../services/auth.service';
 import { CoreDataService } from '../services/core-data.service';

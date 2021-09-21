@@ -48,6 +48,8 @@
   <app-search-results-block *ngIf="value.length > 2"></app-search-results-block>
 </div>
 <button
+  [(ngModel)]="accountBtn"
+  ngDefaultControl
   (click)="coreDataService.toggleLogInBlock()"
   [ngClass]="{ inactive: isLogInButtonActive$$ | async }"
   class="nav-button nav-button__account"
