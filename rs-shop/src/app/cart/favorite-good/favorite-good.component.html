@@ -4,7 +4,13 @@
   (click)="router.navigate(['categories', good.category, good.subCategory, good.id])"
 >
   <div class="favorite-good__img-wrapper">
-    <img src="{{ good.imageUrls[0] }}" alt="" class="favorite-good__img" />
+    <img
+      [src]="
+        good.imageUrls.length > 0 ? good.imageUrls[0] : '../../../../../assets/default_preview.jpeg'
+      "
+      alt=""
+      class="favorite-good__img"
+    />
   </div>
   <svg
     (click)="$event.stopPropagation(); orderService.deleteFromFavorite(good.id); id.emit(good.id)"

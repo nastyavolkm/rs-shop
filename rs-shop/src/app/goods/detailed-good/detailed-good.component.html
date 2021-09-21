@@ -32,7 +32,15 @@
         class="good__big-img"
       />
       <ng-template #initialImage>
-        <img src="{{ good.imageUrls[0] }}" alt="{{ good.name }}" class="good__big-img" />
+        <img
+          [src]="
+            good.imageUrls.length > 0
+              ? good.imageUrls[0]
+              : '../../../../assets/default_preview.jpeg'
+          "
+          alt="{{ good.name }}"
+          class="good__big-img"
+        />
       </ng-template>
     </div>
     <div class="good__info">
