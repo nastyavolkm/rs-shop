@@ -8,6 +8,20 @@
         font-weight: normal;
     }
 
+    &__breadcrumbs {
+        display: flex;
+        margin: 10px 0;
+
+        &-item {
+            color: var(--shadow-color);
+            cursor: pointer;
+
+            &:hover {
+                color: var(--main-color);
+            }
+        }
+    }
+
     &__list {
         display: flex;
         flex-wrap: wrap;

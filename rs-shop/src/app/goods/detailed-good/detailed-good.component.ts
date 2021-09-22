@@ -1,11 +1,14 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
 import { IUser } from 'src/app/core/models/IUser.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { HttpService } from 'src/app/core/services/http.service';
+import { ICategory } from 'src/app/redux/state/category.model';
 import { IGood } from 'src/app/redux/state/good.model';
+import { ISubCategory } from 'src/app/redux/state/subcategory.model';
 import { GoodsService } from '../services/goods.service';
 import { OrderService } from '../services/order.service';
 
@@ -38,6 +41,10 @@ export class DetailedGoodComponent implements OnInit, OnDestroy {
 
   addedToCart$!: Observable<boolean>;
 
+  category$!: Observable<ICategory | undefined>;
+
+  subCategory$!: Observable<ISubCategory | undefined>;
+
   constructor(
     private httpService: HttpService,
     private route: ActivatedRoute,
@@ -49,6 +56,8 @@ export class DetailedGoodComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getGood();
+    this.getCategory();
+    this.getSubCategory();
     this.user$ = this.authService.checkLogin();
     this.isFavorite$ = this.orderService.isFavorite(this.user$, this.id);
     this.addedToCart$ = this.orderService.addedToCart(this.user$, this.id);
@@ -61,6 +70,24 @@ export class DetailedGoodComponent implements OnInit, OnDestroy {
       this.id = params.id;
       this.good$ = this.httpService.getGoodById(this.id);
     });
+  }
+
+  getCategory(): Observable<ICategory | undefined> {
+    this.category$ = this.good$.pipe(
+      switchMap((good) => {
+        return this.httpService.getCategoryById(good!.category);
+      }),
+    );
+    return this.category$;
+  }
+
+  getSubCategory(): Observable<ISubCategory | undefined> {
+    this.subCategory$ = this.good$.pipe(
+      switchMap((good) => {
+        return this.httpService.getSubCategoryById(good!.subCategory);
+      }),
+    );
+    return this.subCategory$;
   }
 
   onSelect(image: string, i: number): void {

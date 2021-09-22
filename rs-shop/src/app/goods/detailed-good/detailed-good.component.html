@@ -1,4 +1,23 @@
 <div class="good" *ngIf="good$ | async as good">
+  <div class="good__breadcrumbs">
+    <span (click)="router.navigate([''])" class="good__breadcrumbs-item">Главная </span>
+    <span>&#62;</span>
+    <span
+      *ngIf="category$ | async as category"
+      (click)="router.navigate(['categories', good.category])"
+      class="good__breadcrumbs-item"
+    >
+      {{ category.name }}
+    </span>
+    <span>&#62;</span>
+    <span
+      *ngIf="subCategory$ | async as subCategory"
+      (click)="router.navigate(['categories', good.category, good.subCategory])"
+      class="good__breadcrumbs-item"
+    >
+      {{ subCategory.name }}
+    </span>
+  </div>
   <h2 class="good__heading">{{ good.name }}</h2>
   <ul class="good__rating-wrapper">
     <li *ngFor="let i of goodsService.getCountOfRating(good.rating)">

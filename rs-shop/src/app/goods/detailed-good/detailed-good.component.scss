@@ -7,7 +7,26 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 10px 40px;
+    padding: 30px 40px;
+
+    &__breadcrumbs {
+        display: flex;
+        position: absolute;
+        gap: 5px;
+        left: 40px;
+        top: 180px;
+        margin: 10px 0;
+        color: var(--shadow-color);
+
+        &-item {
+            color: var(--shadow-color);
+            cursor: pointer;
+
+            &:hover {
+                color: var(--main-color);
+            }
+        }
+    }
 
     &__heading {
         text-align: center;

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
 import { ICategory } from 'src/app/redux/state/category.model';
@@ -16,7 +16,11 @@ export class CategoryComponent implements OnInit, OnDestroy {
 
   id!: string;
 
-  constructor(private route: ActivatedRoute, private httpService: HttpService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private httpService: HttpService,
+    public router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.getCategory();

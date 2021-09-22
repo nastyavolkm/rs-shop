@@ -1,4 +1,15 @@
 <div class="subcategory">
+  <div class="subcategory__breadcrumbs">
+    <span (click)="router.navigate([''])" class="subcategory__breadcrumbs-item">Главная</span>
+    <span>&#62;</span>
+    <span
+      *ngIf="category$ | async as category"
+      (click)="router.navigate(['categories', category.id])"
+      class="subcategory__breadcrumbs-item"
+    >
+      {{ category.name }}
+    </span>
+  </div>
   <div class="subcategory__heading-sort-wrapper">
     <h4 class="subcategory__heading">{{ (subCategory$ | async)?.name }}</h4>
     <div class="subcategory__sort-wrapper">
