@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
 import { IUser } from 'src/app/core/models/IUser.model';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -43,7 +42,7 @@ export class GoodComponent implements OnInit {
 
   ngOnInit(): void {
     this.user$ = this.authService.checkLogin();
-    this.isFavorite$ = this.isFavorite();
+    this.isFavorite$ = this.orderService.isFavorite(this.user$, this.good.id);
   }
 
   onLikeClick(): void {
@@ -54,17 +53,5 @@ export class GoodComponent implements OnInit {
       this.isGoodFavorite[this.i] = true;
       this.orderService.addToFavorite(this.good.id);
     }
-  }
-
-  isFavorite(): Observable<boolean> {
-    return this.user$.pipe(
-      switchMap((user) => {
-        const result = user?.favorites?.find((id) => id === this.good.id);
-        if (!result) return of(false);
-        else {
-          return of(true);
-        }
-      }),
-    );
   }
 }

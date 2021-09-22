@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { IToken } from 'src/app/core/models/IToken.model';
 import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
@@ -53,5 +53,20 @@ export class OrderService {
 
   getCountOfRating(number: number): number[] {
     return Array(number);
+  }
+
+  isFavorite(
+    user$: Observable<IUser | IUnLoggedUser | undefined>,
+    goodId: string,
+  ): Observable<boolean> {
+    return user$.pipe(
+      switchMap((user) => {
+        const result = user?.favorites?.find((id) => id === goodId);
+        if (!result) return of(false);
+        else {
+          return of(true);
+        }
+      }),
+    );
   }
 }
