@@ -1,5 +1,23 @@
 <div class="cart">
-  <div class="cart__goods" *ngIf="(user$ | async)!.cart!.length > 0; else emptyCart"></div>
+  <p class="cart__heading">Оформление заказа</p>
+  <div class="cart__goods" *ngIf="(user$ | async)!.cart!.length > 0; else emptyCart">
+    <div class="cart__table">
+      <div class="cart__table-column">Товар</div>
+      <div class="cart__table-column">Количество</div>
+      <div class="cart__table-column">Доставка</div>
+      <div class="cart__table-column">Стоимость</div>
+    </div>
+    <app-cart-good
+      *ngFor="let good of goods$ | async; let i = index"
+      [user$]="user$"
+      [good]="good"
+      [goods$]="goods$"
+      (id)="deleteGood($event)"
+      (newAmount)="getCommonPrice($event)"
+    ></app-cart-good>
+  </div>
+  <p class="cart__common-price">Общая стоимость: {{ commonPrice }}</p>
+  <button class="cart__order-button">Оформить заказ</button>
   <ng-template #emptyCart>
     <p class="cart__empty-text">Ваша корзина пуста</p>
     <p (click)="location.back()" class="cart__empty-back">← Вернуться к покупкам</p>

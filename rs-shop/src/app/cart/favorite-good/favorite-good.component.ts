@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
@@ -11,7 +11,7 @@ import { IGood } from 'src/app/redux/state/good.model';
   templateUrl: './favorite-good.component.html',
   styleUrls: ['./favorite-good.component.scss'],
 })
-export class FavoriteGoodComponent {
+export class FavoriteGoodComponent implements OnInit, OnDestroy {
   @Input() user$!: Observable<IUser | IUnLoggedUser | undefined>;
 
   @Input() good!: IGood;
@@ -22,11 +22,24 @@ export class FavoriteGoodComponent {
 
   isGoodFavorite = true;
 
-  addedToCart = false;
+  addedToCart!: boolean;
+
+  addedToCart$!: Observable<boolean>;
+
+  subscribe: any;
 
   constructor(
     public router: Router,
     public route: ActivatedRoute,
     public orderService: OrderService,
   ) {}
+
+  ngOnInit(): void {
+    this.addedToCart$ = this.orderService.addedToCart(this.user$, this.good.id);
+    this.subscribe = this.addedToCart$.subscribe((boolean) => (this.addedToCart = boolean));
+  }
+
+  ngOnDestroy(): void {
+    this.subscribe.unsubscribe();
+  }
 }

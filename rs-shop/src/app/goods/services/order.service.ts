@@ -34,6 +34,25 @@ export class OrderService {
     }
   }
 
+  addToCart(id: string): void {
+    const token = this.getCurrentToken();
+    if (token) {
+      const headers = new HttpHeaders({ Authorization: `Bearer ${token.token}` });
+      const body = {
+        id: id,
+      };
+      this.http.post(`${USERS}/cart`, body, { headers }).subscribe();
+    }
+  }
+
+  deleteFromCart(id: string): void {
+    const token = this.getCurrentToken();
+    if (token) {
+      const headers = new HttpHeaders({ Authorization: `Bearer ${token.token}` });
+      this.http.delete(`${USERS}/cart?id=${id}`, { headers }).subscribe();
+    }
+  }
+
   getCurrentToken(): IToken | undefined {
     const currentToken = localStorage.getItem('token');
     if (typeof currentToken === 'string') {
@@ -68,5 +87,44 @@ export class OrderService {
         }
       }),
     );
+  }
+
+  addedToCart(
+    user$: Observable<IUser | IUnLoggedUser | undefined>,
+    goodId: string,
+  ): Observable<boolean> {
+    return user$.pipe(
+      switchMap((user) => {
+        const result = user?.cart?.find((id) => id === goodId);
+        if (!result) return of(false);
+        else {
+          return of(true);
+        }
+      }),
+    );
+  }
+
+  onLikeClick(isGoodFavorite: boolean, id: string): boolean {
+    if (isGoodFavorite) {
+      isGoodFavorite = false;
+      this.deleteFromFavorite(id);
+    } else {
+      isGoodFavorite = true;
+      this.addToFavorite(id);
+    }
+    return isGoodFavorite;
+  }
+
+  getCartGoods(user$: Observable<IUser | IUnLoggedUser | undefined>): Observable<IGood[]> {
+    const goods$ = user$.pipe(
+      switchMap((user) => {
+        return forkJoin(user!.cart!.map((id) => this.http.get<IGood>(`goods/item/${id}`)));
+      }),
+    );
+    return goods$;
+  }
+
+  getCommonPrice(price: number, amount: number): Observable<number> {
+    return of(price * amount);
   }
 }

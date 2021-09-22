@@ -76,10 +76,10 @@
 }
 
 .inactive {
-    background-color: var(--submain-color);
+    background-color: white;
     border: 1px solid var(--main-color);
-    color: var(--shadow-color);
-    pointer-events: none;
+    color: var(--main-color);
+    text-decoration: underline;
 
     & > .card__btn-cart-img {
         filter: grayscale(1);

@@ -69,12 +69,20 @@
       </div>
       <button
         class="good__btn-cart"
-        [disabled]="good.isInCart || addedToCart"
+        *ngIf="!addedToCart"
+        [disabled]="good.availableAmount === 0"
         (click)="$event.stopPropagation(); addedToCart = true"
-        [ngClass]="{ inactive: good.isInCart || addedToCart }"
       >
         <img src="../../../assets/cart.png" alt="cart" class="good__btn-cart-img" />
         В корзину
+      </button>
+      <button
+        class="good__btn-cart inactive"
+        *ngIf="addedToCart"
+        (click)="router.navigate(['order'])"
+      >
+        <img src="../../../assets/cart.png" alt="cart" class="good__btn-cart-img" />
+        В корзине
       </button>
     </div>
   </div>

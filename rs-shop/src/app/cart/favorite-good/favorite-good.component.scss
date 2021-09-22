@@ -77,9 +77,13 @@
     background-color: var(--submain-color);
     border: 1px solid var(--main-color);
     color: var(--shadow-color);
-    pointer-events: none;
+    text-decoration: underline;
 
     & > .favorite-good__btn-cart-img {
         filter: grayscale(1);
+    }
+
+    &:hover {
+        color: var(--main-color);
     }
 }

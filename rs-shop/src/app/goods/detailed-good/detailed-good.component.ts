@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
 import { IUser } from 'src/app/core/models/IUser.model';
@@ -20,6 +20,8 @@ export class DetailedGoodComponent implements OnInit, OnDestroy {
 
   subscribe!: any;
 
+  subscribe1!: any;
+
   id!: string;
 
   selectedImage!: string;
@@ -28,11 +30,13 @@ export class DetailedGoodComponent implements OnInit, OnDestroy {
 
   isGoodFavorite!: boolean;
 
-  addedToCart = false;
+  addedToCart!: boolean;
 
   user$!: Observable<IUser | IUnLoggedUser | undefined>;
 
   isFavorite$!: Observable<boolean>;
+
+  addedToCart$!: Observable<boolean>;
 
   constructor(
     private httpService: HttpService,
@@ -40,13 +44,16 @@ export class DetailedGoodComponent implements OnInit, OnDestroy {
     public goodsService: GoodsService,
     private orderService: OrderService,
     private authService: AuthService,
+    public router: Router,
   ) {}
 
   ngOnInit(): void {
     this.getGood();
     this.user$ = this.authService.checkLogin();
     this.isFavorite$ = this.orderService.isFavorite(this.user$, this.id);
-    this.isFavorite$.subscribe((boolean) => (this.isGoodFavorite = boolean));
+    this.addedToCart$ = this.orderService.addedToCart(this.user$, this.id);
+    this.subscribe = this.isFavorite$.subscribe((boolean) => (this.isGoodFavorite = boolean));
+    this.subscribe1 = this.addedToCart$.subscribe((boolean) => (this.addedToCart = boolean));
   }
 
   getGood(): void {
@@ -63,6 +70,7 @@ export class DetailedGoodComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscribe.unsubscribe();
+    this.subscribe1.unsubscribe();
   }
 
   onLikeClick(): void {

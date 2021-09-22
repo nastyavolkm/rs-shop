@@ -31,6 +31,8 @@ export class GoodComponent implements OnInit {
 
   isFavorite$!: Observable<boolean>;
 
+  addedToCart$!: Observable<boolean>;
+
   constructor(
     public goodsService: GoodsService,
     public orderService: OrderService,
@@ -43,6 +45,7 @@ export class GoodComponent implements OnInit {
   ngOnInit(): void {
     this.user$ = this.authService.checkLogin();
     this.isFavorite$ = this.orderService.isFavorite(this.user$, this.good.id);
+    this.addedToCart$ = this.orderService.addedToCart(this.user$, this.good.id);
   }
 
   onLikeClick(): void {
@@ -52,6 +55,16 @@ export class GoodComponent implements OnInit {
     } else {
       this.isGoodFavorite[this.i] = true;
       this.orderService.addToFavorite(this.good.id);
+    }
+  }
+
+  onCartClick(): void {
+    if (this.addedToCart[this.i]) {
+      this.addedToCart[this.i] = false;
+      this.orderService.deleteFromCart(this.good.id);
+    } else {
+      this.addedToCart[this.i] = true;
+      this.orderService.addToCart(this.good.id);
     }
   }
 }
