@@ -1,11 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { select, Store } from '@ngrx/store';
 import { forkJoin, Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
+import { IOrder } from 'src/app/cart/cart/models/IOrder.model';
+import { IOrderItem } from 'src/app/cart/cart/models/IOrderItem.model';
 import { IToken } from 'src/app/core/models/IToken.model';
 import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
 import { IUser } from 'src/app/core/models/IUser.model';
+import { UserSelectors } from 'src/app/redux/selectors/userSelectors';
 import { IGood } from 'src/app/redux/state/good.model';
 
 const USERS = 'users';
@@ -14,7 +18,7 @@ const USERS = 'users';
   providedIn: 'root',
 })
 export class OrderService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private store: Store) {}
 
   addToFavorite(id: string): void {
     const token = this.getCurrentToken();
@@ -60,6 +64,10 @@ export class OrderService {
       return JSON.parse(currentToken);
     }
     return undefined;
+  }
+
+  getCurrentLoggedUser(): Observable<IUser> {
+    return this.store.pipe(select(UserSelectors.user));
   }
 
   getFavoriteGoods(user$: Observable<IUser | IUnLoggedUser | undefined>): Observable<IGood[]> {
@@ -129,7 +137,25 @@ export class OrderService {
     return of(price * amount);
   }
 
-  submitOrder(orderForm: FormGroup): void {
-    console.log(orderForm);
+  getLoggedUser(): Observable<IUser> {
+    return this.store.pipe(select(UserSelectors.user));
+  }
+
+  submitOrder(orderForm: FormGroup, user$: Observable<IUser>): void {
+    const token = this.getCurrentToken();
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token!.token}` });
+    let obj: IOrderItem = { id: '', amount: 0 };
+    let ids: string[] = [];
+    user$.pipe(tap((user) => (ids = user.cart)));
+    const goodsToOrder: IOrderItem[] = ids.map((id) => {
+      obj.id = id;
+      return obj;
+    });
+    const body: IOrder = {
+      items: goodsToOrder,
+      details: orderForm.value,
+    };
+    console.log(body);
+    this.http.post(`${USERS}/order`, body, { headers }).subscribe();
   }
 }

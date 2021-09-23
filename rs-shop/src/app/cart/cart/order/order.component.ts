@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { OrderService } from 'src/app/goods/services/order.service';
 import { UserActions } from 'src/app/redux/actions/userActions';
 import { UserSelectors } from 'src/app/redux/selectors/userSelectors';
+import { IGood } from 'src/app/redux/state/good.model';
 
 @Component({
   selector: 'app-order',
@@ -15,6 +16,8 @@ import { UserSelectors } from 'src/app/redux/selectors/userSelectors';
   styleUrls: ['./order.component.scss'],
 })
 export class OrderComponent implements OnInit {
+  @Input() goods$!: Observable<IGood[]>;
+
   areCredentialsInvalid$$ = new BehaviorSubject(false);
 
   isRegistrationSuccessful$$ = new BehaviorSubject(false);
@@ -65,7 +68,9 @@ export class OrderComponent implements OnInit {
 
   submitOrder(): void {
     if (this.formDelivery.valid) {
-      this.orderService.submitOrder(this.formDelivery);
+      console.log('hello');
+      const user$ = this.orderService.getLoggedUser();
+      this.orderService.submitOrder(this.formDelivery, user$);
       this.formDelivery.reset();
     } else {
       this.validateAllFormFields(this.formDelivery);
