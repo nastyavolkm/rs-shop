@@ -4,7 +4,7 @@
       class="menu__item"
       *ngFor="let category of categories; let i = index; first as isFirst"
       (mouseenter)="onSelect(category, i)"
-      (click)="coreDataService.toggleCatalog()"
+      (click)="coreDataService.toggleCatalog(); router.navigate(['categories', category.id])"
       [ngStyle]="{
         'background-color':
           (!selectedCategory && isFirst) || selectedIndex === i
@@ -12,22 +12,34 @@
             : 'transparent'
       }"
     >
-      <a routerLink="categories/{{ category.id }}">
-        <img src="../../../../assets/{{ category.id }}.svg" alt="icon" class="menu__icon" />
-        {{ category.name }}
-      </a>
+      <img src="../../../../assets/{{ category.id }}.svg" alt="icon" class="menu__icon" />
+      {{ category.name }}
     </li>
   </ul>
   <ul *ngIf="selectedCategory; else initialCategory" class="menu__sublist">
     <h4 class="menu__sublist-heading">{{ selectedCategory.name }}</h4>
-    <li class="menu__subitem" *ngFor="let subcategory of selectedCategory.subCategories">
+    <li
+      (click)="
+        coreDataService.toggleCatalog();
+        router.navigate(['categories', selectedCategory.id, subcategory.id])
+      "
+      class="menu__subitem"
+      *ngFor="let subcategory of selectedCategory.subCategories"
+    >
       {{ subcategory.name }}
     </li>
   </ul>
   <ng-template #initialCategory>
-    <ul class="menu__sublist">
+    <ul class="menu__sublist" *ngIf="categories$ | async as categories">
       <h4 class="menu__sublist-heading">{{ (categories$ | async)![0].name }}</h4>
-      <li class="menu__subitem" *ngFor="let subcategory of (categories$ | async)![0].subCategories">
+      <li
+        (click)="
+          coreDataService.toggleCatalog();
+          router.navigate(['categories', categories[0].id, subcategory.id])
+        "
+        class="menu__subitem"
+        *ngFor="let subcategory of (categories$ | async)![0].subCategories"
+      >
         {{ subcategory.name }}
       </li>
     </ul>

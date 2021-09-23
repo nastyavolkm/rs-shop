@@ -23,21 +23,7 @@ export class OrderComponent implements OnInit {
 
   isLogged$!: Observable<boolean>;
 
-  formDelivery = new FormGroup({
-    name: new FormControl('', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(50),
-    ]),
-    address: new FormControl('', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(250),
-    ]),
-    phone: new FormControl('+375', [Validators.required, Validators.pattern('^\\+[0-9]*')]),
-    timeToDeliver: new FormControl({ disabled: true }, Validators.required),
-    comment: new FormControl('', Validators.maxLength(250)),
-  });
+  formDelivery!: FormGroup;
 
   constructor(
     private authService: AuthService,
@@ -49,6 +35,21 @@ export class OrderComponent implements OnInit {
   ngOnInit(): void {
     this.user$ = this.authService.checkLogin();
     this.isLogged$ = this.authService.isLogged();
+    this.formDelivery = new FormGroup({
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(50),
+      ]),
+      address: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(250),
+      ]),
+      phone: new FormControl('+375', [Validators.required, Validators.pattern('^\\+[0-9]*')]),
+      timeToDeliver: new FormControl({ disabled: true }, Validators.required),
+      comment: new FormControl('', Validators.maxLength(250)),
+    });
   }
 
   registerUser(form: NgForm): void {

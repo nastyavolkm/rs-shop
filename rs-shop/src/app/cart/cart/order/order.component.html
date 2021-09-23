@@ -51,7 +51,7 @@
         Номер телефона*
         <input type="text" class="cart__order__input" formControlName="phone" />
       </label>
-      <app-date-time-picker></app-date-time-picker>
+      <app-date-time-picker [formDelivery]="formDelivery"></app-date-time-picker>
       <label class="cart__order__label">
         Комментарий к заказу
         <textarea class="cart__order__textarea" formControlName="comment"></textarea>

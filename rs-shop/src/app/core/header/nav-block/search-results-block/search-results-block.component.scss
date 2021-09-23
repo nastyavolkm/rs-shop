@@ -5,6 +5,7 @@
     top: 50px;
     left: -20px;
     box-shadow: 1px 1px 1px 1px var(--hover-color);
+    z-index: 4000;
 }
 .search-results__list {
     display: flex;

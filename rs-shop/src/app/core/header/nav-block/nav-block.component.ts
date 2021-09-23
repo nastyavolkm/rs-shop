@@ -47,4 +47,13 @@ export class NavBlockComponent implements OnInit {
       this.store.dispatch(GoodsActions.getGoods({ value: value }));
     }
   }
+
+  clearValue(): void {
+    this.value = '';
+  }
+
+  onClickOutside(e: Event): void {
+    console.log('hello', e);
+    this.isLogInButtonActive$$.next(false);
+  }
 }

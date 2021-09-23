@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CoreDataService } from 'src/app/core/services/core-data.service';
@@ -12,11 +13,17 @@ import { IGood } from 'src/app/redux/state/good.model';
   styleUrls: ['./search-results-block.component.scss'],
 })
 export class SearchResultsBlockComponent implements OnInit {
+  @Output() valueToSearch = new EventEmitter();
+
   goods$!: Observable<IGood[]>;
 
   categories$!: Observable<ICategory[]>;
 
-  constructor(private store: Store, private coreDataService: CoreDataService) {}
+  constructor(
+    private store: Store,
+    private coreDataService: CoreDataService,
+    public router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.categories$ = this.coreDataService.categoriesByWord$;

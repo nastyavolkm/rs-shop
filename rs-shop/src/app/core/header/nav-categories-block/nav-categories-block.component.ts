@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ICategory } from 'src/app/redux/state/category.model';
 
@@ -9,4 +10,6 @@ import { ICategory } from 'src/app/redux/state/category.model';
 })
 export class NavCategoriesBlockComponent {
   @Input() categories$!: Observable<ICategory[]>;
+
+  constructor(public router: Router) {}
 }

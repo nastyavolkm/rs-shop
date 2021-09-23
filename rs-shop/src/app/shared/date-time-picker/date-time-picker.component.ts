@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, Input, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 
 @Component({
@@ -9,6 +9,8 @@ import { ThemePalette } from '@angular/material/core';
 })
 export class DateTimePickerComponent {
   @ViewChild('picker') picker: any;
+
+  @Input() formDelivery!: FormGroup;
 
   public disabled = false;
 

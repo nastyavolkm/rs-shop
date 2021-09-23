@@ -10,7 +10,11 @@
   <span class="contacts__accordion-text">Ещё</span>
   <span>{{ isAdditionalContactsShown ? '&#9650;' : '&#9660;' }}</span>
 
-  <ul *ngIf="isAdditionalContactsShown" class="contacts__accordion-list">
+  <ul
+    (clickOutside)="isAdditionalContactsShown = false"
+    *ngIf="isAdditionalContactsShown"
+    class="contacts__accordion-list"
+  >
     <li class="contacts__accordion-item">
       <img src="../../../../../assets/life.png" alt="life" class="contacts__accordion-logo" />
       <span>{{ life }}</span>

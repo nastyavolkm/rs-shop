@@ -2,25 +2,21 @@
     position: absolute;
     display: flex;
     cursor: default;
+    top: 43px;
+    left: -70px;
 }
 
 
 .login-info {
-
-    &__login {
-        width: 250px;
-        position: absolute;
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        box-shadow: 1px 1px 1px 1px var(--hover-color);
-        top: 43px;
-        left: -70px;
-        background-color: white;
-        z-index: 10000;
-    }
+    width: 250px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 1px 1px 1px 1px var(--hover-color);
+    background-color: white;
+    z-index: 10000;
 
     &__icon {
         width: 20px;
