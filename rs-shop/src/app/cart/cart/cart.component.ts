@@ -19,7 +19,9 @@ export class CartComponent implements OnInit, OnDestroy {
 
   goods$!: Observable<IGood[]>;
 
-  commonPrice!: number;
+  pricesArray$!: Observable<number[]>;
+
+  commonPrice$!: Observable<number>;
 
   isOrderShown = false;
 
@@ -34,6 +36,8 @@ export class CartComponent implements OnInit, OnDestroy {
     this.coreDataservice.isCartButtonActive$$.next(true);
     this.user$ = this.authService.checkLogin();
     this.goods$ = this.orderService.getCartGoods(this.user$);
+    this.getPricesArray();
+    this.getCommonPrice();
   }
 
   ngOnDestroy(): void {
@@ -51,7 +55,31 @@ export class CartComponent implements OnInit, OnDestroy {
     );
   }
 
-  getCommonPrice(amount: Observable<number>): void {
-    console.log(amount);
+  getPricesArray(): void {
+    this.pricesArray$ = this.goods$.pipe(
+      switchMap((goods) => {
+        const pricesArray = goods.map((good) => good.price);
+        return of(pricesArray);
+      }),
+    );
+  }
+
+  getCommonPrice(): void {
+    this.commonPrice$ = this.pricesArray$.pipe(
+      switchMap((prices) => {
+        return of(prices.reduce((a, b) => a + b));
+      }),
+    );
+  }
+
+  changeCommonPrice(price: number): void {
+    console.log(price);
+    this.pricesArray$ = this.pricesArray$.pipe(
+      switchMap((pricesArray) => {
+        pricesArray.push(price);
+        return of(pricesArray);
+      }),
+    );
+    this.getCommonPrice();
   }
 }

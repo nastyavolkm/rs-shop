@@ -41,9 +41,9 @@
   </p>
 </div>
 <div class="cart-amount column">
-  <span (click)="onDecrementClick()" class="cart-amount__counter">-</span>
+  <span (click)="onDecrementClick(good.price)" class="cart-amount__counter">-</span>
   <input [(ngModel)]="amount" value="1" class="cart-amount__input" />
-  <span (click)="onIncrementClick()" class="cart-amount__counter">+</span>
+  <span (click)="onIncrementClick(good.price)" class="cart-amount__counter">+</span>
 </div>
 <div class="cart__delivery column">Товар будет доставлен</div>
 <div class="cart__price column">{{ commonPrice$ | async }} р.</div>

@@ -33,7 +33,7 @@ export class CartGoodComponent implements OnInit, OnDestroy {
 
   commonPrice$!: Observable<number>;
 
-  @Output() newAmount = new EventEmitter<Observable<number>>();
+  @Output() newAmount = new EventEmitter<number>();
 
   constructor(
     public router: Router,
@@ -52,17 +52,19 @@ export class CartGoodComponent implements OnInit, OnDestroy {
     this.isGoodFavorite = this.orderService.onLikeClick(isGoodFavorite, this.good.id);
   }
 
-  onDecrementClick(): void {
+  onDecrementClick(price: number): void {
     if (this.amount > 0) {
       this.amount -= 1;
       this.getCommonPrice(this.good.price, this.amount);
+      this.newAmount.emit(price * -1);
     }
   }
 
-  onIncrementClick(): void {
+  onIncrementClick(price: number): void {
     if (this.amount < this.good.availableAmount) {
       this.amount += 1;
       this.getCommonPrice(this.good.price, this.amount);
+      this.newAmount.emit(price);
     }
   }
 

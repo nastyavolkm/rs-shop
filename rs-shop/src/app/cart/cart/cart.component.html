@@ -13,10 +13,10 @@
       [good]="good"
       [goods$]="goods$"
       (id)="deleteGood($event)"
-      (newAmount)="getCommonPrice($event)"
+      (newAmount)="changeCommonPrice($event)"
     ></app-cart-good>
   </div>
-  <p class="cart__common-price">Общая стоимость: {{ commonPrice }}</p>
+  <p class="cart__common-price">Общая стоимость: {{ commonPrice$ | async }} p.</p>
   <button *ngIf="!isOrderShown" (click)="isOrderShown = true" class="cart__order-button">
     Оформить заказ
   </button>
