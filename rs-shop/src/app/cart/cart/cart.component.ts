@@ -21,6 +21,8 @@ export class CartComponent implements OnInit, OnDestroy {
 
   commonPrice!: number;
 
+  isOrderShown = false;
+
   constructor(
     private coreDataservice: CoreDataService,
     private authService: AuthService,

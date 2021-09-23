@@ -58,7 +58,7 @@
   </ul>
   <button
     class="card__btn-cart"
-    *ngIf="(addedToCart$ | async) === false || addedToCart[i] === false"
+    *ngIf="addedToCart[i] === false"
     (click)="$event.stopPropagation(); onCartClick()"
   >
     <img src="../../../assets/cart.png" alt="cart" class="card__btn-cart-img" />
@@ -66,7 +66,7 @@
   </button>
   <button
     class="card__btn-cart inactive"
-    *ngIf="(addedToCart$ | async) || addedToCart[i]"
+    *ngIf="addedToCart[i]"
     (click)="router.navigate(['order'])"
   >
     <img src="../../../assets/cart.png" alt="cart" class="card__btn-cart-img" />

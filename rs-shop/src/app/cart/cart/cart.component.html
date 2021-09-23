@@ -17,7 +17,10 @@
     ></app-cart-good>
   </div>
   <p class="cart__common-price">Общая стоимость: {{ commonPrice }}</p>
-  <button class="cart__order-button">Оформить заказ</button>
+  <button *ngIf="!isOrderShown" (click)="isOrderShown = true" class="cart__order-button">
+    Оформить заказ
+  </button>
+  <app-order *ngIf="!isOrderShown"></app-order>
   <ng-template #emptyCart>
     <p class="cart__empty-text">Ваша корзина пуста</p>
     <p (click)="location.back()" class="cart__empty-back">← Вернуться к покупкам</p>

@@ -1,0 +1,79 @@
+<div class="cart__order">
+  <div class="cart__order-block">
+    <p class="cart__order-heading">Личные данные</p>
+    <div class="cart__order-line"></div>
+    <form
+      *ngIf="(isRegistrationSuccessful$$ | async) === false && token === undefined"
+      class="cart__order-form"
+      (ngSubmit)="registerUser(form)"
+      ngNativeValidate
+      #form="ngForm"
+    >
+      <label class="cart__order__label">
+        Имя
+        <input type="text" class="cart__order__input" name="firstName" ngModel required />
+      </label>
+      <label class="cart__order__label">
+        Фамилия
+        <input type="text" class="cart__order__input" name="lastName" ngModel required />
+      </label>
+      <label class="cart__order__label">
+        Логин
+        <input type="text" class="cart__order__input" name="login" ngModel required />
+      </label>
+      <label class="cart__order__label cart__order__label-password">
+        Пароль
+        <input type="password" class="cart__order__input" name="password" ngModel required />
+      </label>
+
+      <button type="submit" class="cart__order__btn">Зарегистрироваться</button>
+    </form>
+    <div *ngIf="token || (isRegistrationSuccessful$$ | async)" class="cart__order__credentials">
+      {{ (user$ | async)!.firstName }} {{ (user$ | async)!.lastName }}
+    </div>
+  </div>
+  <div class="cart__order-block">
+    <p class="cart__order-heading">Доставка</p>
+    <div class="cart__order-line"></div>
+    <form (ngSubmit)="registerUser(formDelivery)" ngNativeValidate #formDelivery="ngForm">
+      <label class="cart__order__label">
+        ФИО
+        <input
+          type="text"
+          class="cart__order__input"
+          name="name"
+          ngModel
+          required
+          minlength="3"
+          maxlength="50"
+        />
+      </label>
+      <label class="cart__order__label">
+        Адрес доставки
+        <input
+          type="text"
+          class="cart__order__input"
+          name="address"
+          ngModel
+          required
+          minlength="3"
+          maxlength="250"
+        />
+      </label>
+      <label class="cart__order__label">
+        Номер телефона
+        <input
+          type="text"
+          class="cart__order__input"
+          name="login"
+          ngModel
+          required
+          pattern="^\+?[0-9]*"
+        />
+      </label>
+      <app-date-time-picker></app-date-time-picker>
+
+      <button type="submit" class="cart__order__btn">Подтвердить заказ</button>
+    </form>
+  </div>
+</div>

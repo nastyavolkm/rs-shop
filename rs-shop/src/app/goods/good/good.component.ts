@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
 import { IUser } from 'src/app/core/models/IUser.model';
@@ -33,12 +32,13 @@ export class GoodComponent implements OnInit {
 
   addedToCart$!: Observable<boolean>;
 
+  subscribe: any;
+
   constructor(
     public goodsService: GoodsService,
     public orderService: OrderService,
     public router: Router,
     public route: ActivatedRoute,
-    private store: Store,
     private authService: AuthService,
   ) {}
 
@@ -46,6 +46,7 @@ export class GoodComponent implements OnInit {
     this.user$ = this.authService.checkLogin();
     this.isFavorite$ = this.orderService.isFavorite(this.user$, this.good.id);
     this.addedToCart$ = this.orderService.addedToCart(this.user$, this.good.id);
+    this.subscribe = this.addedToCart$.subscribe((boolean) => (this.addedToCart[this.i] = boolean));
   }
 
   onLikeClick(): void {

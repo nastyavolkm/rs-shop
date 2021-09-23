@@ -121,34 +121,17 @@ export class AuthService {
     localStorage.removeItem(UNLOGGED_USER);
   }
 
-  // checkLogin(): Observable<IUser | IUnLoggedUser | undefined> {
-  //   const user$: Observable<IUser | IUnLoggedUser | undefined> = this.getCurrentUser().pipe(
-  //     switchMap((user) => {
-  //       if (user === undefined) {
-  //         const unLoggedUser: IUnLoggedUser = {
-  //           firstName: '',
-  //           lastName: '',
-  //           cart: [],
-  //           favorites: [],
-  //         };
-  //         this.saveUnLoggedUser(unLoggedUser);
-  //         return this.getUnLoggedUser();
-  //       } else {
-  //         return of(user);
-  //       }
-  //     }),
-  //   );
-  //   return user$;
-  // }
-
   checkLogin(): Observable<IUser | IUnLoggedUser | undefined> {
     const token = this.getCurrentToken();
     if (token === undefined) {
       const unLoggedUser: IUnLoggedUser = {
         firstName: 'unlogged',
+        lastName: 'unlogged',
+        cart: [],
+        favorites: [],
       };
       this.saveUnLoggedUser(unLoggedUser);
-      return of(token);
+      return of(unLoggedUser);
     } else {
       this.store.dispatch(UserActions.getUser({ token: token }));
       return this.store.pipe(select(UserSelectors.user));
