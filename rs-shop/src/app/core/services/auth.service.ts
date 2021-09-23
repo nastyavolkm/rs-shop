@@ -72,7 +72,6 @@ export class AuthService {
   }
 
   saveUser(user: IUser, token: IToken): void {
-    // localStorage.setItem(CURRENT_USER, JSON.stringify(user));
     this.saveToken(token);
   }
 
@@ -83,14 +82,6 @@ export class AuthService {
   deleteToken(): void {
     localStorage.removeItem('token');
   }
-
-  // getCurrentUser(): Observable<IUser | undefined> {
-  //   const currentUser = localStorage.getItem(CURRENT_USER);
-  //   if (typeof currentUser === 'string') {
-  //     return of(JSON.parse(currentUser));
-  //   }
-  //   return of(undefined);
-  // }
 
   getCurrentToken(): IToken | undefined {
     const currentToken = localStorage.getItem('token');
@@ -113,7 +104,6 @@ export class AuthService {
   }
 
   deleteUser(): void {
-    // localStorage.removeItem(CURRENT_USER);
     this.deleteToken();
   }
 
@@ -141,6 +131,14 @@ export class AuthService {
   checkUser(): void {
     if (this.getCurrentToken()) {
       this.store.dispatch(UserActions.getUser({ token: this.getCurrentToken()! }));
+    }
+  }
+
+  isLogged(): Observable<boolean> {
+    if (this.getCurrentToken()) {
+      return of(true);
+    } else {
+      return of(false);
     }
   }
 

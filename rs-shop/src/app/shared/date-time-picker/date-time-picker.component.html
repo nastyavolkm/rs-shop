@@ -4,10 +4,9 @@
     matInput
     [ngxMatDatetimePicker]="picker"
     placeholder="Выберите дату и время"
-    [formControl]="dateControl"
+    formControlName="timeToDeliver"
     [min]="minDate"
     [max]="maxDate"
-    [disabled]="disabled"
   />
   <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
   <ngx-mat-datetime-picker

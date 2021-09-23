@@ -26,7 +26,14 @@
             display: block;
             border: 1px solid var(--hover-color);
             padding: 5px;
-            width: 300px;
+            width: 100%;
+        }
+
+        &__textarea {
+            border: 1px solid var(--hover-color);
+            display: block;
+            padding: 5px;
+            width: 100%;
         }
 
         &__btn {
@@ -35,6 +42,7 @@
             border:none;
             padding: 10px 15px;
             border-radius: 5px;
+            align-self: flex-end;
         }
 
         &__line {
@@ -82,11 +90,11 @@
         &-form {
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
+            align-items: stretch;
             gap: 10px;
             font-size: 14px;
             position: relative;
+            width: 300px;
 
 
         }

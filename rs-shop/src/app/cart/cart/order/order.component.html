@@ -3,7 +3,7 @@
     <p class="cart__order-heading">Личные данные</p>
     <div class="cart__order-line"></div>
     <form
-      *ngIf="(isRegistrationSuccessful$$ | async) === false && token === undefined"
+      *ngIf="(isRegistrationSuccessful$$ | async) === false && (isLogged$ | async) === false"
       class="cart__order-form"
       (ngSubmit)="registerUser(form)"
       ngNativeValidate
@@ -28,50 +28,34 @@
 
       <button type="submit" class="cart__order__btn">Зарегистрироваться</button>
     </form>
-    <div *ngIf="token || (isRegistrationSuccessful$$ | async)" class="cart__order__credentials">
+    <div
+      *ngIf="(isLogged$ | async) || (isRegistrationSuccessful$$ | async)"
+      class="cart__order__credentials"
+    >
       {{ (user$ | async)!.firstName }} {{ (user$ | async)!.lastName }}
     </div>
   </div>
-  <div class="cart__order-block">
+  <div *ngIf="isLogged$ | async" class="cart__order-block">
     <p class="cart__order-heading">Доставка</p>
     <div class="cart__order-line"></div>
-    <form (ngSubmit)="registerUser(formDelivery)" ngNativeValidate #formDelivery="ngForm">
+    <form [formGroup]="formDelivery" (ngSubmit)="submitOrder()" class="cart__order-form">
       <label class="cart__order__label">
-        ФИО
-        <input
-          type="text"
-          class="cart__order__input"
-          name="name"
-          ngModel
-          required
-          minlength="3"
-          maxlength="50"
-        />
+        ФИО*
+        <input type="text" class="cart__order__input" formControlName="name" />
       </label>
       <label class="cart__order__label">
-        Адрес доставки
-        <input
-          type="text"
-          class="cart__order__input"
-          name="address"
-          ngModel
-          required
-          minlength="3"
-          maxlength="250"
-        />
+        Адрес доставки*
+        <input type="text" class="cart__order__input" formControlName="address" />
       </label>
       <label class="cart__order__label">
-        Номер телефона
-        <input
-          type="text"
-          class="cart__order__input"
-          name="login"
-          ngModel
-          required
-          pattern="^\+?[0-9]*"
-        />
+        Номер телефона*
+        <input type="text" class="cart__order__input" formControlName="phone" />
       </label>
       <app-date-time-picker></app-date-time-picker>
+      <label class="cart__order__label">
+        Комментарий к заказу
+        <textarea class="cart__order__textarea" formControlName="comment"></textarea>
+      </label>
 
       <button type="submit" class="cart__order__btn">Подтвердить заказ</button>
     </form>

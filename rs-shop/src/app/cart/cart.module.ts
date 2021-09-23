@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { CartRoutingModule } from './cart.routing-module';
 import { CartGoodComponent } from './cart/cart-good/cart-good.component';
@@ -17,6 +17,6 @@ import { FavoriteGoodComponent } from './favorite-good/favorite-good.component';
     CartGoodComponent,
     OrderComponent,
   ],
-  imports: [CommonModule, FormsModule, CartRoutingModule, SharedModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, CartRoutingModule, SharedModule],
 })
 export class CartModule {}

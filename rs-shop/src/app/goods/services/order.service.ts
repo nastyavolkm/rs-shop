@@ -127,4 +127,8 @@ export class OrderService {
   getCommonPrice(price: number, amount: number): Observable<number> {
     return of(price * amount);
   }
+
+  submitOrder(orderForm: any): void {
+    console.log(orderForm);
+  }
 }
