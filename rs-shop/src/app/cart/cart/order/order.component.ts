@@ -35,7 +35,7 @@ export class OrderComponent implements OnInit {
   ngOnInit(): void {
     this.user$ = this.authService.checkLogin();
     this.isLogged$ = this.authService.isLogged();
-    this.formDelivery = new FormGroup({
+    this.formDelivery = this.formBuilder.group({
       name: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
@@ -46,7 +46,7 @@ export class OrderComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(250),
       ]),
-      phone: new FormControl('+375', [Validators.required, Validators.pattern('^\\+[0-9]*')]),
+      phone: new FormControl('', [Validators.required, Validators.pattern('^\\+[0-9]*')]),
       timeToDeliver: new FormControl({ disabled: true }, Validators.required),
       comment: new FormControl('', Validators.maxLength(250)),
     });
@@ -64,7 +64,33 @@ export class OrderComponent implements OnInit {
   }
 
   submitOrder(): void {
-    this.orderService.submitOrder(this.formDelivery.value);
-    this.formDelivery.reset();
+    if (this.formDelivery.valid) {
+      this.orderService.submitOrder(this.formDelivery);
+      this.formDelivery.reset();
+    } else {
+      this.validateAllFormFields(this.formDelivery);
+    }
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach((field) => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
+  }
+
+  isFieldValid(field: string) {
+    return !this.formDelivery.get(field)!.valid && this.formDelivery.get(field)!.touched;
+  }
+
+  displayFieldCss(field: string) {
+    return {
+      'has-error': this.isFieldValid(field),
+      'has-feedback': this.isFieldValid(field),
+    };
   }
 }

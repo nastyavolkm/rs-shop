@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { forkJoin, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { IToken } from 'src/app/core/models/IToken.model';
@@ -128,7 +129,7 @@ export class OrderService {
     return of(price * amount);
   }
 
-  submitOrder(orderForm: any): void {
+  submitOrder(orderForm: FormGroup): void {
     console.log(orderForm);
   }
 }

@@ -1,9 +1,9 @@
-<mat-form-field>
+<mat-form-field [formGroup]="formDelivery">
   <input
     class="text"
     matInput
     [ngxMatDatetimePicker]="picker"
-    placeholder="Выберите дату и время"
+    placeholder="Выберите дату и время*"
     formControlName="timeToDeliver"
     [min]="minDate"
     [max]="maxDate"

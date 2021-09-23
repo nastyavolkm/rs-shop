@@ -76,4 +76,10 @@ export class CartGoodComponent implements OnInit, OnDestroy {
     this.commonPrice$ = this.orderService.getCommonPrice(price, amount);
     return this.commonPrice$;
   }
+
+  changeCommonPrice(): void {
+    if (this.amount < this.good.availableAmount) {
+      this.getCommonPrice(this.good.price, this.amount);
+    }
+  }
 }
