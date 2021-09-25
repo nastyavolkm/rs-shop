@@ -1,5 +1,5 @@
 <div class="cart__order">
-  <div class="cart__order-block">
+  <div *ngIf="!isOrderSubmitted" class="cart__order-block">
     <p class="cart__order-heading">Личные данные</p>
     <div class="cart__order-line"></div>
     <form
@@ -35,7 +35,7 @@
       {{ (user$ | async)!.firstName }} {{ (user$ | async)!.lastName }}
     </div>
   </div>
-  <div *ngIf="isLogged$ | async" class="cart__order-block">
+  <div *ngIf="(isLogged$ | async) && !isOrderSubmitted" class="cart__order-block">
     <p class="cart__order-heading">Доставка</p>
     <div class="cart__order-line"></div>
     <form [formGroup]="formDelivery" (ngSubmit)="submitOrder()" class="cart__order-form">
@@ -82,5 +82,19 @@
 
       <button type="submit" class="cart__order__btn">Подтвердить заказ</button>
     </form>
+  </div>
+  <div *ngIf="isOrderSubmitted" class="cart__success">
+    <p class="cart__success-heading">Ваш заказ принят и будет доставлен в указанное время!</p>
+    <p class="cart__success-detail">Детали заказа</p>
+    <span class="cart__success-detail-item">ФИО: {{ details.name }}</span>
+    <span class="cart__success-detail-item">Адрес доставки: {{ details.address }}</span>
+    <span class="cart__success-detail-item">Телефон: {{ details.phone }}</span>
+    <span class="cart__success-detail-item"
+      >Время доставки: {{ details.timeToDeliver | date: 'medium' }}</span
+    >
+    <span class="cart__success-detail-item">Комментарий: {{ details.comment }}</span>
+    <p (click)="router.navigate(['order', 'orderlist'])" class="cart__success-wait">
+      Перейти в лист ожидания
+    </p>
   </div>
 </div>

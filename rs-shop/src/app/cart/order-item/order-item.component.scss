@@ -1,0 +1,90 @@
+:host {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    border-top: 1px solid var(--hover-color);
+    border-bottom: 1px solid var(--hover-color);
+}
+.order {
+    display: flex;
+    justify-content: space-between;
+
+    &__ordergood {
+        display: flex;
+        flex-direction: column;
+        flex: 0 0 200px;
+    }
+
+    &__detail {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        flex: 0 0 200px;
+
+        &-heading-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        &-edit {
+            width: 20px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        &-heading {
+            color: var(--main-color);
+        }
+
+    }
+
+    &__good {
+        display: flex;
+        gap: 5px;
+        border-bottom: 1px solid var(--hover-color);
+        border-top: 1px solid var(--hover-color);
+
+        &-description {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        &-imgwrapper {
+            width: 80px;
+            height: 90px;
+            display: flex;
+            overflow: hidden;
+        }
+
+        &-img {
+            width: 100%;
+            align-self: center;
+        }
+        &-name {
+            text-decoration: underline;
+            cursor: pointer;
+            color: var(--main-color);
+
+            &:hover {
+                color: var(--button-text-color);
+            }
+
+        }
+    }
+
+    &__delete {
+        width: auto;
+        height: 16px;
+        cursor: pointer;
+    }
+
+    &__price {
+        align-self: flex-end;
+        color: var(--button-text-color);
+    }
+
+
+
+}

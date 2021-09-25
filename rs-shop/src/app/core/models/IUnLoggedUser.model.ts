@@ -3,4 +3,5 @@ export interface IUnLoggedUser {
   lastName: string;
   cart?: string[];
   favorites?: string[];
+  orders?: string[];
 }

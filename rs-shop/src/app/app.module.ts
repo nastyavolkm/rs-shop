@@ -1,5 +1,7 @@
+import { registerLocaleData } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import localeRu from '@angular/common/locales/ru';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,6 +24,8 @@ import { categoriesReducer } from './redux/reducers/categoriesReducer';
 import { goodsReducer } from './redux/reducers/goodsReducer';
 import { userReducer } from './redux/reducers/userReducer';
 import { SharedModule } from './shared/shared.module';
+
+registerLocaleData(localeRu, 'ru');
 
 @NgModule({
   declarations: [AppComponent],
@@ -50,7 +54,10 @@ import { SharedModule } from './shared/shared.module';
     EffectsModule.forRoot([CategoriesEffects, GoodsEffects, UserEffects]),
     BrowserAnimationsModule,
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: 'ru' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

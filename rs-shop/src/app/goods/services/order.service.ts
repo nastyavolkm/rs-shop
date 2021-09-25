@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { forkJoin, Observable, of } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
+import { IDetail } from 'src/app/cart/cart/models/IDetail.model';
 import { IOrder } from 'src/app/cart/cart/models/IOrder.model';
 import { IOrderItem } from 'src/app/cart/cart/models/IOrderItem.model';
 import { IToken } from 'src/app/core/models/IToken.model';
@@ -18,6 +19,8 @@ const USERS = 'users';
   providedIn: 'root',
 })
 export class OrderService {
+  details!: IDetail;
+
   constructor(private http: HttpClient, private store: Store) {}
 
   addToFavorite(id: string): void {
@@ -74,6 +77,19 @@ export class OrderService {
     const goods$ = user$.pipe(
       switchMap((user) => {
         return forkJoin(user!.favorites!.map((id) => this.http.get<IGood>(`goods/item/${id}`)));
+      }),
+    );
+    return goods$;
+  }
+
+  getOrders(user$: Observable<IUser>): Observable<IOrder[]> {
+    return user$.pipe(map((user) => user.orders));
+  }
+
+  getGoodsFromOrder(orderItem: IOrder): Observable<IGood[]> {
+    const goods$ = of(orderItem).pipe(
+      switchMap((order) => {
+        return forkJoin(order.items.map((item) => this.http.get<IGood>(`goods/item/${item.id}`)));
       }),
     );
     return goods$;
@@ -146,16 +162,20 @@ export class OrderService {
     const headers = new HttpHeaders({ Authorization: `Bearer ${token!.token}` });
     let obj: IOrderItem = { id: '', amount: 0 };
     let ids: string[] = [];
-    user$.pipe(tap((user) => (ids = user.cart)));
+    user$.pipe(tap((user) => (ids = user.cart))).subscribe();
     const goodsToOrder: IOrderItem[] = ids.map((id) => {
       obj.id = id;
       return obj;
     });
-    const body: IOrder = {
+    const body = {
       items: goodsToOrder,
       details: orderForm.value,
     };
-    console.log(body);
+    this.details = body.details;
     this.http.post(`${USERS}/order`, body, { headers }).subscribe();
+  }
+
+  getOrderPrice(goods$: Observable<IGood[]>): Observable<number> {
+    return goods$.pipe(map((goods) => goods.map((good) => good.price).reduce((a, b) => a + b)));
   }
 }

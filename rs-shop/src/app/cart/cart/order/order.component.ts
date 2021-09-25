@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
@@ -9,6 +10,7 @@ import { OrderService } from 'src/app/goods/services/order.service';
 import { UserActions } from 'src/app/redux/actions/userActions';
 import { UserSelectors } from 'src/app/redux/selectors/userSelectors';
 import { IGood } from 'src/app/redux/state/good.model';
+import { IDetail } from '../models/IDetail.model';
 
 @Component({
   selector: 'app-order',
@@ -18,25 +20,31 @@ import { IGood } from 'src/app/redux/state/good.model';
 export class OrderComponent implements OnInit {
   @Input() goods$!: Observable<IGood[]>;
 
+  @Input() user$!: Observable<IUser | IUnLoggedUser | undefined>;
+
+  @Output() isOrderShown = new EventEmitter();
+
+  isOrderSubmitted = false;
+
   areCredentialsInvalid$$ = new BehaviorSubject(false);
 
   isRegistrationSuccessful$$ = new BehaviorSubject(false);
 
-  user$!: Observable<IUser | IUnLoggedUser | undefined>;
-
   isLogged$!: Observable<boolean>;
 
   formDelivery!: FormGroup;
+
+  details!: IDetail;
 
   constructor(
     private authService: AuthService,
     private orderService: OrderService,
     private store: Store,
     private formBuilder: FormBuilder,
+    public router: Router,
   ) {}
 
   ngOnInit(): void {
-    this.user$ = this.authService.checkLogin();
     this.isLogged$ = this.authService.isLogged();
     this.formDelivery = this.formBuilder.group({
       name: new FormControl('', [
@@ -68,10 +76,11 @@ export class OrderComponent implements OnInit {
 
   submitOrder(): void {
     if (this.formDelivery.valid) {
-      console.log('hello');
       const user$ = this.orderService.getLoggedUser();
       this.orderService.submitOrder(this.formDelivery, user$);
-      this.formDelivery.reset();
+      this.isOrderSubmitted = true;
+      this.isOrderShown.emit();
+      this.getLastOrderDetails();
     } else {
       this.validateAllFormFields(this.formDelivery);
     }
@@ -97,5 +106,9 @@ export class OrderComponent implements OnInit {
       'has-error': this.isFieldValid(field),
       'has-feedback': this.isFieldValid(field),
     };
+  }
+
+  getLastOrderDetails(): void {
+    this.details = this.orderService.details;
   }
 }

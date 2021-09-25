@@ -1,0 +1,31 @@
+<div class="order" *ngIf="order">
+  <ul class="order__ordergood">
+    <li class="order__good" *ngFor="let good of goods$ | async">
+      <div class="order__good-imgwrapper">
+        <img src="{{ good.imageUrls[0] }}" alt="{{ good.name }}" class="order__good-img" />
+      </div>
+      <div class="order__good-description">
+        <p
+          (click)="router.navigate(['categories', good.category, good.subCategory, good.id])"
+          class="order__good-name"
+        >
+          {{ good.name }}
+        </p>
+        <p class="order__good-price">{{ good.price }} p.</p>
+      </div>
+    </li>
+  </ul>
+  <div class="order__detail">
+    <div class="order__detail-heading-wrapper">
+      <p class="order__detail-heading">Детали заказа</p>
+      <img src="../../../assets/edit.png" alt="edit" class="order__detail-edit" />
+      <img src="../../../assets/delete.png" alt="delete" class="order__delete" />
+    </div>
+    <p class="order__detail-item">ФИО: {{ order.details.name }}</p>
+    <p class="order__detail-item">Адрес: {{ order.details.name }}</p>
+    <p class="order__detail-item">Телефон: {{ order.details.name }}</p>
+    <p class="order__detail-item">Время доставки: {{ order.details.name }}</p>
+    <p class="order__detail-item">Комментарий: {{ order.details.name }}</p>
+  </div>
+  <p class="order__price">К оплате: {{ commonPrice$ | async }} p.</p>
+</div>

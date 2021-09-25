@@ -25,6 +25,8 @@ export class CartComponent implements OnInit, OnDestroy {
 
   isOrderShown = false;
 
+  isOrderSubmitted = false;
+
   constructor(
     private coreDataservice: CoreDataService,
     private authService: AuthService,
@@ -81,5 +83,11 @@ export class CartComponent implements OnInit, OnDestroy {
       }),
     );
     this.getCommonPrice();
+  }
+
+  afterOrderSubmitted(): void {
+    this.isOrderShown = false;
+    this.isOrderSubmitted = true;
+    this.user$ = this.authService.checkLogin();
   }
 }

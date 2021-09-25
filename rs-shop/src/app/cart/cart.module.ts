@@ -9,6 +9,8 @@ import { FavoriteComponent } from './cart/favorite/favorite.component';
 import { OrderComponent } from './cart/order/order.component';
 import { FavoriteGoodComponent } from './favorite-good/favorite-good.component';
 import { FieldErrorComponent } from './cart/field-error/field-error.component';
+import { WaitListComponent } from './wait-list/wait-list.component';
+import { OrderItemComponent } from './order-item/order-item.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { FieldErrorComponent } from './cart/field-error/field-error.component';
     CartGoodComponent,
     OrderComponent,
     FieldErrorComponent,
+    WaitListComponent,
+    OrderItemComponent,
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, CartRoutingModule, SharedModule],
 })
