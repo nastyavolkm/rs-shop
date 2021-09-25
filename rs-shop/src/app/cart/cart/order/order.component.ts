@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
 import { IUser } from 'src/app/core/models/IUser.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { OrderService } from 'src/app/goods/services/order.service';
@@ -20,7 +19,7 @@ import { IDetail } from '../models/IDetail.model';
 export class OrderComponent implements OnInit {
   @Input() goods$!: Observable<IGood[]>;
 
-  @Input() user$!: Observable<IUser | IUnLoggedUser | undefined>;
+  user$!: Observable<IUser>;
 
   @Output() isOrderShown = new EventEmitter();
 
@@ -36,6 +35,8 @@ export class OrderComponent implements OnInit {
 
   details!: IDetail;
 
+  isEditMode = false;
+
   constructor(
     private authService: AuthService,
     private orderService: OrderService,
@@ -45,22 +46,8 @@ export class OrderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.user$ = this.store.pipe(select(UserSelectors.user));
     this.isLogged$ = this.authService.isLogged();
-    this.formDelivery = this.formBuilder.group({
-      name: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(50),
-      ]),
-      address: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(250),
-      ]),
-      phone: new FormControl('', [Validators.required, Validators.pattern('^\\+[0-9]*')]),
-      timeToDeliver: new FormControl({ disabled: true }, Validators.required),
-      comment: new FormControl('', Validators.maxLength(250)),
-    });
   }
 
   registerUser(form: NgForm): void {
@@ -72,40 +59,6 @@ export class OrderComponent implements OnInit {
         this.isLogged$ = this.authService.isLogged();
       }
     });
-  }
-
-  submitOrder(): void {
-    if (this.formDelivery.valid) {
-      const user$ = this.orderService.getLoggedUser();
-      this.orderService.submitOrder(this.formDelivery, user$);
-      this.isOrderSubmitted = true;
-      this.isOrderShown.emit();
-      this.getLastOrderDetails();
-    } else {
-      this.validateAllFormFields(this.formDelivery);
-    }
-  }
-
-  validateAllFormFields(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach((field) => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {
-        this.validateAllFormFields(control);
-      }
-    });
-  }
-
-  isFieldValid(field: string) {
-    return !this.formDelivery.get(field)!.valid && this.formDelivery.get(field)!.touched;
-  }
-
-  displayFieldCss(field: string) {
-    return {
-      'has-error': this.isFieldValid(field),
-      'has-feedback': this.isFieldValid(field),
-    };
   }
 
   getLastOrderDetails(): void {

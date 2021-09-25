@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
-import { forkJoin, Observable, of } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { IDetail } from 'src/app/cart/cart/models/IDetail.model';
 import { IOrder } from 'src/app/cart/cart/models/IOrder.model';
@@ -10,6 +10,7 @@ import { IOrderItem } from 'src/app/cart/cart/models/IOrderItem.model';
 import { IToken } from 'src/app/core/models/IToken.model';
 import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
 import { IUser } from 'src/app/core/models/IUser.model';
+import { UserActions } from 'src/app/redux/actions/userActions';
 import { UserSelectors } from 'src/app/redux/selectors/userSelectors';
 import { IGood } from 'src/app/redux/state/good.model';
 
@@ -20,6 +21,8 @@ const USERS = 'users';
 })
 export class OrderService {
   details!: IDetail;
+
+  isOrderSubmitted$$ = new BehaviorSubject(false);
 
   constructor(private http: HttpClient, private store: Store) {}
 
@@ -160,12 +163,11 @@ export class OrderService {
   submitOrder(orderForm: FormGroup, user$: Observable<IUser>): void {
     const token = this.getCurrentToken();
     const headers = new HttpHeaders({ Authorization: `Bearer ${token!.token}` });
-    let obj: IOrderItem = { id: '', amount: 0 };
     let ids: string[] = [];
     user$.pipe(tap((user) => (ids = user.cart))).subscribe();
-    const goodsToOrder: IOrderItem[] = ids.map((id) => {
-      obj.id = id;
-      return obj;
+    const goodsToOrder: IOrderItem[] = ids.map((item) => {
+      const obj: IOrderItem = { id: item, amount: 0 };
+      return Object.assign({}, obj);
     });
     const body = {
       items: goodsToOrder,
@@ -175,7 +177,32 @@ export class OrderService {
     this.http.post(`${USERS}/order`, body, { headers }).subscribe();
   }
 
+  editOrder(orderForm: FormGroup, id: string): void {
+    const token = this.getCurrentToken();
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token!.token}` });
+    const body = {
+      id: id,
+      details: orderForm.value,
+    };
+    this.details = body.details;
+    this.http.put(`${USERS}/order`, body, { headers }).subscribe();
+  }
+
+  deleteOrder(id: string): void {
+    const token = this.getCurrentToken();
+    if (token) {
+      const headers = new HttpHeaders({ Authorization: `Bearer ${token.token}` });
+      this.http.delete(`${USERS}/order?id=${id}`, { headers }).subscribe();
+      this.store.dispatch(UserActions.getUser({ token: token }));
+    }
+  }
+
   getOrderPrice(goods$: Observable<IGood[]>): Observable<number> {
     return goods$.pipe(map((goods) => goods.map((good) => good.price).reduce((a, b) => a + b)));
+  }
+
+  afterOrderSubmitted(): void {
+    // this.isOrderShown = false;
+    this.isOrderSubmitted$$.next(true);
   }
 }

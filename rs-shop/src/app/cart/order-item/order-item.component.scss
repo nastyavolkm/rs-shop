@@ -2,12 +2,35 @@
     display: flex;
     width: 100%;
     padding: 10px;
-    border-top: 1px solid var(--hover-color);
-    border-bottom: 1px solid var(--hover-color);
 }
 .order {
     display: flex;
-    justify-content: space-between;
+    width: 100%;
+
+    &__wrapper {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+    }
+
+    &__name {
+        color: var(--main-color);
+        text-decoration: underline;
+        cursor: pointer;
+       flex: 0 0 180px;
+
+        &:hover {
+            color: var(--button-text-color);
+        }
+    }
+
+    &__listwrapper {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        box-shadow: 1px 1px 1px var(--hover-color);
+        flex: 1 1 auto;
+    }
 
     &__ordergood {
         display: flex;
@@ -20,6 +43,7 @@
         flex-direction: column;
         gap: 5px;
         flex: 0 0 200px;
+        position: relative;
 
         &-heading-wrapper {
             display: flex;

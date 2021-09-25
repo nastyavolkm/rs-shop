@@ -26,6 +26,12 @@ export class OrderItemComponent implements OnInit {
 
   subscribe: any;
 
+  isOrderShown = false;
+
+  isEditMode = false;
+
+  isFormDeliveryShown = false;
+
   constructor(
     public router: Router,
     public route: ActivatedRoute,

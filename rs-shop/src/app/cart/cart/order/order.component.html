@@ -35,54 +35,13 @@
       {{ (user$ | async)!.firstName }} {{ (user$ | async)!.lastName }}
     </div>
   </div>
-  <div *ngIf="(isLogged$ | async) && !isOrderSubmitted" class="cart__order-block">
-    <p class="cart__order-heading">Доставка</p>
-    <div class="cart__order-line"></div>
-    <form [formGroup]="formDelivery" (ngSubmit)="submitOrder()" class="cart__order-form">
-      <div class="form-group" [ngClass]="displayFieldCss('name')">
-        <label class="cart__order__label">
-          ФИО*
-          <input type="text" class="cart__order__input" formControlName="name" />
-        </label>
-        <app-field-error
-          [displayError]="isFieldValid('name')"
-          errorMsg="Пожалуйста, введите не менее 3 и не более 50 символов."
-        ></app-field-error>
-      </div>
-      <div class="form-group" [ngClass]="displayFieldCss('address')">
-        <label class="cart__order__label">
-          Адрес доставки*
-          <input type="text" class="cart__order__input" formControlName="address" />
-        </label>
-        <app-field-error
-          [displayError]="isFieldValid('address')"
-          errorMsg="Пожалуйста, введите не менее 3 и не более 250 символов."
-        ></app-field-error>
-      </div>
-      <div class="form-group" [ngClass]="displayFieldCss('phone')">
-        <label class="cart__order__label control-label required">
-          Номер телефона*
-          <input
-            type="text"
-            class="cart__order__input"
-            placeholder="+375"
-            formControlName="phone"
-          />
-        </label>
-        <app-field-error
-          [displayError]="isFieldValid('phone')"
-          errorMsg="Пожалуйста, введите Ваш номер телефона в формате +375"
-        ></app-field-error>
-      </div>
-      <app-date-time-picker [formDelivery]="formDelivery"></app-date-time-picker>
-      <label class="cart__order__label">
-        Комментарий к заказу
-        <textarea class="cart__order__textarea" formControlName="comment"></textarea>
-      </label>
-
-      <button type="submit" class="cart__order__btn">Подтвердить заказ</button>
-    </form>
-  </div>
+  <app-form-delivery
+    [user$]="user$"
+    [isEditMode]="isEditMode"
+    (isOrderSubmitted)="isOrderSubmitted = true"
+    (getDetails)="getLastOrderDetails()"
+    *ngIf="(isLogged$ | async) && !isOrderSubmitted"
+  ></app-form-delivery>
   <div *ngIf="isOrderSubmitted" class="cart__success">
     <p class="cart__success-heading">Ваш заказ принят и будет доставлен в указанное время!</p>
     <p class="cart__success-detail">Детали заказа</p>

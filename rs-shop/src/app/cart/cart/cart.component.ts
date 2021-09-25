@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { OrderService } from 'src/app/goods/services/order.service';
 import { IGood } from 'src/app/redux/state/good.model';
@@ -25,7 +25,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   isOrderShown = false;
 
-  isOrderSubmitted = false;
+  isOrderSubmitted$$ = new BehaviorSubject(false);
 
   constructor(
     private coreDataservice: CoreDataService,
@@ -38,6 +38,7 @@ export class CartComponent implements OnInit, OnDestroy {
     this.coreDataservice.isCartButtonActive$$.next(true);
     this.user$ = this.authService.checkLogin();
     this.goods$ = this.orderService.getCartGoods(this.user$);
+    this.isOrderSubmitted$$ = this.orderService.isOrderSubmitted$$;
     this.getPricesArray();
     this.getCommonPrice();
   }
@@ -83,11 +84,5 @@ export class CartComponent implements OnInit, OnDestroy {
       }),
     );
     this.getCommonPrice();
-  }
-
-  afterOrderSubmitted(): void {
-    this.isOrderShown = false;
-    this.isOrderSubmitted = true;
-    this.user$ = this.authService.checkLogin();
   }
 }

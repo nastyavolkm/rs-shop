@@ -1,9 +1,11 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IUser } from 'src/app/core/models/IUser.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { OrderService } from 'src/app/goods/services/order.service';
+import { UserSelectors } from 'src/app/redux/selectors/userSelectors';
 import { IOrder } from '../cart/models/IOrder.model';
 
 @Component({
@@ -20,22 +22,11 @@ export class WaitListComponent implements OnInit {
     public location: Location,
     private authService: AuthService,
     private orderService: OrderService,
+    private store: Store,
   ) {}
 
   ngOnInit(): void {
-    this.user$ = this.orderService.getLoggedUser();
+    this.user$ = this.store.pipe(select(UserSelectors.user));
     this.orders$ = this.orderService.getOrders(this.user$);
-    this.orders$.subscribe((orders) => console.log(orders));
   }
-
-  // deleteGood(id: string): void {
-  //   this.orders$ = this.orders$.pipe(
-  //     switchMap((orders) => {
-  //       const item = orders.items.find((good) => good.items.id === id);
-  //       goods.splice(goods.indexOf(item!), 1);
-  //       console.log(goods);
-  //       return of(goods);
-  //     }),
-  //   );
-  // }
 }

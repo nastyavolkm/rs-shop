@@ -1,5 +1,5 @@
 <div class="waitlist">
-  <p class="waitlist__heading">Избранное</p>
+  <p class="waitlist__heading">Лист ожидания</p>
   <div class="waitlist__goods" *ngIf="(user$ | async)!.orders!.length > 0; else emptyWaitlist">
     <app-order-item
       [user$]="user$"

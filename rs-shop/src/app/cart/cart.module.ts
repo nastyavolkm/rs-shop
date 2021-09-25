@@ -11,6 +11,7 @@ import { FavoriteGoodComponent } from './favorite-good/favorite-good.component';
 import { FieldErrorComponent } from './cart/field-error/field-error.component';
 import { WaitListComponent } from './wait-list/wait-list.component';
 import { OrderItemComponent } from './order-item/order-item.component';
+import { FormDeliveryComponent } from './cart/form-delivery/form-delivery.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { OrderItemComponent } from './order-item/order-item.component';
     FieldErrorComponent,
     WaitListComponent,
     OrderItemComponent,
+    FormDeliveryComponent,
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, CartRoutingModule, SharedModule],
 })
