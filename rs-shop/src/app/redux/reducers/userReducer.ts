@@ -8,26 +8,10 @@ const initialUserState: IUserState = {
     lastName: '',
     cart: [],
     favorites: [],
-    orders: [
-      {
-        items: [
-          {
-            id: '',
-            amount: 0,
-          },
-        ],
-        details: {
-          name: '',
-          address: '',
-          phone: '',
-          timeToDeliver: '',
-          comment: '',
-        },
-        id: '',
-      },
-    ],
+    orders: [],
   },
 };
+
 const UserReducer = createReducer(
   initialUserState,
   on(UserActions.getUserSuccessful, (state, { user }) => ({

@@ -92,11 +92,11 @@
         cursor: pointer;
     }
     &__input {
-        border: 1px solid var(--main-color);
         color: var(--shadow-color);
         font-size: 16px;
         text-align: center;
         width: 30px;
+        border: 1px solid var(--hover-color);
 
     }
 }
