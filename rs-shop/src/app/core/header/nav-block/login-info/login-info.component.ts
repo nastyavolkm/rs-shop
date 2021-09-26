@@ -27,7 +27,9 @@ export class LoginInfoComponent implements OnInit {
   }
 
   checkUser(): void {
-    if (this.authService.getCurrentToken()) {
+    const token = this.authService.getCurrentToken();
+    if (token) {
+      this.store.dispatch(UserActions.getUser({ token: token }));
       this.user$ = this.store.pipe(select(UserSelectors.user));
     } else {
       this.user$ = of(undefined);

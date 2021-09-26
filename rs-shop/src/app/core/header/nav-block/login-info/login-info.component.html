@@ -10,9 +10,7 @@
   >
     Войти
   </button>
-  <button *ngIf="user$ | async" (click)="authService.deleteToken()" class="login-info__button">
-    Выйти
-  </button>
+  <button *ngIf="user$ | async" (click)="logOut()" class="login-info__button">Выйти</button>
   <div class="login-info__line"></div>
   <p (click)="router.navigate(['order'], { relativeTo: route })" class="login-info__text">
     <img src="../../../../assets/cart.png" alt="cart" class="login-info__icon" />

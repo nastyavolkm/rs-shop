@@ -34,11 +34,6 @@ export class NavBlockComponent implements OnInit {
     this.isCatalogButtonActive$$ = this.coreDataService.isCatalogButtonActive$$;
     this.isLogInButtonActive$$ = this.coreDataService.isLogInButtonActive$$;
     this.isCartButtonActive$$ = this.coreDataService.isCartButtonActive$$;
-    // this.renderer.listen(document.body, 'click', (event: Event) => {
-    //   if (this.isLogInButtonActive$$.getValue() === true && event.target !== this.accountBtn) {
-    //     this.isLogInButtonActive$$.next(false);
-    //   }
-    // });
   }
 
   setValueToSearch(value: string): void {
@@ -50,10 +45,5 @@ export class NavBlockComponent implements OnInit {
 
   clearValue(): void {
     this.value = '';
-  }
-
-  onClickOutside(e: Event): void {
-    console.log('hello', e);
-    this.isLogInButtonActive$$.next(false);
   }
 }

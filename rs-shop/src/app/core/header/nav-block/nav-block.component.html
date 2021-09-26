@@ -59,10 +59,7 @@
 >
   <img src="../../../../assets/account.jpg" alt="account" class="nav-button__icon" />
   Аккаунт {{ (isLogInButtonActive$$ | async) === false ? '&#9660;' : '&#9650;' }}
-  <app-login-info
-    (clickOutside)="onClickOutside($event)"
-    *ngIf="isLogInButtonActive$$ | async"
-  ></app-login-info>
+  <app-login-info *ngIf="isLogInButtonActive$$ | async"></app-login-info>
 </button>
 <button
   (click)="coreDataService.showCartBlock()"
