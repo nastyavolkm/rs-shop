@@ -26,7 +26,19 @@
   <p class="card__name">{{ good.name }}</p>
   <div class="card__available">
     <div class="card__amount-icon-wrapper">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17">
+      <svg
+        [matTooltip]="
+          good.availableAmount < 5
+            ? 'Осталось менее 5 штук в наличии'
+            : good.availableAmount >= 5 && good.availableAmount <= 19
+            ? 'В наличии до 20 штук'
+            : good.availableAmount > 19
+            ? 'В наличии более 20 штук'
+            : 'Успейте купить'
+        "
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 17 17"
+      >
         <g transform="translate(-476 -148)">
           <circle
             appColorizeAmount

@@ -13,6 +13,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { CarouselComponent } from './carousel/carousel.component';
@@ -37,6 +39,8 @@ import { PopularCarouselComponent } from './popular-carousel/popular-carousel.co
     MatDialogModule,
     MatFormFieldModule,
     MatCardModule,
+    MatTooltipModule,
+    MatSelectModule,
   ],
   exports: [CarouselComponent, PopularCarouselComponent, DateTimePickerComponent],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'ru-RU' }],

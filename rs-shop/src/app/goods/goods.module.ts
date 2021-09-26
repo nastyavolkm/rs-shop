@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CatalogPageComponent } from './catalog-page/catalog-page.component';
 import { CategoryComponent } from './category/category.component';
@@ -21,7 +22,7 @@ import { SubCategoryComponent } from './sub-category/sub-category.component';
     ColorizeAmountDirective,
     SortByPipe,
   ],
-  imports: [CommonModule, GoodsRoutingModule, NgxPaginationModule],
+  imports: [CommonModule, GoodsRoutingModule, NgxPaginationModule, MatTooltipModule],
   exports: [CategoryComponent, SubCategoryComponent, GoodComponent],
   providers: [GoodsService],
 })
