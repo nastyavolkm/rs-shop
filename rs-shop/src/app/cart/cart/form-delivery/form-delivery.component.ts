@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IUser } from 'src/app/core/models/IUser.model';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { OrderService } from 'src/app/goods/services/order.service';
+import { OrderService } from 'src/app/core/services/order.service';
 import { UserActions } from 'src/app/redux/actions/userActions';
 import { IGood } from 'src/app/redux/state/good.model';
 import { IOrder } from '../models/IOrder.model';
@@ -71,7 +71,6 @@ export class FormDeliveryComponent implements OnInit {
         this.store.dispatch(UserActions.getUser({ token: token! }));
         this.getDetails.emit();
       } else {
-        // const user$ = this.orderService.getLoggedUser();
         this.orderService.submitOrder(this.formDelivery, this.user$);
         this.isOrderSubmitted.emit(true);
         this.orderService.afterOrderSubmitted();
