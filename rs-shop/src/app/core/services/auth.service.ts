@@ -71,10 +71,6 @@ export class AuthService {
     return this.http.get<IUser>(`${USERS}/userInfo`, { headers });
   }
 
-  saveUser(user: IUser, token: IToken): void {
-    this.saveToken(token);
-  }
-
   saveToken(token: IToken): void {
     localStorage.setItem('token', JSON.stringify(token));
   }
@@ -95,16 +91,12 @@ export class AuthService {
     localStorage.setItem(UNLOGGED_USER, JSON.stringify(unLoggedUser));
   }
 
-  getUnLoggedUser(): Observable<IUnLoggedUser | undefined> {
+  getUnLoggedUser(): IUnLoggedUser | undefined {
     const currentUser = localStorage.getItem(UNLOGGED_USER);
     if (typeof currentUser === 'string') {
-      return of(JSON.parse(currentUser));
+      return JSON.parse(currentUser);
     }
-    return of(undefined);
-  }
-
-  deleteUser(): void {
-    this.deleteToken();
+    return undefined;
   }
 
   deleteUnLoggedUser(): void {
@@ -113,14 +105,17 @@ export class AuthService {
 
   checkLogin(): Observable<IUser | IUnLoggedUser | undefined> {
     const token = this.getCurrentToken();
+    let unLoggedUser = this.getUnLoggedUser();
     if (token === undefined) {
-      const unLoggedUser: IUnLoggedUser = {
-        firstName: 'unlogged',
-        lastName: 'unlogged',
-        cart: [],
-        favorites: [],
-      };
-      this.saveUnLoggedUser(unLoggedUser);
+      if (unLoggedUser === undefined) {
+        unLoggedUser = {
+          firstName: 'unlogged',
+          lastName: 'unlogged',
+          cart: [],
+          favorites: [],
+        };
+        this.saveUnLoggedUser(unLoggedUser);
+      }
       return of(unLoggedUser);
     } else {
       this.store.dispatch(UserActions.getUser({ token: token }));

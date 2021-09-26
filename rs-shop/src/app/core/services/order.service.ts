@@ -13,6 +13,7 @@ import { IUser } from 'src/app/core/models/IUser.model';
 import { UserActions } from 'src/app/redux/actions/userActions';
 import { UserSelectors } from 'src/app/redux/selectors/userSelectors';
 import { IGood } from 'src/app/redux/state/good.model';
+import { AuthService } from './auth.service';
 
 const USERS = 'users';
 
@@ -24,7 +25,7 @@ export class OrderService {
 
   isOrderSubmitted$$ = new BehaviorSubject(false);
 
-  constructor(private http: HttpClient, private store: Store) {}
+  constructor(private http: HttpClient, private store: Store, private authService: AuthService) {}
 
   addToFavorite(id: string): void {
     const token = this.getCurrentToken();
@@ -34,6 +35,10 @@ export class OrderService {
         id: id,
       };
       this.http.post(`${USERS}/favorites`, body, { headers }).subscribe();
+    } else {
+      const currentUser = this.authService.getUnLoggedUser();
+      currentUser!.favorites!.push(id);
+      this.authService.saveUnLoggedUser(currentUser!);
     }
   }
 
@@ -42,6 +47,11 @@ export class OrderService {
     if (token) {
       const headers = new HttpHeaders({ Authorization: `Bearer ${token.token}` });
       this.http.delete(`${USERS}/favorites?id=${id}`, { headers }).subscribe();
+    } else {
+      const currentUser = this.authService.getUnLoggedUser();
+      const favorites = currentUser!.favorites;
+      favorites?.splice(favorites.indexOf(id), 1);
+      this.authService.saveUnLoggedUser(currentUser!);
     }
   }
 
@@ -53,6 +63,10 @@ export class OrderService {
         id: id,
       };
       this.http.post(`${USERS}/cart`, body, { headers }).subscribe();
+    } else {
+      const currentUser = this.authService.getUnLoggedUser();
+      currentUser!.cart!.push(id);
+      this.authService.saveUnLoggedUser(currentUser!);
     }
   }
 
@@ -61,6 +75,36 @@ export class OrderService {
     if (token) {
       const headers = new HttpHeaders({ Authorization: `Bearer ${token.token}` });
       this.http.delete(`${USERS}/cart?id=${id}`, { headers }).subscribe();
+    } else {
+      const currentUser = this.authService.getUnLoggedUser();
+      const cart = currentUser!.cart;
+      cart?.splice(cart.indexOf(id), 1);
+      this.authService.saveUnLoggedUser(currentUser!);
+    }
+  }
+
+  transferDataOfUnloggedUser(token: IToken): void {
+    const unLoggedUser = this.authService.getUnLoggedUser();
+    if (unLoggedUser) {
+      const headers = new HttpHeaders({ Authorization: `Bearer ${token.token}` });
+      const favorites = unLoggedUser?.favorites;
+      const cart = unLoggedUser?.cart;
+      forkJoin(
+        favorites!.forEach((id) => {
+          const body = {
+            id: id,
+          };
+          this.http.post(`${USERS}/favorites`, body, { headers }).subscribe();
+        }),
+      );
+      forkJoin(
+        cart!.forEach((id) => {
+          const body = {
+            id: id,
+          };
+          this.http.post(`${USERS}/cart`, body, { headers }).subscribe();
+        }),
+      );
     }
   }
 
@@ -202,7 +246,6 @@ export class OrderService {
   }
 
   afterOrderSubmitted(): void {
-    // this.isOrderShown = false;
     this.isOrderSubmitted$$.next(true);
   }
 }

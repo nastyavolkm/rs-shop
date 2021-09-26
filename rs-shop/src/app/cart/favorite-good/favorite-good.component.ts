@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
 import { IUser } from 'src/app/core/models/IUser.model';
-import { OrderService } from 'src/app/goods/services/order.service';
+import { OrderService } from 'src/app/core/services/order.service';
 import { IGood } from 'src/app/redux/state/good.model';
 
 @Component({

@@ -10,6 +10,7 @@ import { NgForm } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { CoreDataService } from '../services/core-data.service';
+import { OrderService } from '../services/order.service';
 
 @Component({
   selector: 'app-login-form',
@@ -27,6 +28,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
   constructor(
     public coreDataService: CoreDataService,
     public authService: AuthService,
+    private orderService: OrderService,
     private renderer: Renderer2,
   ) {}
 
@@ -44,9 +46,11 @@ export class LoginFormComponent implements OnInit, OnDestroy {
   loginUser(form: NgForm): void {
     this.authService.loginUser(form).subscribe((token) => {
       if (token) {
+        this.orderService.transferDataOfUnloggedUser(token);
         this.authService.hideLoginForm();
-        this.authService.getUserInfo(token).subscribe((user) => {
-          this.authService.saveUser(user, token);
+        this.authService.deleteUnLoggedUser();
+        this.authService.getUserInfo(token).subscribe(() => {
+          this.authService.saveToken(token);
         });
       }
     });

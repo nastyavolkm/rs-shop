@@ -10,7 +10,7 @@
   >
     Войти
   </button>
-  <button *ngIf="user$ | async" (click)="authService.deleteUser()" class="login-info__button">
+  <button *ngIf="user$ | async" (click)="authService.deleteToken()" class="login-info__button">
     Выйти
   </button>
   <div class="login-info__line"></div>

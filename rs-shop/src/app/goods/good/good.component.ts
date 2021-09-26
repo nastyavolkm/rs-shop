@@ -4,9 +4,9 @@ import { Observable } from 'rxjs';
 import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
 import { IUser } from 'src/app/core/models/IUser.model';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { OrderService } from 'src/app/core/services/order.service';
 import { IGood } from 'src/app/redux/state/good.model';
 import { GoodsService } from '../services/goods.service';
-import { OrderService } from '../services/order.service';
 
 @Component({
   selector: 'app-good',

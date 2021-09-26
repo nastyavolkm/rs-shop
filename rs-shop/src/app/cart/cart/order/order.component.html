@@ -38,7 +38,7 @@
   <app-form-delivery
     [user$]="user$"
     [isEditMode]="isEditMode"
-    (isOrderSubmitted)="isOrderSubmitted = true"
+    (isOrderSubmitted)="isOrderSubmitted = true; clearCart.emit()"
     (getDetails)="getLastOrderDetails()"
     *ngIf="(isLogged$ | async) && !isOrderSubmitted"
   ></app-form-delivery>

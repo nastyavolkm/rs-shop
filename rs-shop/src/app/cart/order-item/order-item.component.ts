@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IUser } from 'src/app/core/models/IUser.model';
-import { OrderService } from 'src/app/goods/services/order.service';
+import { OrderService } from 'src/app/core/services/order.service';
 import { IGood } from 'src/app/redux/state/good.model';
 import { IOrder } from '../cart/models/IOrder.model';
 

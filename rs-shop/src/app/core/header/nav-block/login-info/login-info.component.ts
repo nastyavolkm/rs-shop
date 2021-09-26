@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
+import { UserActions } from 'src/app/redux/actions/userActions';
 import { UserSelectors } from 'src/app/redux/selectors/userSelectors';
 import { IUser } from '../../../models/IUser.model';
 import { AuthService } from '../../../services/auth.service';
@@ -22,7 +23,6 @@ export class LoginInfoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.user$ = this.authService.getCurrentUser();
     this.checkUser();
   }
 
@@ -32,5 +32,10 @@ export class LoginInfoComponent implements OnInit {
     } else {
       this.user$ = of(undefined);
     }
+  }
+
+  logOut(): void {
+    this.authService.deleteToken();
+    this.store.dispatch(UserActions.getUnLoggedUser());
   }
 }

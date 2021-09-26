@@ -5,7 +5,7 @@ import { switchMap } from 'rxjs/operators';
 import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
 import { IUser } from 'src/app/core/models/IUser.model';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { OrderService } from 'src/app/goods/services/order.service';
+import { OrderService } from 'src/app/core/services/order.service';
 import { IGood } from 'src/app/redux/state/good.model';
 
 @Component({
@@ -34,7 +34,6 @@ export class FavoriteComponent implements OnInit {
       switchMap((goods) => {
         const item = goods.find((good) => good.id === id);
         goods.splice(goods.indexOf(item!), 1);
-        console.log(goods);
         return of(goods);
       }),
     );

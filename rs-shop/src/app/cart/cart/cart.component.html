@@ -20,7 +20,11 @@
       Оформить заказ
     </button>
   </div>
-  <app-order [goods$]="goods$" *ngIf="isOrderShown || (isOrderSubmitted$$ | async)"></app-order>
+  <app-order
+    [goods$]="goods$"
+    *ngIf="isOrderShown || (isOrderSubmitted$$ | async)"
+    (clearCart)="afterOrderSubmit()"
+  ></app-order>
 
   <ng-template #emptyCart>
     <p class="cart__empty-text">Ваша корзина пуста</p>

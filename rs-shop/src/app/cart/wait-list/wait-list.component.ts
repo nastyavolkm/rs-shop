@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IUser } from 'src/app/core/models/IUser.model';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { OrderService } from 'src/app/goods/services/order.service';
+import { OrderService } from 'src/app/core/services/order.service';
 import { UserSelectors } from 'src/app/redux/selectors/userSelectors';
 import { IOrder } from '../cart/models/IOrder.model';
 
@@ -20,7 +19,6 @@ export class WaitListComponent implements OnInit {
 
   constructor(
     public location: Location,
-    private authService: AuthService,
     private orderService: OrderService,
     private store: Store,
   ) {}

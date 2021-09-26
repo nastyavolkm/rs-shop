@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IUser } from 'src/app/core/models/IUser.model';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { OrderService } from 'src/app/goods/services/order.service';
+import { OrderService } from 'src/app/core/services/order.service';
 import { UserActions } from 'src/app/redux/actions/userActions';
 import { UserSelectors } from 'src/app/redux/selectors/userSelectors';
 import { IGood } from 'src/app/redux/state/good.model';
@@ -22,6 +22,8 @@ export class OrderComponent implements OnInit {
   user$!: Observable<IUser>;
 
   @Output() isOrderShown = new EventEmitter();
+
+  @Output() clearCart = new EventEmitter();
 
   isOrderSubmitted = false;
 
@@ -53,9 +55,10 @@ export class OrderComponent implements OnInit {
   registerUser(form: NgForm): void {
     this.authService.registerUser(form).subscribe((token) => {
       if (token) {
+        this.orderService.transferDataOfUnloggedUser(token);
+        this.authService.deleteUnLoggedUser();
         this.isRegistrationSuccessful$$.next(true);
         this.store.dispatch(UserActions.getUser({ token: token }));
-        this.user$ = this.store.pipe(select(UserSelectors.user));
         this.isLogged$ = this.authService.isLogged();
       }
     });

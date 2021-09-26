@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { OrderService } from 'src/app/goods/services/order.service';
+import { OrderService } from 'src/app/core/services/order.service';
 import { IGood } from 'src/app/redux/state/good.model';
 import { IUnLoggedUser } from '../../core/models/IUnLoggedUser.model';
 import { IUser } from '../../core/models/IUser.model';
@@ -52,7 +52,6 @@ export class CartComponent implements OnInit, OnDestroy {
       switchMap((goods) => {
         const item = goods.find((good) => good.id === id);
         goods.splice(goods.indexOf(item!), 1);
-        console.log(goods);
         return of(goods);
       }),
     );
@@ -84,5 +83,9 @@ export class CartComponent implements OnInit, OnDestroy {
       }),
     );
     this.getCommonPrice();
+  }
+
+  afterOrderSubmit(): void {
+    this.user$ = this.authService.checkLogin();
   }
 }

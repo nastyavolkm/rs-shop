@@ -9,7 +9,6 @@ import { GoodComponent } from './good/good.component';
 import { GoodsRoutingModule } from './goods.routing-module';
 import { SortByPipe } from './pipes/sort-by.pipe';
 import { GoodsService } from './services/goods.service';
-import { OrderService } from './services/order.service';
 import { SubCategoryComponent } from './sub-category/sub-category.component';
 
 @NgModule({
@@ -24,6 +23,6 @@ import { SubCategoryComponent } from './sub-category/sub-category.component';
   ],
   imports: [CommonModule, GoodsRoutingModule, NgxPaginationModule],
   exports: [CategoryComponent, SubCategoryComponent, GoodComponent],
-  providers: [GoodsService, OrderService],
+  providers: [GoodsService],
 })
 export class GoodsModule {}

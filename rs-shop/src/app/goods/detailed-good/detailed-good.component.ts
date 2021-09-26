@@ -6,11 +6,11 @@ import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
 import { IUser } from 'src/app/core/models/IUser.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { HttpService } from 'src/app/core/services/http.service';
+import { OrderService } from 'src/app/core/services/order.service';
 import { ICategory } from 'src/app/redux/state/category.model';
 import { IGood } from 'src/app/redux/state/good.model';
 import { ISubCategory } from 'src/app/redux/state/subcategory.model';
 import { GoodsService } from '../services/goods.service';
-import { OrderService } from '../services/order.service';
 
 @Component({
   selector: 'app-detailed-good',
@@ -107,6 +107,16 @@ export class DetailedGoodComponent implements OnInit, OnDestroy {
     } else {
       this.isGoodFavorite = true;
       this.orderService.addToFavorite(this.id);
+    }
+  }
+
+  onCartClick(): void {
+    if (this.addedToCart) {
+      this.addedToCart = false;
+      this.orderService.deleteFromCart(this.id);
+    } else {
+      this.addedToCart = true;
+      this.orderService.addToCart(this.id);
     }
   }
 }
