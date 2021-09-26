@@ -1,7 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
 import { IUser } from 'src/app/core/models/IUser.model';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -27,15 +26,5 @@ export class FavoriteComponent implements OnInit {
   ngOnInit(): void {
     this.user$ = this.authService.checkLogin();
     this.goods$ = this.orderService.getFavoriteGoods(this.user$);
-  }
-
-  deleteGood(id: string): void {
-    this.goods$ = this.goods$.pipe(
-      switchMap((goods) => {
-        const item = goods.find((good) => good.id === id);
-        goods.splice(goods.indexOf(item!), 1);
-        return of(goods);
-      }),
-    );
   }
 }

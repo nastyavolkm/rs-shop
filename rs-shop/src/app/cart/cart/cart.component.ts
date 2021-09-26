@@ -47,16 +47,6 @@ export class CartComponent implements OnInit, OnDestroy {
     this.coreDataservice.isCartButtonActive$$.next(false);
   }
 
-  deleteGood(id: string): void {
-    this.goods$ = this.goods$.pipe(
-      switchMap((goods) => {
-        const item = goods.find((good) => good.id === id);
-        goods.splice(goods.indexOf(item!), 1);
-        return of(goods);
-      }),
-    );
-  }
-
   getPricesArray(): void {
     this.pricesArray$ = this.goods$.pipe(
       switchMap((goods) => {

@@ -20,6 +20,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { Page404Component } from './page404/page404.component';
 import { AuthService } from './services/auth.service';
 import { CoreDataService } from './services/core-data.service';
+import { DemoComponent } from './main-page/demo/demo.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { CoreDataService } from './services/core-data.service';
     LoginFormComponent,
     LoginInfoComponent,
     RegistrationComponent,
+    DemoComponent,
   ],
   imports: [CommonModule, FormsModule, CoreRoutingModule, SharedModule],
   exports: [

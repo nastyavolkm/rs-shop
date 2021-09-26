@@ -47,6 +47,7 @@ export class OrderService {
     if (token) {
       const headers = new HttpHeaders({ Authorization: `Bearer ${token.token}` });
       this.http.delete(`${USERS}/favorites?id=${id}`, { headers }).subscribe();
+      this.store.dispatch(UserActions.getUser({ token: token }));
     } else {
       const currentUser = this.authService.getUnLoggedUser();
       const favorites = currentUser!.favorites;
@@ -75,6 +76,7 @@ export class OrderService {
     if (token) {
       const headers = new HttpHeaders({ Authorization: `Bearer ${token.token}` });
       this.http.delete(`${USERS}/cart?id=${id}`, { headers }).subscribe();
+      this.store.dispatch(UserActions.getUser({ token: token }));
     } else {
       const currentUser = this.authService.getUnLoggedUser();
       const cart = currentUser!.cart;

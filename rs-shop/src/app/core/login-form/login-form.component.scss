@@ -19,6 +19,8 @@
     z-index: 3020;
     background-color: gray;
     opacity: .8;
+    z-index: 30020;
+
 
 }
 .login {
@@ -30,7 +32,8 @@
     padding: 20px;
     box-shadow: 1px 1px 1px 1px var(--hover-color);
     position: relative;
-    z-index: 3020;
+    z-index: 30030;
+
 
     &__heading {
         align-self: center;
