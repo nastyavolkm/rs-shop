@@ -138,3 +138,26 @@
         filter: grayscale(1);
     }
 }
+
+@media (min-width: 500px) and (max-width: 840px) {
+    .search-wrapper {
+        order: 2;
+    }
+    .logo {
+        order: 1;
+    }
+
+    .catalog {
+        order: 3;
+    }
+    .nav-button__account {
+        order: 4;
+    }
+    .cart {
+        order: 5;
+    }
+
+    :host {
+        flex-wrap: wrap;
+    }
+    }

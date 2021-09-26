@@ -4,6 +4,7 @@
     &__list {
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
         padding: 10px 0;
         border-top: 1px solid var(--main-color);
         border-bottom: 1px solid var(--main-color);

@@ -4,7 +4,7 @@
   </a>
 </div>
 <button
-  class="nav-button"
+  class="nav-button catalog"
   (click)="coreDataService.toggleCatalog()"
   [ngClass]="{ inactive: isCatalogButtonActive$$ | async }"
 >
@@ -65,7 +65,7 @@
   (click)="coreDataService.showCartBlock()"
   [ngClass]="{ inactive_disabled: isCartButtonActive$$ | async }"
   [disabled]="isCartButtonActive$$ | async"
-  class="nav-button"
+  class="nav-button cart"
 >
   <img src="../../../../assets/cart.png" alt="catalog" class="nav-button__icon" />
   Корзина

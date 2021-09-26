@@ -27,6 +27,8 @@
     &__listwrapper {
         display: flex;
         justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
         padding: 10px;
         box-shadow: 1px 1px 1px var(--hover-color);
         flex: 1 1 auto;

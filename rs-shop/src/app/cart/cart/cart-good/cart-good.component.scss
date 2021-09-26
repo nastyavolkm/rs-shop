@@ -20,6 +20,11 @@
     padding: 10px;
     position: relative;
 
+    &__rating-like-wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+
     &__img-wrapper {
         flex: 0 0 50px;
         height: 100px;
@@ -28,9 +33,6 @@
     }
 
     &__like {
-        position: absolute;
-        right: 20px;
-        top: 60px;
         z-index: 10;
         transition: .4s ease;
         cursor: pointer;
@@ -49,6 +51,7 @@
     &__name {
         text-align: left;
         height: 60px;
+        overflow: hidden;
         text-decoration: underline;
         color: var(--main-color);
         cursor: pointer;
