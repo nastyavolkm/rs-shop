@@ -36,7 +36,9 @@
       </li>
     </ul>
   </div>
-  <p (click)="orderService.deleteFromCart(good.id)" class="cart-good__delete">удалить</p>
+  <p (click)="orderService.deleteFromCart(good.id); id.emit(good.id)" class="cart-good__delete">
+    удалить
+  </p>
 </div>
 <div class="cart-amount column">
   <span (click)="onDecrementClick(good.price)" class="cart-amount__counter">-</span>

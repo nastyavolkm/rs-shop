@@ -78,4 +78,18 @@ export class CartComponent implements OnInit, OnDestroy {
   afterOrderSubmit(): void {
     this.user$ = this.authService.checkLogin();
   }
+
+  deleteGood(id: string): void {
+    const token = this.authService.getCurrentToken();
+    if (token === undefined) {
+      this.goods$ = this.goods$.pipe(
+        switchMap((goods) => {
+          const item = goods.find((good) => good.id === id);
+          goods.splice(goods.indexOf(item!), 1);
+          return of(goods);
+        }),
+      );
+      this.user$ = this.authService.checkLogin();
+    }
+  }
 }

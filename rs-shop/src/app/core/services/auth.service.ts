@@ -95,8 +95,7 @@ export class AuthService {
     const currentUser = localStorage.getItem(UNLOGGED_USER);
     if (typeof currentUser === 'string') {
       return JSON.parse(currentUser);
-    }
-    return undefined;
+    } else return undefined;
   }
 
   deleteUnLoggedUser(): void {

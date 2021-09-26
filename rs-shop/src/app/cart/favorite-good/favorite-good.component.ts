@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
@@ -17,6 +17,8 @@ export class FavoriteGoodComponent implements OnInit, OnDestroy {
   @Input() good!: IGood;
 
   @Input() goods$!: Observable<IGood[]>;
+
+  @Output() id = new EventEmitter<string>();
 
   isGoodFavorite = true;
 

@@ -38,6 +38,6 @@ export class LoginInfoComponent implements OnInit {
 
   logOut(): void {
     this.authService.deleteToken();
-    this.store.dispatch(UserActions.getUnLoggedUser());
+    this.authService.checkLogin();
   }
 }

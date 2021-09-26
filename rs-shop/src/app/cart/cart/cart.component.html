@@ -12,6 +12,7 @@
       [user$]="user$"
       [good]="good"
       [goods$]="goods$"
+      (id)="deleteGood($event)"
       (newAmount)="changeCommonPrice($event)"
     ></app-cart-good>
     <p class="cart__common-price">Общая стоимость: {{ commonPrice$ | async }} p.</p>

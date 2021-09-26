@@ -19,6 +19,8 @@ export class CartGoodComponent implements OnInit, OnDestroy {
 
   @Input() goods$!: Observable<IGood[]>;
 
+  @Output() id = new EventEmitter<string>();
+
   isGoodFavorite!: boolean;
 
   isFavorite$!: Observable<boolean>;
