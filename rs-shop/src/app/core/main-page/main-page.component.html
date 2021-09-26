@@ -1,8 +1,21 @@
 <div class="main-wrapper">
   <app-carousel [goods]="goodsForCarousel"></app-carousel>
-  <h5 class="popular">Популярные товары</h5>
-  <app-popular-carousel [popularGoods]="popularGoods"></app-popular-carousel>
+  <div class="demo-wrapper">
+    <ul class="demo-list">
+      Что можно делать в приложении?
+      <li class="demo-item">Выбрать своё месторасположение</li>
+      <li class="demo-item">Просмотреть каталог товаров по категориям, подкатегориям</li>
+      <li class="demo-item">Найти товар по ключевому слову</li>
+      <li class="demo-item">Без регистрации добавить/удалить товар в избранное, корзину</li>
+      <li class="demo-item">
+        Войти в аккаунт/зарегистрироваться и получить возможность оформить заказ
+      </li>
+      <li class="demo-item">Редактировать данные заказа и удалять заказ</li>
+    </ul>
+    <h4 (click)="isDemoShown = !isDemoShown" class="demo-heading">Посмотреть демо приложения</h4>
+
+    <app-demo *ngIf="isDemoShown"></app-demo>
+  </div>
 </div>
-<div class="demo-wrapper">
-  <app-demo></app-demo>
-</div>
+<h5 class="popular">Популярные товары</h5>
+<app-popular-carousel [popularGoods]="popularGoods"></app-popular-carousel>

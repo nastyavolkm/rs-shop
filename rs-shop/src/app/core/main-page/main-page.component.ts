@@ -12,6 +12,8 @@ export class MainPageComponent implements OnInit {
 
   popularGoods!: IGood[];
 
+  isDemoShown = false;
+
   constructor(private goodsService: GoodsService) {}
 
   ngOnInit(): void {
