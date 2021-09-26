@@ -42,4 +42,14 @@ export class FavoriteGoodComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscribe.unsubscribe();
   }
+
+  onCartClick(): void {
+    if (this.addedToCart) {
+      this.addedToCart = false;
+      this.orderService.deleteFromCart(this.good.id);
+    } else {
+      this.addedToCart = true;
+      this.orderService.addToCart(this.good.id);
+    }
+  }
 }

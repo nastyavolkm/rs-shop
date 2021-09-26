@@ -42,7 +42,7 @@
       class="favorite-good__btn-cart"
       *ngIf="!addedToCart"
       [disabled]="good.availableAmount === 0"
-      (click)="$event.stopPropagation(); addedToCart = true"
+      (click)="$event.stopPropagation(); onCartClick()"
     >
       <img src="../../../assets/cart.png" alt="cart" class="favorite-good__btn-cart-img" />
       В корзину

@@ -44,8 +44,8 @@
     }
 
     &__img {
-        width: 100%;
-        align-self: flex-start;
+        max-width: 50px;
+        max-height: 100px;
     }
 
     &__name {
