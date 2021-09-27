@@ -1,9 +1,9 @@
 <ul class="nav-categories">
   <li
-    (click)="router.navigate(['categories', category.id, category.subCategories[0].id])"
+    (click)="router.navigate(['categories', category.id])"
     *ngFor="let category of categories$ | async as categories"
     class="nav-categories__item"
   >
-    {{ category.subCategories[0].name }}
+    {{ category.name }}
   </li>
 </ul>
