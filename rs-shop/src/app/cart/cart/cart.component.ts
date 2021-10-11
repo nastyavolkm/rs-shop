@@ -37,7 +37,7 @@ export class CartComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.coreDataservice.isCartButtonActive$$.next(true);
     this.user$ = this.authService.checkLogin();
-    this.goods$ = this.orderService.getCartGoods(this.user$);
+    this.goods$ = this.orderService.getListGoods(this.user$, 'cart');
     this.isOrderSubmitted$$ = this.orderService.isOrderSubmitted$$;
     this.getPricesArray();
     this.getCommonPrice();

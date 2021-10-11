@@ -103,20 +103,20 @@ export class DetailedGoodComponent implements OnInit, OnDestroy {
   onLikeClick(): void {
     if (this.isGoodFavorite) {
       this.isGoodFavorite = false;
-      this.orderService.deleteFromFavorite(this.id);
+      this.orderService.deleteFromList(this.id, 'favorites');
     } else {
       this.isGoodFavorite = true;
-      this.orderService.addToFavorite(this.id);
+      this.orderService.addToList(this.id, 'favorites');
     }
   }
 
   onCartClick(): void {
     if (this.addedToCart) {
       this.addedToCart = false;
-      this.orderService.deleteFromCart(this.id);
+      this.orderService.deleteFromList(this.id, 'cart');
     } else {
       this.addedToCart = true;
-      this.orderService.addToCart(this.id);
+      this.orderService.addToList(this.id, 'cart');
     }
   }
 }

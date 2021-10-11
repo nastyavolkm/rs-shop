@@ -26,7 +26,7 @@ export class FavoriteComponent implements OnInit {
 
   ngOnInit(): void {
     this.user$ = this.authService.checkLogin();
-    this.goods$ = this.orderService.getFavoriteGoods(this.user$);
+    this.goods$ = this.orderService.getListGoods(this.user$, 'favorites');
   }
 
   deleteGood(id: string): void {

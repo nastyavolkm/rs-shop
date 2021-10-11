@@ -37,6 +37,7 @@ $rs-shop-theme: mat.define-light-theme((
 // that you are using.
 @include mat.all-component-themes($rs-shop-theme);
 
+
 :root {
     --shadow-color: rgb(156, 154, 154);
     --main-color: #0090bf;

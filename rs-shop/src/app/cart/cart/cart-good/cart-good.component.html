@@ -39,7 +39,10 @@
       </svg>
     </div>
   </div>
-  <p (click)="orderService.deleteFromCart(good.id); id.emit(good.id)" class="cart-good__delete">
+  <p
+    (click)="orderService.deleteFromList(good.id, 'cart'); id.emit(good.id)"
+    class="cart-good__delete"
+  >
     удалить
   </p>
 </div>

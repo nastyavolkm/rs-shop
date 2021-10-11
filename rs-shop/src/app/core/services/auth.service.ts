@@ -12,8 +12,6 @@ import { IUser } from '../models/IUser.model';
 
 const USERS = 'users';
 
-// const CURRENT_USER = 'currentUser';
-
 const UNLOGGED_USER = 'unLoggedUser';
 
 @Injectable()

@@ -13,7 +13,9 @@
     />
   </div>
   <svg
-    (click)="$event.stopPropagation(); orderService.deleteFromFavorite(good.id); id.emit(good.id)"
+    (click)="
+      $event.stopPropagation(); orderService.deleteFromList(good.id, 'favorites'); id.emit(good.id)
+    "
     class="favorite-good__like"
     xmlns="http://www.w3.org/2000/svg"
     width="20"

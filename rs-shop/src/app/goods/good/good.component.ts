@@ -52,20 +52,20 @@ export class GoodComponent implements OnInit {
   onLikeClick(): void {
     if (this.isGoodFavorite[this.i]) {
       this.isGoodFavorite[this.i] = false;
-      this.orderService.deleteFromFavorite(this.good.id);
+      this.orderService.deleteFromList(this.good.id, 'favorites');
     } else {
       this.isGoodFavorite[this.i] = true;
-      this.orderService.addToFavorite(this.good.id);
+      this.orderService.addToList(this.good.id, 'favorites');
     }
   }
 
   onCartClick(): void {
     if (this.addedToCart[this.i]) {
       this.addedToCart[this.i] = false;
-      this.orderService.deleteFromCart(this.good.id);
+      this.orderService.deleteFromList(this.good.id, 'cart');
     } else {
       this.addedToCart[this.i] = true;
-      this.orderService.addToCart(this.good.id);
+      this.orderService.addToList(this.good.id, 'cart');
     }
   }
 }

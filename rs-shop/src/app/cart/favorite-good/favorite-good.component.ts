@@ -46,10 +46,10 @@ export class FavoriteGoodComponent implements OnInit, OnDestroy {
   onCartClick(): void {
     if (this.addedToCart) {
       this.addedToCart = false;
-      this.orderService.deleteFromCart(this.good.id);
+      this.orderService.deleteFromList(this.good.id, 'cart');
     } else {
       this.addedToCart = true;
-      this.orderService.addToCart(this.good.id);
+      this.orderService.addToList(this.good.id, 'cart');
     }
   }
 }

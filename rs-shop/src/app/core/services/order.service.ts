@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
@@ -27,60 +27,41 @@ export class OrderService {
 
   constructor(private http: HttpClient, private store: Store, private authService: AuthService) {}
 
-  addToFavorite(id: string): void {
+  addToList(id: string, list: string): void {
     const token = this.getCurrentToken();
     if (token) {
       const headers = new HttpHeaders({ Authorization: `Bearer ${token.token}` });
       const body = {
         id: id,
       };
-      this.http.post(`${USERS}/favorites`, body, { headers }).subscribe();
+      this.http.post(`${USERS}/${list}`, body, { headers }).subscribe();
     } else {
       const currentUser = this.authService.getUnLoggedUser();
-      currentUser!.favorites!.push(id);
+      if (list === 'cart') {
+        currentUser!.cart!.push(id);
+      } else {
+        currentUser!.favorites!.push(id);
+      }
       this.authService.saveUnLoggedUser(currentUser!);
     }
   }
 
-  deleteFromFavorite(id: string): void {
+  deleteFromList(id: string, list: string): void {
+    let params = new HttpParams().set('id', id);
     const token = this.getCurrentToken();
     if (token) {
       const headers = new HttpHeaders({ Authorization: `Bearer ${token.token}` });
-      this.http.delete(`${USERS}/favorites?id=${id}`, { headers }).subscribe();
+      this.http.delete(`${USERS}/${list}`, { headers, params }).subscribe();
       this.store.dispatch(UserActions.getUser({ token: token }));
     } else {
       const currentUser = this.authService.getUnLoggedUser();
-      const favorites = currentUser!.favorites;
-      favorites?.splice(favorites.indexOf(id), 1);
-      this.authService.saveUnLoggedUser(currentUser!);
-    }
-  }
-
-  addToCart(id: string): void {
-    const token = this.getCurrentToken();
-    if (token) {
-      const headers = new HttpHeaders({ Authorization: `Bearer ${token.token}` });
-      const body = {
-        id: id,
-      };
-      this.http.post(`${USERS}/cart`, body, { headers }).subscribe();
-    } else {
-      const currentUser = this.authService.getUnLoggedUser();
-      currentUser!.cart!.push(id);
-      this.authService.saveUnLoggedUser(currentUser!);
-    }
-  }
-
-  deleteFromCart(id: string): void {
-    const token = this.getCurrentToken();
-    if (token) {
-      const headers = new HttpHeaders({ Authorization: `Bearer ${token.token}` });
-      this.http.delete(`${USERS}/cart?id=${id}`, { headers }).subscribe();
-      this.store.dispatch(UserActions.getUser({ token: token }));
-    } else {
-      const currentUser = this.authService.getUnLoggedUser();
-      const cart = currentUser!.cart;
-      cart?.splice(cart.indexOf(id), 1);
+      let newList;
+      if (list === 'cart') {
+        newList = currentUser!.cart;
+      } else {
+        newList = currentUser!.favorites;
+      }
+      newList?.splice(newList.indexOf(id), 1);
       this.authService.saveUnLoggedUser(currentUser!);
     }
   }
@@ -120,15 +101,6 @@ export class OrderService {
 
   getCurrentLoggedUser(): Observable<IUser> {
     return this.store.pipe(select(UserSelectors.user));
-  }
-
-  getFavoriteGoods(user$: Observable<IUser | IUnLoggedUser | undefined>): Observable<IGood[]> {
-    const goods$ = user$.pipe(
-      switchMap((user) => {
-        return forkJoin(user!.favorites!.map((id) => this.http.get<IGood>(`goods/item/${id}`)));
-      }),
-    );
-    return goods$;
   }
 
   getOrders(user$: Observable<IUser>): Observable<IOrder[]> {
@@ -181,18 +153,28 @@ export class OrderService {
   onLikeClick(isGoodFavorite: boolean, id: string): boolean {
     if (isGoodFavorite) {
       isGoodFavorite = false;
-      this.deleteFromFavorite(id);
+      this.deleteFromList(id, 'favorites');
     } else {
       isGoodFavorite = true;
-      this.addToFavorite(id);
+      this.addToList(id, 'favorites');
     }
     return isGoodFavorite;
   }
 
-  getCartGoods(user$: Observable<IUser | IUnLoggedUser | undefined>): Observable<IGood[]> {
+  getListGoods(
+    user$: Observable<IUser | IUnLoggedUser | undefined>,
+    list: string,
+  ): Observable<IGood[]> {
     const goods$ = user$.pipe(
       switchMap((user) => {
-        return forkJoin(user!.cart!.map((id) => this.http.get<IGood>(`goods/item/${id}`)));
+        let newList;
+        if (list === 'cart') {
+          newList = user!.cart;
+        } else {
+          newList = user?.favorites;
+        }
+
+        return forkJoin(newList!.map((id) => this.http.get<IGood>(`goods/item/${id}`)));
       }),
     );
     return goods$;
