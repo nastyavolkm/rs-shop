@@ -2,17 +2,24 @@ import { createAction, props } from '@ngrx/store';
 import { IGood } from '../state/good.model';
 
 export namespace GoodsActions {
-  export const getGoods = createAction('GET_GOODS', props<{ value: string }>());
+  export const getGoodsSearch = createAction('GET_GOODS_SEARCH', props<{ value: string }>());
 
-  export const getGoodsSuccessful = createAction(
-    'GET_GOODS_SUCCESSFUL',
-    props<{ goods: IGood[] }>(),
+  export const getGoodsSearchSuccessful = createAction(
+    'GET_GOODS_SEARCH_SUCCESSFUL',
+    props<{ goodsSearch: IGood[] }>(),
   );
 
-  export const getGoodsBySubCategoryId = createAction(
-    'GET__GOODS_BY_SUBCATEGORY_ID',
-    props<{ id: string }>(),
+  export const getGoodsCatalog = createAction('GET__GOODS_CATALOG', props<{ id: string }>());
+
+  export const getGoodsCatalogSuccessful = createAction(
+    'GET_GOODS_CATALOG_SUCCESSFUL',
+    props<{ goodsCatalog: IGood[] }>(),
   );
 
   export const getGoodById = createAction('GET_GOOD_BY_ID', props<{ id: string }>());
+
+  export const getGoodByIdSuccessful = createAction(
+    'GET_GOOD_BY_ID_SUCCESSFUL',
+    props<{ good: IGood }>(),
+  );
 }

@@ -11,3 +11,17 @@ export interface IGood {
   category: string;
   subCategory: string;
 }
+
+export const initialGoodState: IGood = {
+  id: '',
+  name: 'товар',
+  imageUrls: [],
+  availableAmount: 0,
+  price: 0,
+  rating: 0,
+  description: '',
+  isInCart: false,
+  isFavorite: false,
+  category: '',
+  subCategory: '',
+};

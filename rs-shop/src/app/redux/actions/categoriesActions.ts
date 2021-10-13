@@ -9,6 +9,13 @@ export namespace CategoriesActions {
     props<{ categories: ICategory[] }>(),
   );
 
+  export const getCategoryById = createAction('GET_CATEGORY_BY_ID', props<{ id: string }>());
+
+  export const getCategoryByIdSuccessful = createAction(
+    'GET_CATEGORY_BY_ID_SUCCESSFUL',
+    props<{ category: ICategory | undefined }>(),
+  );
+
   export const getCategoriesByWord = createAction(
     'GET_CATEGORIES_BY_WORD',
     props<{ value: string }>(),

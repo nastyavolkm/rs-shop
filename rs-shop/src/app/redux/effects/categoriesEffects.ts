@@ -7,6 +7,8 @@ import { CategoriesActions } from '../actions/categoriesActions';
 
 @Injectable()
 export class CategoriesEffects {
+  constructor(private actions$: Actions, private httpService: HttpService) {}
+
   getCategories$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CategoriesActions.getCategories),
@@ -15,5 +17,11 @@ export class CategoriesEffects {
     ),
   );
 
-  constructor(private actions$: Actions, private httpService: HttpService) {}
+  getCategoryById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CategoriesActions.getCategoryById),
+      switchMap((data) => this.httpService.getCategoryById(data.id)),
+      switchMap((category) => of(CategoriesActions.getCategoryByIdSuccessful({ category }))),
+    ),
+  );
 }

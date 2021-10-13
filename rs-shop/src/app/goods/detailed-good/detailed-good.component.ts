@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
@@ -7,6 +8,8 @@ import { IUser } from 'src/app/core/models/IUser.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { HttpService } from 'src/app/core/services/http.service';
 import { OrderService } from 'src/app/core/services/order.service';
+import { GoodsActions } from 'src/app/redux/actions/goodsActions';
+import { GoodsSelectors } from 'src/app/redux/selectors/goodsSelectors';
 import { ICategory } from 'src/app/redux/state/category.model';
 import { IGood } from 'src/app/redux/state/good.model';
 import { ISubCategory } from 'src/app/redux/state/subcategory.model';
@@ -52,6 +55,7 @@ export class DetailedGoodComponent implements OnInit, OnDestroy {
     private orderService: OrderService,
     private authService: AuthService,
     public router: Router,
+    private store: Store,
   ) {}
 
   ngOnInit(): void {
@@ -68,7 +72,8 @@ export class DetailedGoodComponent implements OnInit, OnDestroy {
   getGood(): void {
     this.subscribe = this.route.params.subscribe((params) => {
       this.id = params.id;
-      this.good$ = this.httpService.getGoodById(this.id);
+      this.store.dispatch(GoodsActions.getGoodById({ id: this.id }));
+      this.good$ = this.store.pipe(select(GoodsSelectors.goodById));
     });
   }
 

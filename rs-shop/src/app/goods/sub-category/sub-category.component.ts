@@ -1,7 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
+import { GoodsActions } from 'src/app/redux/actions/goodsActions';
+import { GoodsSelectors } from 'src/app/redux/selectors/goodsSelectors';
 import { ICategory } from 'src/app/redux/state/category.model';
 import { IGood } from 'src/app/redux/state/good.model';
 import { ISubCategory } from 'src/app/redux/state/subcategory.model';
@@ -44,6 +47,7 @@ export class SubCategoryComponent implements OnInit, OnDestroy {
     private httpService: HttpService,
     public goodsService: GoodsService,
     public router: Router,
+    private store: Store,
   ) {}
 
   ngOnInit(): void {
@@ -55,7 +59,8 @@ export class SubCategoryComponent implements OnInit, OnDestroy {
     this.subscribe = this.route.params.subscribe((params) => {
       this.id = params.id;
       this.subCategory$ = this.httpService.getSubCategoryById(this.id);
-      this.goods$ = this.httpService.getGoodsBySubCategoryId(this.id);
+      this.store.dispatch(GoodsActions.getGoodsCatalog({ id: this.id }));
+      this.goods$ = this.store.pipe(select(GoodsSelectors.goodsCatalog));
     });
   }
 

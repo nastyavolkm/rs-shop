@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { CategoriesSelectors } from 'src/app/redux/selectors/selectors';
+import { CategoriesSelectors } from 'src/app/redux/selectors/categoriesSelectors';
 import { ICategory } from 'src/app/redux/state/category.model';
 import { IGood } from 'src/app/redux/state/good.model';
 import { goodsForSlider, popularGoods } from '../mock.goods';

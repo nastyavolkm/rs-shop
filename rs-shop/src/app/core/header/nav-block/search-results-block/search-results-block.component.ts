@@ -27,6 +27,6 @@ export class SearchResultsBlockComponent implements OnInit {
 
   ngOnInit(): void {
     this.categories$ = this.coreDataService.categoriesByWord$;
-    this.goods$ = this.store.pipe(select(GoodsSelectors.goods));
+    this.goods$ = this.store.pipe(select(GoodsSelectors.goodsSearch));
   }
 }

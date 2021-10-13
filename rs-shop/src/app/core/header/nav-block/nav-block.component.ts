@@ -39,7 +39,7 @@ export class NavBlockComponent implements OnInit {
   setValueToSearch(value: string): void {
     if (value.length > 2) {
       this.coreDataService.getCategoriesByWord(value);
-      this.store.dispatch(GoodsActions.getGoods({ value: value }));
+      this.store.dispatch(GoodsActions.getGoodsSearch({ value: value }));
     }
   }
 
