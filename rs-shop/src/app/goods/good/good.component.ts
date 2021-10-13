@@ -1,10 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
 import { IUser } from 'src/app/core/models/IUser.model';
-import { AuthService } from 'src/app/core/services/auth.service';
 import { OrderService } from 'src/app/core/services/order.service';
+import { UserActions } from 'src/app/redux/actions/userActions';
+import { UserSelectors } from 'src/app/redux/selectors/userSelectors';
 import { IGood } from 'src/app/redux/state/good.model';
 import { GoodsService } from '../services/goods.service';
 
@@ -22,7 +23,7 @@ export class GoodComponent implements OnInit {
 
   @Input() i!: number;
 
-  user$!: Observable<IUser | IUnLoggedUser | undefined>;
+  user$!: Observable<IUser>;
 
   isGoodFavorite: boolean[] = Array(this.goods.length).fill(false);
 
@@ -39,11 +40,11 @@ export class GoodComponent implements OnInit {
     public orderService: OrderService,
     public router: Router,
     public route: ActivatedRoute,
-    private authService: AuthService,
+    private store: Store,
   ) {}
 
   ngOnInit(): void {
-    this.user$ = this.authService.checkLogin();
+    this.user$ = this.store.pipe(select(UserSelectors.user));
     this.isFavorite$ = this.orderService.isFavorite(this.user$, this.good.id);
     this.addedToCart$ = this.orderService.addedToCart(this.user$, this.good.id);
     this.subscribe = this.addedToCart$.subscribe((boolean) => (this.addedToCart[this.i] = boolean));
@@ -55,7 +56,7 @@ export class GoodComponent implements OnInit {
       this.orderService.deleteFromList(this.good.id, 'favorites');
     } else {
       this.isGoodFavorite[this.i] = true;
-      this.orderService.addToList(this.good.id, 'favorites');
+      this.store.dispatch(UserActions.updateUser({ id: this.good.id, list: 'favorites' }));
     }
   }
 
@@ -65,7 +66,7 @@ export class GoodComponent implements OnInit {
       this.orderService.deleteFromList(this.good.id, 'cart');
     } else {
       this.addedToCart[this.i] = true;
-      this.orderService.addToList(this.good.id, 'cart');
+      this.store.dispatch(UserActions.updateUser({ id: this.good.id, list: 'cart' }));
     }
   }
 }

@@ -1,10 +1,12 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { OrderService } from 'src/app/core/services/order.service';
+import { UserActions } from 'src/app/redux/actions/userActions';
+import { UserSelectors } from 'src/app/redux/selectors/userSelectors';
 import { IGood } from 'src/app/redux/state/good.model';
-import { IUnLoggedUser } from '../../core/models/IUnLoggedUser.model';
 import { IUser } from '../../core/models/IUser.model';
 import { AuthService } from '../../core/services/auth.service';
 import { CoreDataService } from '../../core/services/core-data.service';
@@ -15,7 +17,7 @@ import { CoreDataService } from '../../core/services/core-data.service';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit, OnDestroy {
-  user$!: Observable<IUser | IUnLoggedUser | undefined>;
+  user$!: Observable<IUser>;
 
   goods$!: Observable<IGood[]>;
 
@@ -32,11 +34,12 @@ export class CartComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     public location: Location,
     private orderService: OrderService,
+    private store: Store,
   ) {}
 
   ngOnInit(): void {
     this.coreDataservice.isCartButtonActive$$.next(true);
-    this.user$ = this.authService.checkLogin();
+    this.user$ = this.store.pipe(select(UserSelectors.user));
     this.goods$ = this.orderService.getListGoods(this.user$, 'cart');
     this.isOrderSubmitted$$ = this.orderService.isOrderSubmitted$$;
     this.getPricesArray();
@@ -76,7 +79,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   afterOrderSubmit(): void {
-    this.user$ = this.authService.checkLogin();
+    this.store.dispatch(UserActions.getUser());
   }
 
   deleteGood(id: string): void {
@@ -89,7 +92,7 @@ export class CartComponent implements OnInit, OnDestroy {
           return of(goods);
         }),
       );
-      this.user$ = this.authService.checkLogin();
+      this.store.dispatch(UserActions.getUser());
     }
   }
 }

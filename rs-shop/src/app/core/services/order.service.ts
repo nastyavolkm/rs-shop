@@ -1,17 +1,15 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { IDetail } from 'src/app/cart/cart/models/IDetail.model';
 import { IOrder } from 'src/app/cart/cart/models/IOrder.model';
 import { IOrderItem } from 'src/app/cart/cart/models/IOrderItem.model';
 import { IToken } from 'src/app/core/models/IToken.model';
-import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
 import { IUser } from 'src/app/core/models/IUser.model';
 import { UserActions } from 'src/app/redux/actions/userActions';
-import { UserSelectors } from 'src/app/redux/selectors/userSelectors';
 import { IGood } from 'src/app/redux/state/good.model';
 import { AuthService } from './auth.service';
 
@@ -52,7 +50,7 @@ export class OrderService {
     if (token) {
       const headers = new HttpHeaders({ Authorization: `Bearer ${token.token}` });
       this.http.delete(`${USERS}/${list}`, { headers, params }).subscribe();
-      this.store.dispatch(UserActions.getUser({ token: token }));
+      this.store.dispatch(UserActions.getUser());
     } else {
       const currentUser = this.authService.getUnLoggedUser();
       let newList;
@@ -99,10 +97,6 @@ export class OrderService {
     return undefined;
   }
 
-  getCurrentLoggedUser(): Observable<IUser> {
-    return this.store.pipe(select(UserSelectors.user));
-  }
-
   getOrders(user$: Observable<IUser>): Observable<IOrder[]> {
     return user$.pipe(map((user) => user.orders));
   }
@@ -120,10 +114,7 @@ export class OrderService {
     return Array(number);
   }
 
-  isFavorite(
-    user$: Observable<IUser | IUnLoggedUser | undefined>,
-    goodId: string,
-  ): Observable<boolean> {
+  isFavorite(user$: Observable<IUser>, goodId: string): Observable<boolean> {
     return user$.pipe(
       switchMap((user) => {
         const result = user?.favorites?.find((id) => id === goodId);
@@ -135,10 +126,7 @@ export class OrderService {
     );
   }
 
-  addedToCart(
-    user$: Observable<IUser | IUnLoggedUser | undefined>,
-    goodId: string,
-  ): Observable<boolean> {
+  addedToCart(user$: Observable<IUser>, goodId: string): Observable<boolean> {
     return user$.pipe(
       switchMap((user) => {
         const result = user?.cart?.find((id) => id === goodId);
@@ -161,10 +149,7 @@ export class OrderService {
     return isGoodFavorite;
   }
 
-  getListGoods(
-    user$: Observable<IUser | IUnLoggedUser | undefined>,
-    list: string,
-  ): Observable<IGood[]> {
+  getListGoods(user$: Observable<IUser>, list: string): Observable<IGood[]> {
     const goods$ = user$.pipe(
       switchMap((user) => {
         let newList;
@@ -182,10 +167,6 @@ export class OrderService {
 
   getCommonPrice(price: number, amount: number): Observable<number> {
     return of(price * amount);
-  }
-
-  getLoggedUser(): Observable<IUser> {
-    return this.store.pipe(select(UserSelectors.user));
   }
 
   submitOrder(orderForm: FormGroup, user$: Observable<IUser>): void {
@@ -221,7 +202,7 @@ export class OrderService {
     if (token) {
       const headers = new HttpHeaders({ Authorization: `Bearer ${token.token}` });
       this.http.delete(`${USERS}/order?id=${id}`, { headers }).subscribe();
-      this.store.dispatch(UserActions.getUser({ token: token }));
+      this.store.dispatch(UserActions.getUser());
     }
   }
 

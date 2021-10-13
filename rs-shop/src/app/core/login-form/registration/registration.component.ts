@@ -27,7 +27,7 @@ export class RegistrationComponent {
         this.authService.deleteUnLoggedUser();
         this.isRegistrationSuccessful$$.next(true);
         setTimeout(() => this.authService.isLoginFormShown$$.next(false), 3000);
-        this.store.dispatch(UserActions.getUser({ token: token }));
+        this.store.dispatch(UserActions.getUser());
       }
     });
   }

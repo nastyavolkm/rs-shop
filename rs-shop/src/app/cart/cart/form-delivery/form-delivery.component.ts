@@ -67,15 +67,13 @@ export class FormDeliveryComponent implements OnInit {
       if (this.isEditMode) {
         this.orderService.editOrder(this.formDelivery, this.order.id);
         this.isOrderEdited.emit(true);
-        const token = this.authService.getCurrentToken();
-        this.store.dispatch(UserActions.getUser({ token: token! }));
+        this.store.dispatch(UserActions.getUser());
         this.getDetails.emit();
       } else {
         this.orderService.submitOrder(this.formDelivery, this.user$);
         this.isOrderSubmitted.emit(true);
         this.orderService.afterOrderSubmitted();
-        const token = this.authService.getCurrentToken();
-        this.store.dispatch(UserActions.getUser({ token: token! }));
+        this.store.dispatch(UserActions.getUser());
         this.getDetails.emit();
       }
     } else {

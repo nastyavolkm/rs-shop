@@ -18,10 +18,6 @@ const UserReducer = createReducer(
     ...state,
     user,
   })),
-  on(UserActions.getUnLoggedUser, (state) => ({
-    ...state,
-    user: initialUserState.user,
-  })),
 );
 
 export function userReducer(state: IUserState | undefined, action: Action): IUserState {

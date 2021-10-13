@@ -1,13 +1,10 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { UserActions } from 'src/app/redux/actions/userActions';
-import { UserSelectors } from 'src/app/redux/selectors/userSelectors';
 import { IToken } from '../models/IToken.model';
-import { IUnLoggedUser } from '../models/IUnLoggedUser.model';
 import { IUser } from '../models/IUser.model';
 
 const USERS = 'users';
@@ -85,11 +82,11 @@ export class AuthService {
     return undefined;
   }
 
-  saveUnLoggedUser(unLoggedUser: IUnLoggedUser): void {
+  saveUnLoggedUser(unLoggedUser: IUser): void {
     localStorage.setItem(UNLOGGED_USER, JSON.stringify(unLoggedUser));
   }
 
-  getUnLoggedUser(): IUnLoggedUser | undefined {
+  getUnLoggedUser(): IUser | undefined {
     const currentUser = localStorage.getItem(UNLOGGED_USER);
     if (typeof currentUser === 'string') {
       return JSON.parse(currentUser);
@@ -100,7 +97,7 @@ export class AuthService {
     localStorage.removeItem(UNLOGGED_USER);
   }
 
-  checkLogin(): Observable<IUser | IUnLoggedUser | undefined> {
+  getCurrentUser(): Observable<IUser> {
     const token = this.getCurrentToken();
     let unLoggedUser = this.getUnLoggedUser();
     if (token === undefined) {
@@ -110,19 +107,13 @@ export class AuthService {
           lastName: 'unlogged',
           cart: [],
           favorites: [],
+          orders: [],
         };
         this.saveUnLoggedUser(unLoggedUser);
       }
       return of(unLoggedUser);
     } else {
-      this.store.dispatch(UserActions.getUser({ token: token }));
-      return this.store.pipe(select(UserSelectors.user));
-    }
-  }
-
-  checkUser(): void {
-    if (this.getCurrentToken()) {
-      this.store.dispatch(UserActions.getUser({ token: this.getCurrentToken()! }));
+      return this.getUserInfo(token);
     }
   }
 

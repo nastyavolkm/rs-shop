@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
 import { IUser } from 'src/app/core/models/IUser.model';
 import { CoreDataService } from 'src/app/core/services/core-data.service';
 import { OrderService } from 'src/app/core/services/order.service';
@@ -13,7 +12,7 @@ import { IGood } from 'src/app/redux/state/good.model';
   styleUrls: ['./cart-good.component.scss'],
 })
 export class CartGoodComponent implements OnInit, OnDestroy {
-  @Input() user$!: Observable<IUser | IUnLoggedUser | undefined>;
+  @Input() user$!: Observable<IUser>;
 
   @Input() good!: IGood;
 

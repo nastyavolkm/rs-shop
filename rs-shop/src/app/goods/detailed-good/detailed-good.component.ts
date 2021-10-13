@@ -3,13 +3,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
 import { IUser } from 'src/app/core/models/IUser.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { HttpService } from 'src/app/core/services/http.service';
 import { OrderService } from 'src/app/core/services/order.service';
 import { GoodsActions } from 'src/app/redux/actions/goodsActions';
+import { UserActions } from 'src/app/redux/actions/userActions';
 import { GoodsSelectors } from 'src/app/redux/selectors/goodsSelectors';
+import { UserSelectors } from 'src/app/redux/selectors/userSelectors';
 import { ICategory } from 'src/app/redux/state/category.model';
 import { IGood } from 'src/app/redux/state/good.model';
 import { ISubCategory } from 'src/app/redux/state/subcategory.model';
@@ -38,7 +39,7 @@ export class DetailedGoodComponent implements OnInit, OnDestroy {
 
   addedToCart!: boolean;
 
-  user$!: Observable<IUser | IUnLoggedUser | undefined>;
+  user$!: Observable<IUser>;
 
   isFavorite$!: Observable<boolean>;
 
@@ -62,7 +63,7 @@ export class DetailedGoodComponent implements OnInit, OnDestroy {
     this.getGood();
     this.getCategory();
     this.getSubCategory();
-    this.user$ = this.authService.checkLogin();
+    this.user$ = this.store.pipe(select(UserSelectors.user));
     this.isFavorite$ = this.orderService.isFavorite(this.user$, this.id);
     this.addedToCart$ = this.orderService.addedToCart(this.user$, this.id);
     this.subscribe = this.isFavorite$.subscribe((boolean) => (this.isGoodFavorite = boolean));
@@ -111,7 +112,7 @@ export class DetailedGoodComponent implements OnInit, OnDestroy {
       this.orderService.deleteFromList(this.id, 'favorites');
     } else {
       this.isGoodFavorite = true;
-      this.orderService.addToList(this.id, 'favorites');
+      this.store.dispatch(UserActions.updateUser({ id: this.id, list: 'favorites' }));
     }
   }
 
@@ -121,7 +122,7 @@ export class DetailedGoodComponent implements OnInit, OnDestroy {
       this.orderService.deleteFromList(this.id, 'cart');
     } else {
       this.addedToCart = true;
-      this.orderService.addToList(this.id, 'cart');
+      this.store.dispatch(UserActions.updateUser({ id: this.id, list: 'cart' }));
     }
   }
 }

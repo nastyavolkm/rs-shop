@@ -58,7 +58,7 @@ export class OrderComponent implements OnInit {
         this.orderService.transferDataOfUnloggedUser(token);
         this.authService.deleteUnLoggedUser();
         this.isRegistrationSuccessful$$.next(true);
-        this.store.dispatch(UserActions.getUser({ token: token }));
+        this.store.dispatch(UserActions.getUser());
         this.isLogged$ = this.authService.isLogged();
       }
     });

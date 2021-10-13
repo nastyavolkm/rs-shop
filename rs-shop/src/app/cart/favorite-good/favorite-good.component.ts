@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { IUnLoggedUser } from 'src/app/core/models/IUnLoggedUser.model';
 import { IUser } from 'src/app/core/models/IUser.model';
 import { OrderService } from 'src/app/core/services/order.service';
+import { UserActions } from 'src/app/redux/actions/userActions';
 import { IGood } from 'src/app/redux/state/good.model';
 
 @Component({
@@ -12,7 +13,7 @@ import { IGood } from 'src/app/redux/state/good.model';
   styleUrls: ['./favorite-good.component.scss'],
 })
 export class FavoriteGoodComponent implements OnInit, OnDestroy {
-  @Input() user$!: Observable<IUser | IUnLoggedUser | undefined>;
+  @Input() user$!: Observable<IUser>;
 
   @Input() good!: IGood;
 
@@ -32,6 +33,7 @@ export class FavoriteGoodComponent implements OnInit, OnDestroy {
     public router: Router,
     public route: ActivatedRoute,
     public orderService: OrderService,
+    private store: Store,
   ) {}
 
   ngOnInit(): void {
@@ -49,7 +51,7 @@ export class FavoriteGoodComponent implements OnInit, OnDestroy {
       this.orderService.deleteFromList(this.good.id, 'cart');
     } else {
       this.addedToCart = true;
-      this.orderService.addToList(this.good.id, 'cart');
+      this.store.dispatch(UserActions.updateUser({ id: this.good.id, list: 'cart' }));
     }
   }
 }

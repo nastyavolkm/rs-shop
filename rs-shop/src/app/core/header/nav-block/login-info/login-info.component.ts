@@ -29,7 +29,6 @@ export class LoginInfoComponent implements OnInit {
   checkUser(): void {
     const token = this.authService.getCurrentToken();
     if (token) {
-      this.store.dispatch(UserActions.getUser({ token: token }));
       this.user$ = this.store.pipe(select(UserSelectors.user));
     } else {
       this.user$ = of(undefined);
@@ -38,6 +37,6 @@ export class LoginInfoComponent implements OnInit {
 
   logOut(): void {
     this.authService.deleteToken();
-    this.authService.checkLogin();
+    this.store.dispatch(UserActions.getUser());
   }
 }
