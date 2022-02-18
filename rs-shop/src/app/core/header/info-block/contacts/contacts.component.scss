@@ -1,0 +1,59 @@
+:host {
+    display: flex;
+    gap: 10px;
+}
+.contacts {
+    display: flex;
+
+    &__logo {
+        width: 20px;
+        height: 20px;
+    }
+
+    &__contact {
+        &:hover {
+            color: var(--main-color);
+        }
+    }
+
+    &__accordion {
+        cursor: pointer;
+        position: relative;
+
+        &:hover > span {
+            color: var(--main-color);
+        }
+    }
+
+       &__accordion-list {
+        position: absolute;
+        width: 200px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        border: 1px solid white;
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 1px 1px 1px 1px var(--hover-color);
+        padding: 10px;
+        top: 20px;
+        z-index: 10;
+
+    }
+
+    &__accordion-item {
+        display: flex;
+        align-items: center;
+
+        &:hover {
+            background: var(--hover-color);
+        }
+    }
+
+    &__accordion-logo {
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+    }
+}
+

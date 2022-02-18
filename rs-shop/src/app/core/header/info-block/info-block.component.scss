@@ -1,0 +1,23 @@
+:host {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    padding: 10px 40px;
+}
+.info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &__clock {
+        width: 15px;
+        height: 15px;
+    }
+
+    &__text {
+        color: var(--shadow-color);
+    }
+}
+

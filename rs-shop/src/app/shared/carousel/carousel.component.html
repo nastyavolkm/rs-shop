@@ -1,0 +1,27 @@
+<ngb-carousel
+  class="carousel-wrapper"
+  #carousel
+  [interval]="5000"
+  [pauseOnHover]="pauseOnHover"
+  [pauseOnFocus]="pauseOnFocus"
+  (slide)="onSlide($event)"
+>
+  <ng-template ngbSlide *ngFor="let good of goods">
+    <div
+      (click)="
+        router.navigate(['categories', good.category, good.subCategory, good.id], {
+          relativeTo: route
+        })
+      "
+      class="good-wrapper"
+    >
+      <div class="picsum-img-wrapper img-wrapper">
+        <img [src]="good.imageUrls[0]" alt="{{ good.name }}" />
+      </div>
+      <div class="text">
+        <h3 class="name">{{ good.name }}</h3>
+        <p class="price">{{ good.price }}p.</p>
+      </div>
+    </div>
+  </ng-template>
+</ngb-carousel>

@@ -1,0 +1,78 @@
+.subcategory {
+    padding: 10px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &__breadcrumbs {
+        display: flex;
+        gap: 5px;
+        color: var(--shadow-color);
+        flex-direction: row;
+        margin: 10px 0;
+
+        &-item {
+            color: var(--shadow-color);
+            cursor: pointer;
+
+            &:hover {
+                color: var(--main-color);
+            }
+        }
+    }
+
+    &__heading-sort-wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__heading {
+        font-size: 18px;
+        color: var(--button-text-color);
+        margin: 10px 0;
+        font-weight: normal;
+    }
+
+    &__goods-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+    }
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+    &__sort-wrapper {
+        display: flex;
+        gap: 10px;
+        color: var(--shadow-color);
+    }
+
+    &__sort {
+        cursor: pointer;
+        &:hover {
+            color: var(--button-text-color);
+        }
+    }
+
+    &__pagination-btn {
+        margin: 0 auto;
+        text-decoration: underline;
+        color: var(--main-color);
+        cursor: pointer;
+
+        &:hover {
+            color: var(--button-text-color);
+        }
+    }
+}
+
+.sort-active {
+    color: var(--main-color);
+    text-decoration: underline;
+}

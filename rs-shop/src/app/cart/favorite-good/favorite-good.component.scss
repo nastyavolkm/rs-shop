@@ -1,0 +1,89 @@
+.favorite-good {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 5px;
+    width: 300px;
+    height: 200px;
+    padding: 10px;
+    box-shadow: 1px 1px 1px 1px var(--hover-color);
+    position: relative;
+    cursor: pointer;
+
+    &__img-wrapper {
+        flex: 0 0 100px;
+        align-self: center;
+        height: 150px;
+        overflow: hidden;
+        display: flex;
+        align-items: flex-start;
+    }
+
+       &__like {
+        position: absolute;
+        right: 20px;
+        top: 120px;
+        z-index: 10;
+        transition: .4s ease;
+
+        &:hover {
+            transform: scale(1.1);
+            transition: .4s ease;
+        }
+    }
+
+
+    &__img {
+        max-width: 100px;
+        max-height: 150px;
+    }
+
+    &__name {
+        text-align: left;
+        height: 80px;
+    }
+
+    &__rating-star {
+        width: 15px;
+        height: auto;
+    }
+    &__available {
+        display: flex;
+        gap: 5px;
+        color: var(--shadow-color);
+    }
+
+    &__rating-wrapper {
+        display: flex;
+    }
+
+    &__btn-cart {
+        border: none;
+        padding: 10px 15px;
+        background-color: var(--hover-color);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        &-img {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
+
+.inactive {
+    background-color: var(--submain-color);
+    border: 1px solid var(--main-color);
+    color: var(--shadow-color);
+    text-decoration: underline;
+
+    & > .favorite-good__btn-cart-img {
+        filter: grayscale(1);
+    }
+
+    &:hover {
+        color: var(--main-color);
+    }
+}

@@ -1,0 +1,59 @@
+<div class="cart__order">
+  <div *ngIf="!isOrderSubmitted" class="cart__order-block">
+    <p class="cart__order-heading">Личные данные</p>
+    <div class="cart__order-line"></div>
+    <form
+      *ngIf="(isRegistrationSuccessful$$ | async) === false && (isLogged$ | async) === false"
+      class="cart__order-form"
+      (ngSubmit)="registerUser(form)"
+      ngNativeValidate
+      #form="ngForm"
+    >
+      <label class="cart__order__label">
+        Имя
+        <input type="text" class="cart__order__input" name="firstName" ngModel required />
+      </label>
+      <label class="cart__order__label">
+        Фамилия
+        <input type="text" class="cart__order__input" name="lastName" ngModel required />
+      </label>
+      <label class="cart__order__label">
+        Логин
+        <input type="text" class="cart__order__input" name="login" ngModel required />
+      </label>
+      <label class="cart__order__label cart__order__label-password">
+        Пароль
+        <input type="password" class="cart__order__input" name="password" ngModel required />
+      </label>
+
+      <button type="submit" class="cart__order__btn">Зарегистрироваться</button>
+    </form>
+    <div
+      *ngIf="(isLogged$ | async) || (isRegistrationSuccessful$$ | async)"
+      class="cart__order__credentials"
+    >
+      {{ (user$ | async)!.firstName }} {{ (user$ | async)!.lastName }}
+    </div>
+  </div>
+  <app-form-delivery
+    [user$]="user$"
+    [isEditMode]="isEditMode"
+    (isOrderSubmitted)="isOrderSubmitted = true; clearCart.emit()"
+    (getDetails)="getLastOrderDetails()"
+    *ngIf="(isLogged$ | async) && !isOrderSubmitted"
+  ></app-form-delivery>
+  <div *ngIf="isOrderSubmitted" class="cart__success">
+    <p class="cart__success-heading">Ваш заказ принят и будет доставлен в указанное время!</p>
+    <p class="cart__success-detail">Детали заказа</p>
+    <span class="cart__success-detail-item">ФИО: {{ details.name }}</span>
+    <span class="cart__success-detail-item">Адрес доставки: {{ details.address }}</span>
+    <span class="cart__success-detail-item">Телефон: {{ details.phone }}</span>
+    <span class="cart__success-detail-item"
+      >Время доставки: {{ details.timeToDeliver | date: 'medium' }}</span
+    >
+    <span class="cart__success-detail-item">Комментарий: {{ details.comment }}</span>
+    <p (click)="router.navigate(['order', 'orderlist'])" class="cart__success-wait">
+      Перейти в лист ожидания
+    </p>
+  </div>
+</div>

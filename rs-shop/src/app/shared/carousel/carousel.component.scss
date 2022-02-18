@@ -1,0 +1,49 @@
+:host {
+    display: flex;
+
+}
+
+.carousel-wrapper {
+    margin: 0 auto;
+    width: 60vw;
+    background-color: var(--hover-color);
+    padding: 20px 110px;
+    border: 50px solid var(--button-text-color);
+}
+.good-wrapper {
+    display: flex;
+    gap: 40px;
+    cursor: pointer;
+}
+.img-wrapper {
+    display: flex;
+    justify-content: center;
+
+    flex: 0 0 200px;
+    height: 350px;
+    border: 1px solid var(--button-text-color);
+    overflow: hidden;
+    background-color: white;
+    & > img {
+        width: 80%;
+        align-self: center;
+    }
+}
+
+.text {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+.name {
+    color: var(--main-color);
+    font-size: 20px;
+    text-align: center;
+}
+.price {
+    color: var(--shadow-color);
+    font-size: 20px;
+}

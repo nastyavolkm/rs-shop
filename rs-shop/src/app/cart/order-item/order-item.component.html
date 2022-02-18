@@ -1,0 +1,59 @@
+<div class="order" *ngIf="order">
+  <div class="order__wrapper">
+    <span (click)="isOrderShown = !isOrderShown" class="order__name"
+      >Заказ №{{ order.id }} {{ isOrderShown ? '&#9666;' : '&#9656;' }}</span
+    >
+    <div *ngIf="isOrderShown" class="order__listwrapper">
+      <ul class="order__ordergood">
+        <li class="order__good" *ngFor="let good of goods$ | async">
+          <div class="order__good-imgwrapper">
+            <img src="{{ good.imageUrls[0] }}" alt="{{ good.name }}" class="order__good-img" />
+          </div>
+          <div class="order__good-description">
+            <p
+              (click)="router.navigate(['categories', good.category, good.subCategory, good.id])"
+              class="order__good-name"
+            >
+              {{ good.name }}
+            </p>
+            <p class="order__good-price">{{ good.price }} p.</p>
+          </div>
+        </li>
+      </ul>
+      <div class="order__detail">
+        <div class="order__detail-heading-wrapper">
+          <p class="order__detail-heading">Детали заказа</p>
+          <img
+            (click)="isFormDeliveryShown = !isFormDeliveryShown; isEditMode = !isEditMode"
+            src="../../../assets/edit.png"
+            alt="edit"
+            class="order__detail-edit"
+            title="Редактировать детали заказа"
+          />
+          <img
+            (click)="orderService.deleteOrder(order.id)"
+            src="../../../assets/delete.png"
+            alt="delete"
+            class="order__delete"
+            title="Отменить заказ"
+          />
+        </div>
+        <p class="order__detail-item">ФИО: {{ order.details.name }}</p>
+        <p class="order__detail-item">Адрес: {{ order.details.address }}</p>
+        <p class="order__detail-item">Телефон: {{ order.details.phone }}</p>
+        <p class="order__detail-item">
+          Время доставки: {{ order.details.timeToDeliver | date: 'short' }}
+        </p>
+        <p class="order__detail-item">Комментарий: {{ order.details.comment }}</p>
+      </div>
+      <div *ngIf="isFormDeliveryShown" class="order__form-wrapper">
+        <app-form-delivery
+          [isEditMode]="isEditMode"
+          (isOrderEdited)="isFormDeliveryShown = false; isEditMode = false"
+          [order]="order"
+        ></app-form-delivery>
+      </div>
+      <p class="order__price">К оплате: {{ commonPrice$ | async }} p.</p>
+    </div>
+  </div>
+</div>

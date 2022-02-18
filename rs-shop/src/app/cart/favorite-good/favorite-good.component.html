@@ -1,0 +1,61 @@
+<div
+  class="favorite-good"
+  *ngIf="good"
+  (click)="router.navigate(['categories', good.category, good.subCategory, good.id])"
+>
+  <div class="favorite-good__img-wrapper">
+    <img
+      [src]="
+        good.imageUrls.length > 0 ? good.imageUrls[0] : '../../../../../assets/default_preview.jpeg'
+      "
+      alt=""
+      class="favorite-good__img"
+    />
+  </div>
+  <svg
+    (click)="
+      $event.stopPropagation(); orderService.deleteFromList(good.id, 'favorites'); id.emit(good.id)
+    "
+    class="favorite-good__like"
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+  >
+    <path
+      [ngStyle]="{ fill: good.isFavorite || isGoodFavorite ? '#EC0A0A' : 'none' }"
+      stroke="#EC0A0A"
+      stroke-width="2"
+      d="M10.003 17.414l.783-.691c4.865-4.317 6.388-5.849 7.44-7.759.522-.948.774-1.843.774-2.76 0-2.45-1.967-4.37-4.5-4.37-1.423 0-2.828.644-3.746 1.697L10 4.395l-.754-.864C8.328 2.478 6.923 1.833 5.5 1.833c-2.533 0-4.5 1.92-4.5 4.37 0 .922.255 1.82.781 2.774 1.054 1.907 2.588 3.447 7.433 7.737l.789.7z"
+    />
+  </svg>
+  <div class="favorite-good__text-wrapper">
+    <p class="favorite-good__name">{{ good.name }}</p>
+    <div class="favorite-good__available">
+      {{ good.availableAmount > 0 ? 'В наличии' : 'Нет в наличии' }}
+    </div>
+    <span class="favorite-good__price">{{ good.price }}р.</span>
+    <ul class="favorite-good__rating-wrapper">
+      <li *ngFor="let i of orderService.getCountOfRating(good.rating)">
+        <img src="../../../assets/rating.png" alt="rating" class="favorite-good__rating-star" />
+      </li>
+    </ul>
+    <button
+      class="favorite-good__btn-cart"
+      *ngIf="!addedToCart"
+      [disabled]="good.availableAmount === 0"
+      (click)="$event.stopPropagation(); onCartClick()"
+    >
+      <img src="../../../assets/cart.png" alt="cart" class="favorite-good__btn-cart-img" />
+      В корзину
+    </button>
+    <button
+      class="favorite-good__btn-cart inactive"
+      *ngIf="addedToCart"
+      (click)="router.navigate(['order'])"
+    >
+      <img src="../../../assets/cart.png" alt="cart" class="favorite-good__btn-cart-img" />
+      В корзине
+    </button>
+  </div>
+</div>

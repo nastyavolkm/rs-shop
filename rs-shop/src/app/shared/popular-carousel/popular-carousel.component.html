@@ -1,0 +1,56 @@
+<owl-carousel-o [options]="customOptions" *ngIf="popularGoods" class="carousel-wrapper">
+  <ng-template carouselSlide>
+    <div class="slide">
+      <div
+        class="good-wrapper"
+        *ngFor="let good of popularGoods.slice(0, 6)"
+        (click)="
+          router.navigate(['categories', good.category, good.subCategory, good.id], {
+            relativeTo: route
+          })
+        "
+      >
+        <div class="img-wrapper">
+          <img src="{{ good.imageUrls[0] }}" />
+        </div>
+        <div class="good__description">
+          <p class="good__name">{{ good.name }}</p>
+          <ul class="good__rating-wrapper">
+            <li *ngFor="let i of goodsService.getCountOfRating(good.rating)">
+              <img src="../../../assets/rating.png" alt="rating" class="good__rating-star" />
+            </li>
+          </ul>
+
+          <p class="good__price">{{ good.price }}p.</p>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template carouselSlide>
+    <div class="slide">
+      <div
+        class="good-wrapper"
+        *ngFor="let good of popularGoods.slice(6, 12)"
+        (click)="
+          router.navigate(['categories', good.category, good.subCategory, good.id], {
+            relativeTo: route
+          })
+        "
+      >
+        <div class="img-wrapper">
+          <img src="{{ good.imageUrls[0] }}" />
+        </div>
+        <div class="good__description">
+          <p class="good__name">{{ good.name }}</p>
+          <ul class="good__rating-wrapper">
+            <li *ngFor="let i of goodsService.getCountOfRating(good.rating)">
+              <img src="../../../assets/rating.png" alt="rating" class="good__rating-star" />
+            </li>
+          </ul>
+
+          <p class="good__price">{{ good.price }}p.</p>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</owl-carousel-o>

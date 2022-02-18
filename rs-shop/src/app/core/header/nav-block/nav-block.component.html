@@ -1,0 +1,72 @@
+<div class="nav-wrapper">
+  <a routerLink="">
+    <img src="../../../../assets/logo.jpg" alt="logo" class="logo" />
+  </a>
+</div>
+<button
+  class="nav-button catalog"
+  (click)="coreDataService.toggleCatalog()"
+  [ngClass]="{ inactive: isCatalogButtonActive$$ | async }"
+>
+  <img
+    *ngIf="(isCatalogButtonActive$$ | async) === false"
+    src="../../../../assets/catalog.png"
+    alt="catalog"
+    class="nav-button__icon"
+  />
+  <img
+    *ngIf="isCatalogButtonActive$$ | async"
+    src="../../../../assets/close.png"
+    alt="close"
+    class="nav-button__icon close"
+  />
+  Каталог товаров
+</button>
+<div class="search-wrapper">
+  <img
+    src="../../../../assets/search.png"
+    alt="search"
+    class="search-button"
+    [ngStyle]="{ filter: isSearchActive ? 'none' : 'grayScale(1)' }"
+  />
+  <input
+    type="text"
+    class="nav-search"
+    placeholder="Поиск товаров"
+    [(ngModel)]="value"
+    (focus)="isSearchActive = true"
+    (blur)="isSearchActive = false"
+    (input)="setValueToSearch(value)"
+  />
+  <img
+    *ngIf="value.length > 0"
+    (click)="value = ''"
+    src="../../../../assets/close.png"
+    alt="close"
+    class="close-button"
+  />
+  <app-search-results-block
+    *ngIf="value.length > 2"
+    (valueToSearch)="clearValue()"
+  ></app-search-results-block>
+</div>
+<button
+  [(ngModel)]="accountBtn"
+  ngDefaultControl
+  (click)="coreDataService.toggleLogInBlock()"
+  [ngClass]="{ inactive: isLogInButtonActive$$ | async }"
+  class="nav-button nav-button__account"
+>
+  <img src="../../../../assets/account.jpg" alt="account" class="nav-button__icon" />
+  Аккаунт {{ (isLogInButtonActive$$ | async) === false ? '&#9660;' : '&#9650;' }}
+  <app-login-info *ngIf="isLogInButtonActive$$ | async"></app-login-info>
+</button>
+<button
+  (click)="coreDataService.showCartBlock()"
+  [ngClass]="{ inactive_disabled: isCartButtonActive$$ | async }"
+  [disabled]="isCartButtonActive$$ | async"
+  class="nav-button cart"
+>
+  <img src="../../../../assets/cart.png" alt="catalog" class="nav-button__icon" />
+  Корзина
+</button>

@@ -1,0 +1,118 @@
+
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '~@angular/material' as mat;
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$rs-shop-primary: mat.define-palette(mat.$indigo-palette);
+$rs-shop-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$rs-shop-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$rs-shop-theme: mat.define-light-theme((
+  color: (
+    primary: $rs-shop-primary,
+    accent: $rs-shop-accent,
+    warn: $rs-shop-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($rs-shop-theme);
+
+
+:root {
+    --shadow-color: rgb(156, 154, 154);
+    --main-color: #0090bf;
+    --hover-color: rgb(211, 234, 238);
+    --hover-nav-category-color: rgb(172, 221, 230);
+    --submain--color: rgb(230, 228, 228);
+    --button-text-color: rgb(192, 99, 62);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+}
+body {
+    font-family: Raleway;
+    font-size: 14px;
+}
+
+button {
+    cursor: pointer;
+    transition: .2s ease;
+
+    &:hover {
+        box-shadow: 5px 5px 10px gray;
+        transition: .2s ease;
+    }
+}
+
+p, ul, h1, h2, h3, h4, h5 {
+    margin: 0;
+}
+
+li {
+    cursor: pointer;
+    list-style-type: none;
+}
+
+a, a:hover, a:active {
+    color: #000;
+    text-decoration: none;
+}
+
+.red {
+    fill: rgb(236, 10, 10);
+}
+.green {
+    fill: rgb(7, 143, 47);
+}
+.yellow {
+    fill: rgb(201, 188, 16);
+}
+
+.none {
+    display: none;
+}
+
+.modal-open {
+    overflow: hidden;
+}
+
+.carousel-indicators {
+    left: 150px;
+
+    & > li {
+        width: 15px;
+    }
+}
+
+.carousel-control-next, .carousel-control-prev {
+    &:hover, &:active {
+        background-color: var(--main-color);
+    }
+}
+
+
+html, body { height: 100%; }

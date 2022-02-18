@@ -1,0 +1,6 @@
+<app-info-block></app-info-block>
+<div class="border-line"></div>
+<app-nav-block></app-nav-block>
+<app-nav-categories-block [categories$]="categories$"></app-nav-categories-block>
+<app-menu *ngIf="isCatalogShown$$ | async" [categories$]="categories$"></app-menu>
+<app-login-form *ngIf="isLoginFormShown$$ | async"></app-login-form>

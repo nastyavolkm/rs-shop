@@ -1,0 +1,26 @@
+.location {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+
+    &:hover &__img {
+        filter: none;
+    }
+
+    &:hover &__name {
+        color: var(--main-color);
+    }
+
+    &__img {
+        width: 15px;
+        height: auto;
+        filter: invert(100%);
+    }
+
+    &__name {
+        font-size: 16px;
+        color: var(--shadow-color);
+    }
+}

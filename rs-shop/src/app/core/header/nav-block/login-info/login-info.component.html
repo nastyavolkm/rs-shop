@@ -1,0 +1,30 @@
+<div class="login-info">
+  <img src="../../../../assets/account.jpg" alt="avatar" class="login-info__account-img" />
+  <p class="login-info__user" *ngIf="user$ | async as user">
+    {{ user.firstName }} {{ user.lastName }}
+  </p>
+  <button
+    *ngIf="(user$ | async) === undefined"
+    (click)="authService.showLoginForm()"
+    class="login-info__button"
+  >
+    Войти
+  </button>
+  <button *ngIf="user$ | async" (click)="logOut()" class="login-info__button">Выйти</button>
+  <div class="login-info__line"></div>
+  <p (click)="router.navigate(['order'], { relativeTo: route })" class="login-info__text">
+    <img src="../../../../assets/cart.png" alt="cart" class="login-info__icon" />
+    Корзина
+  </p>
+  <p
+    (click)="router.navigate(['order', 'favorite'], { relativeTo: route })"
+    class="login-info__text"
+  >
+    <img src="../../../../assets/heart.png" alt="like" class="login-info__icon" />
+    Избранные товары
+  </p>
+  <p (click)="router.navigate(['order', 'orderlist'])" class="login-info__text">
+    <img src="../../../../assets/wait.png" alt="wait_list" class="login-info__icon" />
+    Лист ожидания
+  </p>
+</div>

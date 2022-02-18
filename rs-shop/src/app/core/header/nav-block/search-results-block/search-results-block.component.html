@@ -1,0 +1,29 @@
+<ul class="search-results__list">
+  <li
+    (click)="valueToSearch.emit(); router.navigate(['categories', category.id])"
+    *ngFor="let category of categories$ | async as categories"
+    class="search-results__item search-results__item-category"
+  >
+    {{ category.name }}
+  </li>
+  <li
+    (click)="
+      valueToSearch.emit();
+      router.navigate(['categories', good.category, good.subCategory, good.id])
+    "
+    *ngFor="let good of goods$ | async as goods"
+    class="search-results__item"
+  >
+    <img
+      [src]="
+        good.imageUrls.length > 0 ? good.imageUrls[0] : '../../../../../assets/default_preview.jpeg'
+      "
+      alt="photo"
+      class="search-results__item-thumb"
+    />
+    <div class="search-results__item-info">
+      <p>{{ good.name }}</p>
+      <p class="search-results__item-price">{{ good.price }}р.</p>
+    </div>
+  </li>
+</ul>

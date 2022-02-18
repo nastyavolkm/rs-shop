@@ -1,0 +1,21 @@
+.wrapper {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: baseline;
+}
+.not-found__404 {
+    font-size: 120px;
+    color: var(--main-color);
+}
+
+.not-found__text {
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+.not-found__sorry {
+    text-align: center;
+    margin: 20px 0 ;
+}
+

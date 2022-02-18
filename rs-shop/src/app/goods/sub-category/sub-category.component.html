@@ -1,0 +1,65 @@
+<div class="subcategory">
+  <div class="subcategory__breadcrumbs">
+    <span (click)="router.navigate([''])" class="subcategory__breadcrumbs-item">Главная</span>
+    <span>&#62;</span>
+    <span
+      *ngIf="category$ | async as category"
+      (click)="router.navigate(['categories', category.id])"
+      class="subcategory__breadcrumbs-item"
+    >
+      {{ category.name }}
+    </span>
+  </div>
+  <div class="subcategory__heading-sort-wrapper">
+    <h4 class="subcategory__heading">{{ (subCategory$ | async)?.name }}</h4>
+    <div class="subcategory__sort-wrapper">
+      Сортировать по:
+      <span
+        (click)="
+          goodsService.setOptionToSort('popular');
+          isPopularSortActive = true;
+          isPriceSortActive = false
+        "
+        [ngClass]="{ 'sort-active': isPopularSortActive && !isPriceSortActive }"
+        class="subcategory__sort"
+        >популярности</span
+      >
+      <span
+        (click)="
+          goodsService.setOptionToSort('price');
+          isPriceSortActive = true;
+          isPopularSortActive = false
+        "
+        [ngClass]="{ 'sort-active': isPriceSortActive && !isPopularSortActive }"
+        class="subcategory__sort"
+        >цене</span
+      >
+    </div>
+  </div>
+  <div class="subcategory__goods-wrapper" *ngIf="goods$ | async as goods">
+    <ul class="subcategory__list">
+      <li
+        *ngFor="
+          let good of goods
+            | slice: start:goodsPerPage
+            | sortBy: (option$$ | async)!:['price']:['rating']:(directionAsc$$ | async)!;
+          let i = index
+        "
+        class="subcategory__item"
+      >
+        <app-good [good]="good" [goods]="goods" [i]="i"></app-good>
+      </li>
+    </ul>
+
+    <p
+      *ngIf="goodsPerPage < goods.length"
+      class="subcategory__pagination-btn"
+      (click)="showMoreGoods()"
+    >
+      Показать больше товаров
+    </p>
+    <p *ngIf="goodsPerPage > 10" class="subcategory__pagination-btn" (click)="showLessGoods()">
+      Скрыть товары
+    </p>
+  </div>
+</div>

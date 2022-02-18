@@ -1,0 +1,15 @@
+<div class="waitlist">
+  <p class="waitlist__heading">Лист ожидания</p>
+  <div class="waitlist__goods" *ngIf="(user$ | async)!.orders.length > 0; else emptyWaitlist">
+    <app-order-item
+      [user$]="user$"
+      *ngFor="let order of orders$ | async"
+      [order]="order"
+      [orders$]="orders$"
+    ></app-order-item>
+  </div>
+  <ng-template #emptyWaitlist>
+    <p class="waitlist__empty-text">У Вас нет ожидаемых заказов</p>
+    <p (click)="location.back()" class="waitlist__empty-back">← Вернуться к покупкам</p>
+  </ng-template>
+</div>
